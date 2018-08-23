@@ -54,10 +54,29 @@ public static void m1(){
 
 Lamda Expression:
 ex01:-() -> System.out.println("Hello World");(
-ex02:-	int a,
-	int b)-> {System.out.println(a+b);}
+ex02:-	 (a,b)-> System.out.println(a+b);
   
-ex03:-  public static int getLength(String str) {
+ex03:-  public static int getLength(String str) return str.length();
+	
+Lambda Expression:-(String str)-> return str.length();
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+* Lecture 4.How to Write Lambda expresion part-2                                                               *                                     *
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+if compiler can gets type automatically the on the based of context we can remove the types also it called
+Type Infernce.
+public int add(int a,int b){
+		System.out.println(a+b);
+	}
+	
+Lambda Expression:-
+(a, b)-> System.out.println(a+b);
+ex02:- 
+public int getLength(String str){
 		return str.length();
 	}
-Lambda Expression:-(String str)-> {return str.length();}
+Lambda Expression:-(str)-> str.length(); for one parameter no need paranetisis
+s->s.length()
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+* Lecture 4.How to Write Lambda expresion part-2                                                               *                                     *
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
