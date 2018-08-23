@@ -9,3 +9,16 @@
 8.Method Reference and Constructor refernce by double colon( :: ) operatore.
 9.Stream API
 10.Date and Time API(JODA Api)joda api.
+
+jdk Versions:
+1.0
+1.1
+*1.2
+1.3
+1.4
+**1.5(Generics, Auto boxing, Auto Unboxing)
+1.6
+1.7
+***java 1.8 intetions:- (1.to simplfy way of writing  programming very consise codes 2.to utilize Functional programming benefits in java 3.to enable paraeller 
+processing in java)
+
