@@ -1,4 +1,9 @@
 # Java-8-new-features-in-simple-way-udemy.com
+Lecture 1
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+* Lecture 1                                                                                                      *
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
 1.Lamda Expression.
 2.Functional Interfaces.
 3.Default Methods in interfaces.
@@ -21,4 +26,15 @@ jdk Versions:
 1.7
 ***java 1.8 intetions:- (1.to simplfy way of writing  programming very consise codes 2.to utilize Functional programming benefits in java 3.to enable paraeller 
 processing in java)
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+* Lecture 2                                                                                                      *
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+1.Lambda Expressions.LIPS is very first used Lammdas Expression
+benefits:
+1.to enable Functional Programming in java.
+2.to write more readable , maintable and clean concise code.
+3.to use API very eaisly and effectively.
+4.to enable parallel processing.
 
