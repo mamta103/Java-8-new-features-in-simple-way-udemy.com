@@ -1,7 +1,7 @@
 # Java-8-new-features-in-simple-way-udemy.com
 Lecture 1
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-* Lecture 1                                                                                                      *
+* Lecture 0.0                                                                                                      *
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 1.Lamda Expression.
@@ -29,7 +29,7 @@ processing in java)
 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-* Lecture 2                                                                                                      *
+* Lecture 1.1                                                                                                      *
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 1.Lambda Expressions.LIPS is very first used Lammdas Expression
 benefits:
@@ -39,14 +39,14 @@ benefits:
 4.to enable parallel processing.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-* Lecture 3.How to write lambda expresion part-1                                                                 *                                     *
+* Lecture 1.2.How to write lambda expresion part-1                                                                 *                                     *
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 1.Lamda expression is Annonymous Function
 1.1->not having Name
 1.2->not having Modifer.
 1.3->not having Return type.
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-* Lecture 3.How to write lambda expresion part-1                                                                 *                                     *
+* Lecture 1.3.How to write lambda expresion part-1                                                                 *                                     *
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 public static void m1(){
 	System.out.println("Hello World");
@@ -60,7 +60,7 @@ ex03:-  public static int getLength(String str) return str.length();
 	
 Lambda Expression:-(String str)-> return str.length();
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-* Lecture 4.How to Write Lambda expresion part-2                                                               *                                     *
+* Lecture 1.4.How to Write Lambda expresion part-2                                                               *                                     *
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 if compiler can gets type automatically the on the based of context we can remove the types also it called
 Type Infernce.
@@ -78,7 +78,7 @@ Lambda Expression:-(str)-> str.length(); for one parameter no need paranetisis
 s->s.length()
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-* Lecture 4.How to Write Lambda expresion part-2                                                               *                                     *
+* Lecture 1.4.How to Write Lambda expresion part-2                                                               *                                     *
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 characteristic and property in java8
 1.a lambda expression can take any number of parameters.
@@ -109,3 +109,205 @@ e.g. (int a,int b)->SOP(a+b);
 	()->SOP("Hello");
 6.if lambda expression rerurn somthing then we can remove return type too.
 e.g. s-> s.length();
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+* Lecture 1.5 Functional Interface                                                                                                     *
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+To invoke lambdas expression need functional interface.
+1."Functional interface" ===>If interface conatin only one abstract method called Functional Interface(Single Abstarct method)(SAM).
+e.g. Runnable==> only one method run()
+     Callable==> only one method call()
+     ActionListener==> only one method actionPerfom()
+     Comparable==> only one method compareTo().
+     
+2.Restriction is only one for abstarct method but we can write any number of default method or any num,ber of static method.
+e.g. 01. public interface FunctionalInterface {
+	public void m1();
+
+	default void m2();
+
+	public static void m3();
+
+}
+above code is example of functional Interface.
+
+e.g. 02.public interface FunctionalInterface {
+	public void m1();
+
+	public void m2();
+
+
+}
+02 code doesn't called functinal interface.
+    
+    
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+* Lecture 1.6 @FunctionalInterface Annotation                                                                 * 
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+1.To reconize pupose java people introduce @FunctionalInterface.
+e.g.01 ==> @FunctionalInterface
+       public interface FunctionalInterface {
+
+	public void m1();
+
+	default void m2() {
+	}
+
+	public static void m3() {
+	}
+}
+
+e.g 02.
+@FunctionalInterface
+public interface FunctionalInterfaceDemo {
+
+	public void m1();
+	public void m2();
+
+}
+Complie Time Error => Unexpected @FunctionalInterface Annotation .
+Multiple non-Overriding Abstract Method persent in interface FunctionalInterfaceDemo.
+
+e.g 03.
+@FunctionalInterface
+public interface FunctionalInterfaceDemo {
+
+	
+}
+Complie Time Error =>Unexpected @FunctionalIntercae Annotation no abstract method found in interface FunctionalInterfaceDemo.
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+* Lecture 1.6 @FunctionalInterface Annotation wrt Inheritance                                                               
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+Case01.
+if an interface extends functinal interface and child interface does not contain any abstarct method , then child interface 
+is always Functional Interafce.
+e.g.
+
+@FunctionalInterface
+public interface FunctionalInterfaceDemo {
+	public void m1();
+
+}
+
+@FunctionalInterface
+interface FunctionalInterfaceDemo02 extends FunctionalInterfaceDemo {
+	
+}
+Case02.
+In the child interface , we can defie exaclty same parent interface abstarct method.
+e.g. 
+@FunctionalInterface
+public interface FunctionalInterfaceDemo {
+	public void m1();
+
+}
+
+@FunctionalInterface
+interface FunctionalInterfaceDemo02 extends FunctionalInterfaceDemo {
+	public void m1();
+}
+
+Case03.
+in child Interface we can't define any new Abstarct method otherwise we will get Complie Time Error.
+e.g. 
+@FunctionalInterface
+public interface FunctionalInterfaceDemo {
+	public void m1();
+
+}
+
+@FunctionalInterface
+interface FunctionalInterfaceDemo02 extends FunctionalInterfaceDemo {
+	public void m2();
+}
+Complie Time Erro==>Unexpected @FunctionalInterface Annotation multiple non-overriding abstract method  found in interfaceFunctionalInterfaceDemo02.
+
+
+case04.
+
+@FunctionalInterface
+public interface FunctionalInterfaceDemo {
+	public void m1();
+
+}
+
+interface FunctionalInterfaceDemo02 extends FunctionalInterfaceDemo {
+	public void m2();
+}
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+* Lecture 1.7 Invoking Lambda Expression By Using  FunctionalInterface Example 01                                                       
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+1.why so we use FunctionalInterface?
+only to call lamda expression we use FunctionalInterface.
+
+e.g. By Using Without Lamda Expression
+
+public interface FunctionalInterfaceDemo {
+	public void m1();
+}
+
+class FunctionalInterfaceDemo02 implements FunctionalInterfaceDemo {
+
+	@Override
+	public void m1() {
+		System.out.println("m1() method implementation");
+
+	}
+
+}
+
+class MainFunctionalInterfaceDemo {
+	public static void main(String[] args) {
+		FunctionalInterfaceDemo demo= new FunctionalInterfaceDemo02();
+		demo.m1();
+	}
+}
+
+e.g.  Using With Lamda Expressionpublic interface FunctionalInterfaceDemo {
+	public void m1();
+}
+
+class MainFunctionalInterfaceDemo {
+	public static void main(String[] args) {
+		FunctionalInterfaceDemo demo = () -> System.out.println("m1() method implementation");
+		demo.m1();
+	}
+}
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+* Lecture 1.9. Invoking Lambda Expression By using Functional Interface examples-2,3,4                                                
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+case 01.without lamda Expression.
+
+public interface FunctionalInterfaceDemo {
+	public void add(int a, int b);
+}
+
+class FunctionalInterfaceDemo02 implements FunctionalInterfaceDemo {
+
+	@Override
+	public void add(int a, int b) {
+		System.out.println("Addition:-> " + (a + b));
+
+	}
+
+}
+
+class MainFunctionalInterfaceDemo {
+	public static void main(String[] args) {
+		FunctionalInterfaceDemo demo = new FunctionalInterfaceDemo02();
+		demo.add(100, 200);
+		demo.add(200, 300);
+	}
+}
+case 02.without lamda Expression.public interface FunctionalInterfaceDemo {
+	public void add(int a, int b);
+}
+
+class MainFunctionalInterfaceDemo {
+	public static void main(String[] args) {
+		FunctionalInterfaceDemo demo = (a, b) -> System.out.println("Addition:=> " + (a + b));
+		demo.add(100, 200);
+		demo.add(200, 300);
+	}
+}
