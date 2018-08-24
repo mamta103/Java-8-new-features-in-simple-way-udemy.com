@@ -421,5 +421,9 @@ public class ThreadDemoWithoutLamda {
 * Lecture 1.11.Functional Interface,Lambda Expression Summary                                             
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
  Functional Interface,Lambda Expression Summary
-
+Functional Interface.
+case1.Functional Interface contains exactly only one Abstract Method Single Abstact Method(SAM).
+case2.Functional Interface can coatins any number of default and static method.
+case3.Functional Interface act a type for lamda-expression 
+e.g. Infer 
 
