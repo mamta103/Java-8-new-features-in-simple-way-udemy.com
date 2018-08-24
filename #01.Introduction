@@ -80,3 +80,32 @@ s->s.length()
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 * Lecture 4.How to Write Lambda expresion part-2                                                               *                                     *
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+characteristic and property in java8
+1.a lambda expression can take any number of parameters.
+e.g.=>   ()-> SOP("Hello");
+         (s)-> SOP(s.length);
+	 (a,b)->SOP(a+b);
+
+2.if multiples parameters persent then this parameters will be repeated with comma(,).
+e.g. (a,b)->SOP(a+b);
+
+3.If onlyone parameter persent then paraenthis optional.
+e.g. (s)->s.length;
+     or
+     s->s.length();
+    
+4.If usally we can specify the type of parameters,if compiler expect the type based on context then we can remove type[Type Inference]
+e.g. (int a,int b)->SOP(a+b);
+     or
+     (a,b)-> SOP(a+b);
+ 5.If only one line of statment then curly bracket is optional, and if multiple statement line then curly bracket will be manadatory
+ as like same before C,C++.
+ e.g. (){ 
+        SOP();
+	SOP();
+	}
+	
+	or
+	()->SOP("Hello");
+6.if lambda expression rerurn somthing then we can remove return type too.
+e.g. s-> s.length();
