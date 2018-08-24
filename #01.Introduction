@@ -311,3 +311,115 @@ class MainFunctionalInterfaceDemo {
 		demo.add(200, 300);
 	}
 }
+
+e.g.
+
+interface FunctionalInterfaceDemo1 {
+	public int getLength(String str);
+}
+
+public class Java8Demo1 {
+	public static void main(String[] args) {
+		FunctionalInterfaceDemo1 demo = s -> s.length();
+		System.out.println(demo.getLength("Mamta"));
+		System.out.println(demo.getLength("COGNIZANT"));
+	}
+}
+
+e.g.
+
+interface FunctionalInterfaceDemo1 {
+	public int getSquare(int num);
+}
+
+public class Java8Demo1 {
+	public static void main(String[] args) {
+		FunctionalInterfaceDemo1 demo = num -> num * num;
+		System.out.println("Square of Number: " + demo.getSquare(10));
+	}
+}
+Output:
+Square of Number: 100
+Square of Number: 400
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+* Lecture 1.10.Invoking Lambda Expression By using Functional Interface example-5                                              
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+e.g.
+
+class MyRunnable implements Runnable {
+	public void run() {
+		for (int i = 0; i < 10; i++) {
+			System.out.print(i + " ");
+		}
+	}
+}
+
+public class ThreadDemoWithoutLamda {
+	public static void main(String[] args) {
+		Runnable runnable = new MyRunnable();
+		Thread thread = new Thread(runnable);
+		thread.start();
+	}
+}
+Output:MainThread
+MainThread
+MainThread
+MainThread
+MainThread
+MainThread
+MainThread
+MainThread
+MainThread
+MainThread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+
+e.g.
+With Lamda
+
+public class ThreadDemoWithLamda {
+	public static void main(String[] args) {
+		Runnable runnable = () -> {
+			for (int i = 0; i < 10; i++) {
+				System.out.println("Child Thread");
+			}
+		};
+		Thread thread = new Thread(runnable);
+		thread.start();
+		for (int i = 0; i < 10; i++) {
+			System.out.println("MainThread");
+		}
+	}
+}
+
+
+public class ThreadDemoWithoutLamda {
+	public static void main(String[] args) {
+		Runnable runnable = () -> {
+			for (int i = 0; i < 10; i++) {
+				System.out.println("Child Thread");
+			}
+		};
+		Thread thread = new Thread(runnable);
+		thread.start();
+		for (int i = 0; i < 10; i++) {
+			System.out.println("MainThread");
+		}
+	}
+}
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+* Lecture 1.11.Functional Interface,Lambda Expression Summary                                             
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+ Functional Interface,Lambda Expression Summary
+
+
