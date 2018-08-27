@@ -1,0 +1,18 @@
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+4.1  Anonymous Inner class vs Lambda Expression Par-1
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+Whenever we will use Inner class we will chance to use lamda Expression!!!
+
+Annonymous inner class vs Lamda Expression
+1.inner class without name called Annonymous inner class.
+example:
+
+public class InnerClassMain {
+Runnable runnable= new Runnable() {
+	
+	@Override
+	public void run() {
+		
+	}
+};
+}
