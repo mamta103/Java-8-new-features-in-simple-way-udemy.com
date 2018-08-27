@@ -1,0 +1,112 @@
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+Lecture3.1   Collections Overview: List and Set
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+Collection:A group of Object in a single entity called Collection.
+Type of Collection!!!!
+1.List(Interace)
+why ?
+1.1. Insertion Order preserve and duplicate Object must  allowed then happly we will go for List.
+Example:
+ArrayList
+example :
+public class ListDemo {
+	public static void main(String[] args) {
+		List<String> list = new ArrayList<String>();
+		list.add("Sunny");
+		list.add("Bunny");
+		list.add("Chinny");
+		list.add("Sunny");
+		System.out.println(list);
+	}
+}
+
+
+Linked List
+Vector
+Stack
+
+
+2.Set(Interface)
+why?
+When Duplicate not allowed and insertion order not maintained then we will go through Set.
+public class SetDemo {
+	public static void main(String[] args) {
+		Set<String> set = new HashSet<String>();
+		set.add("Sunny");
+		set.add("Bunny");
+		set.add("Chinny");
+		set.add("Sunny");
+		System.out.println(set);
+	}
+}
+[Chinny, Bunny, Sunny]
+HashSet(Order will be based on HashCode)
+TreeSet(Sorted Set)
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+Lecture3.2   Collections Overview: Map
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+3.Map(Interface)
+Why?
+A group of object with key-and-value we will go for map concept.
+example. RollNumber -> Name
+         Mobile Number-> Address
+         EmployeeId-> Salary
+       
+ public class MapDemo {
+	public static void main(String[] args) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("A", "Apple");
+		map.put("Z", "Zebra");
+		map.put("Durga", "Java");
+		map.put("B", "Boy");
+		map.put("T", "Tiger");
+		System.out.println(map);
+	}
+}
+{A=Apple, B=Boy, T=Tiger, Z=Zebra, Durga=Java}
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+Lecture3.3   Comparator interface & compare method
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+Comparator(Interface)->only one Abstract method compare() is called Functional interface.
+why?
+to Define  our own sorting (Customize Sorting).
+public int compare(Object obj1, Object obj2)
+return -ve-> if object1 has to come before obj2.
+return +ve-> if obj1 has to come after obj2.
+retirn 0-> if obj1 or obj2 equal .
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+Lecture3.4  Sorting Elements of List without Lambda Expression
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+1.Defualt Sorting Number ->Incresing Order
+                  String ->Alphabetic Order
+                           
+public class DefulatSorting {
+	public static void main(String[] args) {
+
+    List<Integer> list= new ArrayList<Integer>();
+    list.add(10);
+    list.add(0);
+    list.add(15);
+    list.add(5);
+    list.add(20);
+    System.out.println("Before Sorting-> "+list);
+    Collections.sort(list);
+    System.out.println("After Sorting-> "+list);
+
+	}
+}
+
+
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+Lecture3.1   Collections Overview: List and Set
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+Lecture3.1   Collections Overview: List and Set
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
