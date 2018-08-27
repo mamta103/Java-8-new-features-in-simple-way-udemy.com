@@ -101,12 +101,113 @@ public class DefulatSorting {
 }
 
 
+public class DefulatSorting {
+	public static void main(String[] args) {
+
+		List<Integer> list = new ArrayList<Integer>();
+		list.add(10);
+		list.add(0);
+		list.add(15);
+		list.add(5);
+		list.add(20);
+		System.out.println("Before Sorting-> " + list);
+		Collections.sort(list, new MyComparator());
+		System.out.println("After Sorting-> " + list);
+
+	}
+}
+
+class MyComparator implements Comparator<Integer> {
+
+	@Override
+	public int compare(Integer objInt1, Integer objInt2) {
+		if(objInt1 > objInt2)
+		return -1;
+		 else if(objInt1 < objInt2)
+			return +1;
+		 else
+			 return 0;
+		
+	}
+
+}
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+public class DefulatSorting {
+	public static void main(String[] args) {
+
+		List<Integer> list = new ArrayList<Integer>();
+		list.add(10);
+		list.add(0);
+		list.add(15);
+		list.add(5);
+		list.add(20);
+		System.out.println("Before Sorting-> " + list);
+		Collections.sort(list, new MyComparator());
+		System.out.println("After Sorting-> " + list);
+
+	}
+}
+
+class MyComparator implements Comparator<Integer> {
+
+	@Override
+	public int compare(Integer objInt1, Integer objInt2) {
+
+		return (objInt1 > objInt2 ? -1 : (objInt1 < objInt2) ? +1 : 0);
+
+	}
+
+}
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+Lecture3.5   Sorting Elements of ArrayList with Lambda Expression
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+package io.javabrains;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+public class DefulatSorting {
+	public static void main(String[] args) {
+
+		List<Integer> list = new ArrayList<Integer>();
+		list.add(10);
+		list.add(0);
+		list.add(15);
+		list.add(5);
+		list.add(20);
+		System.out.println("Before Sorting-> " + list);
+		Collections.sort(list, (objInt1, objInt2) -> objInt1 > objInt2 ? -1 : objInt1 < objInt2 ? +1 : 0);
+		System.out.println("After Sorting-> " + list);
+
+	}
+}
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+Lecture3.6  Sorting Elements of TreeSet with Lambda Expression
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+public class TreeSetDemo {
+	public static void main(String[] args) {
+
+		Set<Integer> set = new TreeSet<Integer>(
+				(objInt1, objInt2) -> objInt1 > objInt2 ? -1 : objInt1 < objInt2 ? 1 : 0);
+		set.add(10);
+		set.add(0);
+		set.add(15);
+		set.add(5);
+		set.add(20);
+		set.add(25);
+
+		System.out.println("After Sorting-> " + set);
+
+	}
+}
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+Lecture3.7 Sorting Elements of TreeMap with Lambda Expression
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-Lecture3.1   Collections Overview: List and Set
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-Lecture3.1   Collections Overview: List and Set
+Lecture3.8  Sorting of Our own class objects with Lambda Expression
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
