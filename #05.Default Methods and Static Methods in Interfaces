@@ -1,0 +1,63 @@
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+5.1   Default Methods Inside Interfaces
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+1.Till to jdk 7
+
+public interface Interf {
+	public void m1();
+
+	public static final int x = 10;
+
+}
+
+2.java8
+public interface Interf {
+	default void m1(){
+		System.out.println("Default method!");
+	}
+	
+
+}
+
+note -> default is a keyword not modifier
+
+example->
+package io.javabrains;
+
+ interface InterfInterface {
+	default void m1(){
+		System.out.println("Default method!");
+	}
+	
+
+}
+class Interf implements InterfInterface{
+	public static void main(String[] args) {
+		InterfInterface interface1= new Interf();
+		interface1.m1();
+	}
+}
+
+Example->Our own Implemantation
+
+interface InterfInterface {
+	default void m1() {
+		System.out.println("Default method!");
+	}
+
+}
+
+class Interf implements InterfInterface {
+	public void m1() {
+		System.out.println("Default method! own Implementation");
+
+	}
+
+	public static void main(String[] args) {
+		InterfInterface interface1 = new Interf();
+		interface1.m1();
+	}
+}
+
+
+
