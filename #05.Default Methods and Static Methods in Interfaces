@@ -59,5 +59,167 @@ class Interf implements InterfInterface {
 	}
 }
 
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+ Lecture 5.2 Differences between Interface with Default Methods and Abstract classes
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+interface Left {
+	default void m1() {
+		System.out.println("Left method!");
+	}
+
+}
+
+interface Right {
+	default void m1() {
+		System.out.println("Right method!");
+	}
+}
+
+class Interf implements Left, Right {
+
+}
+Compile Time Error:
+Abiguty Problem...
+
+only to call parent method.
+example:
+
+package io.javabrains;
+
+interface Left {
+	default void m1() {
+		System.out.println("Left method!");
+	}
+
+}
+
+interface Right {
+	default void m1() {
+		System.out.println("Right method!");
+	}
+}
+
+class Interf implements Left, Right {
+
+	@Override
+	public void m1() {
+		//Left.super.m1();
+		Right.super.m1();
+	}
+	public static void main(String[] args) {
+		Interf interf= new Interf();
+		interf.m1();
+	}
+
+}
+
+Interface with Default Methods
+Abstract Class
+Inside interface every variable is
+Always public static final and there is
+No chance of instance variables
+Inside abstract class there may be a Chance of instance variables which Are required to the child class.
+Interface never talks about state of
+Object.
+Abstract class can talk about state of Object.
+Inside interface we can’t declare
+Constructors.
+Inside abstract class we can declare Constructors.
+Inside interface we can’t declare
+Instance and static blocks.
+Inside abstract class we can declare Instance and static blocks.
+Functional interface with default
+Methods Can refer lambda expression.
+Abstract class can’t refer lambda Expressions.
+Inside interface we can’t override
+Object class methods.
+Inside abstract class we can override Object class methods.
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+5.3 Static Methods inside Interfaces
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+because to define general Utility method purpose.
+
+Ezample:
+package io.javabrains;
+
+interface InterfDemo {
+
+	public static void m1() {
+		System.out.println("Sattic Interface");
+	}
+
+}
+
+class Interf implements InterfDemo {
+	public static void main(String[] args) {
+		Interf interf = new Interf();
+
+		InterfDemo.m1();
+	}
+}
+only by Intrerface name we can call Static method.
+Case 01.
+package io.javabrains;
+
+interface InterfDemo {
+
+	public static void m1() {
+		System.out.println("Sattic Interface");
+	}
+
+}
+
+class Interf implements InterfDemo {
+	public static void m1() {
+		System.out.println("Sattic Interface");
+	}
+
+}
+
+Case 02.
+
+interface InterfDemo {
+
+	public static void m1() {
+		System.out.println("Sattic Interface");
+	}
+
+}
+
+class Interf implements InterfDemo {
+	public  void m1() {
+		System.out.println("Sattic Interface");
+	}
+
+}
+
+case03.
+package io.javabrains;
+
+interface InterfDemo {
+
+	public static void m1() {
+		System.out.println("Sattic Interface");
+	}
+
+}
+
+class Interf implements InterfDemo {
+	private static void m1() {
+		System.out.println("Sattic Interface");
+	}
+
+}
+Case04.
+package io.javabrains;
 
 
+class Interf  {
+	public static void main(String[] args) {
+		
+		System.out.println("Sattic Interface");
+	}
+
+}
