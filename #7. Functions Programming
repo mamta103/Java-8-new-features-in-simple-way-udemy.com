@@ -51,5 +51,21 @@ Square of given number-> 225
 3.Function interface defines only one abstract method called apply().
 4.public R apply(T t).
 5.Function can return any type of value.
+***********************************************************************************************************************
+#7.2  Program to remove spaces present in the given String by using Function
 
+package io.javabrains;
+
+import java.util.function.Function;
+import java.util.function.Predicate;
+
+class InterfMain {
+	public static void main(String[] args) {
+		String str = "Cognizant Technology Solutions";
+
+		Function<String, String> f = s -> s.replaceAll(" ", "");
+		System.out.println(f.apply(str));
+
+	}
+}
 
