@@ -1,0 +1,202 @@
+Program01:
+package io.javabrains;
+
+interface Interf01 {
+	public void method();
+
+}
+
+class Interf01Impl implements Interf01 {
+
+	@Override
+	public void method() {
+		System.out.println("method one execution ");
+	}
+
+}
+
+public class WithoutLamdaInterf01 {
+	public static void main(String[] args) {
+		Interf01 interf01 = new Interf01Impl();
+		interf01.method();
+	}
+}
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+outPut:method one execution 
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+Program02.package io.javabrains;
+
+interface Interf01 {
+	public void method();
+
+}
+
+public class WithoutLamdaInterf01 {
+	public static void main(String[] args) {
+		Interf01 interf01 = () -> System.out.println("Method with Lamda Expresion!");
+		interf01.method();
+	}
+}
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+outPut:Method with Lamda Expresion!
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+Program03->package io.javabrains;
+
+interface Interf01 {
+	public void addition(int i,int j);
+
+}
+
+public class LamdaInterf01 {
+	public static void main(String[] args) {
+		Interf01 interf01 = (int i, int j) -> System.out.println("Addition-> "+(i+j));
+		interf01.addition(100,200);
+		interf01.addition(100,300);
+		interf01.addition(100,400);
+	}
+}
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+outPut:
+Addition-> 300
+Addition-> 400
+Addition-> 500
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+Program04>
+package io.javabrains;
+
+interface Interf01 {
+	public void square(int x);
+
+}
+
+public class LamdaInterf01 {
+	public static void main(String[] args) {
+		Interf01 interf01 = x -> System.out.println("The Square of : " + (x * x));
+		interf01.square(100);
+		interf01.square(300);
+		interf01.square(400);
+	}
+}
+
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+outPut:
+The Square of : 10000
+The Square of : 90000
+The Square of : 160000
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+Program05->
+
+package io.javabrains;
+
+interface ThreadDemo {
+	public void square(int x);
+
+}
+
+public class ThreadDemoMain {
+	public static void main(String[] args) {
+		Runnable runnable = () -> {
+			for (int i = 0; i < 10; i++)
+				System.err.println("Main Thread" + " ");
+		};
+		Thread thread = new Thread(runnable);
+		thread.start();
+		for (int i = 0; i < 10; i++)
+			System.out.println("Child Thread" + " ");
+
+	}
+}
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+outPut:
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+Program06>
+package io.javabrains;
+
+interface ThreadDemo {
+	public void square(int x);
+
+}
+
+public class ThreadDemoMain {
+	public static void main(String[] args) {
+
+		Thread thread = new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				for (int i = 0; i < 10; i++)
+					System.err.println("Main Thread" + " ");
+			}
+		});
+		thread.start();
+		for (int i = 0; i < 10; i++)
+			System.out.println("Child Thread" + " ");
+
+	}
+}
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+outPut:
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+Program07->
+package io.javabrains;
+
+public class ThreadDemoMain {
+	public static void main(String[] args) {
+
+		Thread thread = new Thread(() -> {
+			for (int i = 0; i < 10; i++)
+				System.err.println("Main Thread" + " ");
+		});
+		thread.start();
+		for (int i = 0; i < 10; i++)
+			System.out.println("Child Thread" + " ");
+
+	}
+}
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+outPut:
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+Program08->
+package io.javabrains;
+
+import java.util.function.Predicate;
+
+class InterfMain {
+	public static void main(String[] args) {
+		Predicate<Integer> p = i -> (i > 10);
+		System.out.println(p.test(100));
+		System.out.println(p.test(2));
+	
+	}
+}
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+Program->   # 1 Write a predicate to check the length of given string is greater than 3 or not.
+import java.util.function.Predicate;
+
+class InterfMain {
+	public static void main(String[] args) {
+		Predicate<String> p = s -> s.length()>5;
+		System.out.println(p.test("Cognizant"));
+		System.out.println(p.test("DOG"));
+	
+	}
+}
+
+#-2 write a predicate to check whether the given collection is empty or not.
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+outPut:
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+Program10
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+outPut:
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
