@@ -1,0 +1,55 @@
+#1.
+
+import java.util.function.Function;
+import java.util.function.Predicate;
+
+class InterfMain {
+	public static void main(String[] args) {
+		Function<String, Integer> f1 = s -> s.length();
+		System.out.println("Length of String-> " + f1.apply("Cognizant"));
+		System.out.println("Length of String-> " + f1.apply("Technology"));
+	}
+}
+***********************************************************************************************************************
+Output->Length of String-> 9
+Length of String-> 10
+***********************************************************************************************************************
+#2.
+
+
+import java.util.function.Function;
+import java.util.function.Predicate;
+
+class InterfMain {
+	public static void main(String[] args) {
+
+    Function<Integer,Integer> f1= i-> i*i;
+    System.out.println("Square of given number-> "+f1.apply(12));
+    System.out.println("Square of given number-> "+f1.apply(13));
+    System.out.println("Square of given number-> "+f1.apply(14));
+    System.out.println("Square of given number-> "+f1.apply(15));
+	}
+}
+***********************************************************************************************************************
+Output->
+Square of given number-> 144
+Square of given number-> 169
+Square of given number-> 196
+Square of given number-> 225
+***********************************************************************************************************************
+#3. Difference between Predicate and Function.
+# Predicate->
+1.To implement conditions check we should go for Predicate.
+2.Predicate can take one type parameter which represent input argument type.Predicate<T>.
+3.Predicate interface defines one abstarct method called test().
+4.public boolean test(T t).
+5.Predicate can return only boolean value.
+
+#Function->
+1.To perform certain operation and to return some result we should go for Function.
+2.Predicate can take two type of parameter first one represnt input argument type and second one represnt return type.Function<T,R>.
+3.Function interface defines only one abstract method called apply().
+4.public R apply(T t).
+5.Function can return any type of value.
+
+
