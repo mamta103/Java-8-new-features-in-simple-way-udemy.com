@@ -1,0 +1,30 @@
+ **********************************************************************************************************************
+ *         Function interface Static Method : identity()                                                                                                             *
+ **********************************************************************************************************************
+ 1.apply ->Abstract method
+ two default methids->1.andThen()
+                      2.compose()
+ 3.Identity() Static
+ Function interface contains a static method. static <T> Function<T,T> identity()
+  Returns a function that always returns its input argument.
+ 
+ package io.javabrains;
+
+import java.util.function.Function;
+
+public class FunctionIdentityDemo {
+	public static void main(String[] args) {
+		Function<String, String> f = Function.identity();
+		String s1 = f.apply("Cognizant");
+		String s2 = f.apply("Technology");
+		
+		System.out.println("Function Identity-> " + s1);
+		System.out.println("Function Identity-> " + s2);
+
+	}
+}
+
+Output->
+Function Identity-> Cognizant
+Function Identity-> Technology
+
