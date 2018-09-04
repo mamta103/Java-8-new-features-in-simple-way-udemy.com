@@ -69,3 +69,23 @@ class InterfMain {
 	}
 }
 
+#7.3
+
+
+import java.util.function.Function;
+import java.util.function.Predicate;
+
+class InterfMain {
+	public static void main(String[] args) {
+		String str = "Cognizant Technology Solutions";
+
+		Function<String, Integer> f = s -> s.length()- s.replaceAll(" ", "").length();
+		System.out.println(f.apply(str));
+
+	}
+}
+***********************************************************************************************************************
+Output->Number of Spaces 2
+
+#7.4
+
