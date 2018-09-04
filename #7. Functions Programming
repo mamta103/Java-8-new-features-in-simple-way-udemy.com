@@ -88,4 +88,56 @@ class InterfMain {
 Output->Number of Spaces 2
 
 #7.4
+package io.javabrains;
+
+import java.util.ArrayList;
+import java.util.function.Function;
+
+class EmployeeFun {
+	String name;
+	double salary;
+
+	public EmployeeFun(String name, double salary) {
+		this.name = name;
+		this.salary = salary;
+	}
+
+	@Override
+	public String toString() {
+		return name + " " + salary;
+	}
+
+}
+
+public class FunctionalEmployeeTest {
+
+	public static void main(String[] args) {
+		ArrayList<EmployeeFun> list = new ArrayList<EmployeeFun>();
+		populate(list);
+		// System.out.println("List-> "+list);
+		Function<ArrayList<EmployeeFun>, Double> f = list01 -> {
+			double totalSalary = 0.0;
+			for (EmployeeFun employeeFun : list01) {
+				totalSalary = totalSalary + employeeFun.salary;
+
+			}
+			return totalSalary;
+
+		};
+		System.out.println("Employee Total Salary-> " + f.apply(list));
+
+	}
+
+	private static void populate(ArrayList<EmployeeFun> list) {
+		list.add(new EmployeeFun("Sunny", 10000.00));
+		list.add(new EmployeeFun("Bunny", 20000.00));
+		list.add(new EmployeeFun("Chinny", 30000.00));
+		list.add(new EmployeeFun("Pinny", 40000.00));
+		list.add(new EmployeeFun("Vinny", 50000.00));
+
+	}
+}
+
+Output-> Employee Total Salary-> 150000.0
+**********************************************************************************************************
 
