@@ -1,0 +1,20 @@
+Demo program to Demonstrate the difference between andThen() and compose()
+***********************************************************************************************************
+package io.javabrains;
+
+import java.util.function.Function;
+
+public class FunctionChainingDemo02 {
+	public static void main(String[] args) {
+		Function<Integer, Integer> f1 = i -> i + i;
+		Function<Integer, Integer> f2 = i -> (i * i * i);
+		System.out.println("The Result of f1.andThen(f2) :-> "+f1.andThen(f2).apply(2));
+		System.out.println("The Result of f2.compose(f1) :-> "+f1.compose(f2).apply(2));
+
+	}
+}
+
+Output->
+The Result of f1.andThen(f2) :-> 64
+The Result of f2.compose(f1) :-> 16
+***********************************************************************************************************
