@@ -1,0 +1,42 @@
+ Demo Program for User Authentication by using Function Chaining
+ **************************************************************************************************************************
+ *                                                                                                                        *
+ **************************************************************************************************************************
+ package io.javabrains;
+
+import java.util.Scanner;
+import java.util.function.Function;
+
+public class FunctionChainingAuthentication {
+
+	public static void main(String[] args) {
+		Function<String, String> f1 = s -> s.toLowerCase();
+		Function<String, String> f2 = s -> s.substring(0, 5);
+		Scanner scan = new Scanner(System.in);
+		System.out.println("Enter User Name:");
+		String userName = scan.next();
+
+		System.out.println("Enter Password:");
+		String pwd = scan.next();
+
+		if (f1.andThen(f2).apply(userName).equals("durga") && pwd.equals("java")) {
+			System.out.println("Valid User");
+
+		} else {
+			System.out.println("Invalid User");
+		}
+
+	}
+
+}
+ 
+ Output->
+Enter User Name:
+DurgaSoft
+Enter Password:
+java
+Valid User
+
+ **************************************************************************************************************************
+ *                                                                                                                        *
+ **************************************************************************************************************************
