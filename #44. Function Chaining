@@ -1,0 +1,27 @@
+44. Function Chaining
+***************************************************************************************************************
+1.f1 & f2
+  f1.andThen(f2)->Means first f1() will be apply follwed by f2().
+  f1.compose(f2)->Means firstf2() will be appiled follwed by f1().
+***************************************************************************************************************
+  package io.javabrains;
+
+import java.util.function.Function;
+
+public class FunctionChaining {
+	public static void main(String[] args) {
+		Function<String, String> f1 = s -> s.toUpperCase();
+		Function<String, String> f2 = s -> s.substring(0, 9);
+		System.out.println("The Result of f1: " + f1.apply("CognizantTechnologySolutions"));
+		System.out.println("The Result of f2: " + f2.apply("CognizantTechnologySolutions"));
+		System.out.println("The Result of f1.andThen(f2) :-> " + f1.andThen(f2).apply("CognizantTechnologySolutions"));
+		System.out.println("The Result of f2.compose(f1) :-> " + f2.compose(f1).apply("CognizantTechnologySolutions"));
+
+	}
+}
+
+Output->
+The Result of f1: COGNIZANTTECHNOLOGYSOLUTIONS
+The Result of f2: Cognizant
+The Result of f1.andThen(f2) :-> COGNIZANT
+The Result of f2.compose(f1) :-> COGNIZANT
