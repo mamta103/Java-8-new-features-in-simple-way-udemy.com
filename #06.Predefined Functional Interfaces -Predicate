@@ -1,6 +1,309 @@
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
  Lecture 6.1 Predefined Functional Interfaces-Predicate Part-1
  :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
- 1.Predicate
+ 48. Consumer Introduction
  example java8
  java.util package
+ Interface Predicate<T>{
+ boolean test(T t);
+ }
+ 
+ 
+ Interface Function<R,T>{
+ R apply(T t);
+ }
+
+Sometimes our requirment is we have to provide some input value, perform certain operation, but
+not required to return anything,then we should go for Consumer.i.e Consumer can be used to
+consume object and perform certain operation.
+Consumer Functional Interface contains one abstract method accept.
+1) interface Consumer<T>
+2) {
+3) public void accept(T t);
+4) }
+Demo Program-1 for Consumer:
+
+import java.util.function.Consumer;
+
+public class ConsumerDemo {
+	public static void main(String[] args) {
+		Consumer<String> c = s -> System.out.println(s);
+		c.accept("Hello");
+		c.accept("DURGASOFT");
+	}
+}
+
+Output:
+Hello
+DURGASOFT
+
+49. Program to display Movie Information by using Consumer
+package io.javabrains;
+
+import java.util.ArrayList;
+import java.util.function.Consumer;
+
+class Movie{
+	String name;
+	String hero;
+	String heroien;
+	public Movie(String name, String hero, String heroien) {
+		this.name = name;
+		this.hero = hero;
+		this.heroien = heroien;
+	}
+	
+	
+	
+}
+public class ConsumerDemo02 {
+public static void main(String[] args) {
+	ArrayList<Movie> list= new ArrayList<Movie>();
+	populate(list);
+	Consumer<Movie> c= m->{
+		System.out.println("Movie Name: "+m.name);
+		System.out.println("Movie Hero: "+m.hero);
+		System.out.println("Moview Heroien: "+m.heroien);
+		System.out.println();
+	};
+	
+	for(Movie m:list){
+		c.accept(m);
+	}
+	
+	
+}
+
+private static void populate(ArrayList<Movie> list) {
+       list.add(new Movie("Bahubali","Prabhas","Anushka")); 
+       list.add(new Movie("Rayees","Sharukh","Sunny"));
+       list.add(new Movie("Dangal","Ameer","Ritu")); 
+       list.add(new Movie("Sultan","Salman","Anushka")); 
+}
+}
+
+Output:
+Movie Name: Bahubali
+Movie Hero: Prabhas
+Moview Heroien: Anushka
+
+Movie Name: Rayees
+Movie Hero: Sharukh
+Moview Heroien: Sunny
+
+Movie Name: Dangal
+Movie Hero: Ameer
+Moview Heroien: Ritu
+
+Movie Name: Sultan
+Movie Hero: Salman
+Moview Heroien: Anushka
+
+Lecture 50. Program to display Student Information by using Predicate,Function and Consumer
+
+package io.javabrains;
+
+import java.util.ArrayList;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
+
+class Students {
+	String name;
+	int marks;
+
+	public Students(String name, int marks) {
+		this.name = name;
+		this.marks = marks;
+	}
+
+}
+
+public class ConsumerDemo03 {
+	public static void main(String[] args) {
+		ArrayList<Students> list = new ArrayList<Students>();
+		populate(list);
+		Predicate<Students> p = s -> s.marks > 60;
+		Function<Students, String> f = s -> {
+			int marks = s.marks;
+			if (marks >= 80) {
+				return "A[Dictinction]";
+			} else if (marks >= 60) {
+				return "B[First Class]";
+			} else if (marks >= 50) {
+				return "C[Second Class]";
+			} else if (marks >= 35) {
+				return "D[Third Class]";
+			} else {
+				return "E[Failed]";
+			}
+
+		};
+
+		Consumer<Students> c = s -> {
+			System.out.println("Student Name: " + s.name);
+			System.out.println("Student Marks: " + s.marks);
+			System.out.println("Student Grade:" + f.apply(s));
+			System.out.println();
+		};
+
+		for (Students s : list) {
+			if (p.test(s)) {
+				c.accept(s);
+
+			}
+		}
+	}
+
+	private static void populate(ArrayList<Students> list) {
+		list.add(new Students("Sunny", 100));
+		list.add(new Students("Bunny", 65));
+		list.add(new Students("Chinny", 55));
+		list.add(new Students("Vinny", 45));
+		list.add(new Students("Pinny", 25));
+
+	}
+}
+
+Output->
+Student Name: Sunny
+Student Marks: 100
+Student Grade:A[Dictinction]
+
+Student Name: Bunny
+Student Marks: 65
+Student Grade:B[First Class]
+
+
+
+package io.javabrains;
+
+import java.util.ArrayList;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
+
+class Students {
+	String name;
+	int marks;
+
+	public Students(String name, int marks) {
+		this.name = name;
+		this.marks = marks;
+	}
+
+}
+
+public class ConsumerDemo03 {
+	public static void main(String[] args) {
+		ArrayList<Students> list = new ArrayList<Students>();
+		populate(list);
+		Predicate<Students> p = s -> s.marks > 60;
+		Function<Students, String> f = s -> {
+			int marks = s.marks;
+			if (marks >= 80) {
+				return "A[Dictinction]";
+			} else if (marks >= 60) {
+				return "B[First Class]";
+			} else if (marks >= 50) {
+				return "C[Second Class]";
+			} else if (marks >= 35) {
+				return "D[Third Class]";
+			} else {
+				return "E[Failed]";
+			}
+
+		};
+
+		Consumer<Students> c = s -> {
+			System.out.println("Student Name: " + s.name);
+			System.out.println("Student Marks: " + s.marks);
+			System.out.println("Student Grade:" + f.apply(s));
+			System.out.println();
+		};
+
+		for (Students s : list) {
+			
+				c.accept(s);
+
+			
+		}
+	}
+
+	private static void populate(ArrayList<Students> list) {
+		list.add(new Students("Sunny", 100));
+		list.add(new Students("Bunny", 65));
+		list.add(new Students("Chinny", 55));
+		list.add(new Students("Vinny", 45));
+		list.add(new Students("Pinny", 25));
+
+	}
+}
+
+Output->
+Student Name: Sunny
+Student Marks: 100
+Student Grade:A[Dictinction]
+
+Student Name: Bunny
+Student Marks: 65
+Student Grade:B[First Class]
+
+Student Name: Chinny
+Student Marks: 55
+Student Grade:C[Second Class]
+
+Student Name: Vinny
+Student Marks: 45
+Student Grade:D[Third Class]
+
+Student Name: Pinny
+Student Marks: 25
+Student Grade:E[Failed]
+
+Lecture 51. Consumer Chaining
+
+package io.javabrains;
+
+import java.util.function.Consumer;
+
+class Movies {
+	String name;
+	String result;
+
+	public Movies(String name, String result) {
+		this.name = name;
+		this.result = result;
+	}
+
+}
+
+public class ConsumerChaining {
+	public static void main(String[] args) {
+		Consumer<Movies> c1 = m -> {
+			System.out.println("Movie:" + m.name + " is ready to release");
+		};
+
+		Consumer<Movies> c2 = m1 -> System.out
+				.println("Movies:" + m1.name + " is just Released and it is:" + m1.result);
+		Consumer<Movies> c3 = m2 -> System.out.println("Movie:" + m2.name + " information storing in the database");
+		Consumer<Movies> chainedC = c1.andThen(c2).andThen(c3);
+
+		Movies m1 = new Movies("Bahubali", "Hit");
+		chainedC.accept(m1);
+
+		System.out.println();
+
+		Movies m2 = new Movies("Spider", "Flop");
+		chainedC.accept(m2);
+	}
+}
+
+Output->
+Movie:Bahubali is ready to release
+Movies:Bahubali is just Released and it is:Hit
+Movie:Bahubali information storing in the database
+
+Movie:Spider is ready to release
+Movies:Spider is just Released and it is:Flop
+Movie:Spider information storing in the database
