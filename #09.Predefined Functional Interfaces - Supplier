@@ -75,7 +75,107 @@ Output->
 Pinny
 
 **********************************************************************************************************************************
+Lecture 55. Program to get Random OTP by using Supplier
+package io.javabrains;
+
+import java.util.Date;
+import java.util.function.Supplier;
+
+public class SuppilerDemo01 {
+	public static void main(String[] args) {
+		Supplier<String> s = () -> {
+			String OTP = "";
+			for (int i = 0; i < 6; i++) {
+				OTP = OTP + (int) (Math.random() * 10);
+			}
+			return OTP;
+		};
+		System.out.println(s.get());
+		System.out.println();
+		System.out.println(s.get());
+		System.out.println();
+		System.out.println(s.get());
+		
+	}
+}
+Output->
+879566
+
+869880
+
+932735
 
 **********************************************************************************************************************************
+Lecture 56. Program to get Random Password by using Supplier
+Rules:
+1. length should be 8 characters
+2. 2,4,6,8 places only digits 
+3. 1,3,5,7 only Capital Uppercase characters,@,#,$
+
+
+package io.javabrains;
+
+import java.util.Date;
+import java.util.function.Supplier;
+
+public class SuppilerDemo01 {
+	public static void main(String[] args) {
+		Supplier<String> s = () -> {
+			String pwd = "";
+			Supplier<Integer> d = () -> (int) (Math.random());
+			String symbols = "ABCDEFGHIJKLMNOPQRSTUVWXYZ#$@";
+
+			Supplier<Character> c = () -> symbols.charAt((int) (Math.random() * 29));
+			for (int i = 1; i <= 8; i++) {
+				if (i % 2 == 0) {
+					pwd = pwd + d.get();
+				} else {
+					pwd = pwd + c.get();
+				}
+			}
+			return pwd;
+		};
+		System.out.println(s.get());
+		System.out.println();
+		System.out.println(s.get());
+		System.out.println();
+	}
+}
+Output->
+K0#0P0O0
+
+$0P0M0A0
 
 **********************************************************************************************************************************
+Lecture 57.Comparison Table of Predicate, Function, Consumer and Supplier
+
+Predicate->
+1) Purpose->To take some Input and perform some conditional checks.
+2) Interface Declaration->interface Predicate <T> { ::::::::::::: }.
+3) Signle Abstract Method (SAM)->public boolean test (T t);
+4) Default Methods->and(), or(), negate()
+5) Static Method->isEqual()
+
+
+
+
+Function->
+1) Purpose->To take some Input and perform required Operation and return the result
+2) Interface Declaration->interface Function <T, R> { ::::::::::::: }
+3) Signle Abstract Method (SAM)->public R apply (T t);
+4) Default Methods->andThen(), compose()
+5) Static Method->identify()
+
+Consumer->
+1) Purpose->To consume some Input and perform required Operation. It won’t return anything.
+2) Interface Declaration->interface Consumer <T> { ::::::::::::: }
+3) Signle Abstract Method (SAM)->public void accept (T t);       
+4) Default Methods->andThen()
+5) Static Method->----
+
+Supplier->
+1) Purpose->To supply some Value base on our Requirement
+2) Interface Declaration->interface Supplier <R> { ::::::::::::: }
+3) Signle Abstract Method (SAM)->public R get();
+4) Default Methods->---
+5) Static Method->---
