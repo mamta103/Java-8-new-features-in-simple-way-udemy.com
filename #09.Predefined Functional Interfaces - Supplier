@@ -35,8 +35,44 @@ Supplier won't take any input and it will always supply objects. Supplier Functi
 3) public R get();
 4) }
  Supplier Functional interface does not contain any default and static methods.
+ 
+ package io.javabrains;
+
+import java.util.Date;
+import java.util.function.Supplier;
+
+public class SuppilerDemo01 {
+	public static void main(String[] args) {
+		Supplier<Date> s = () -> new Date();
+		System.out.println(s.get());
+
+	}
+}
+Output->
+Wed Sep 05 15:58:35 IST 2018
+
 
 **********************************************************************************************************************************
+Lecture 54. Program to get Random Name by using Supplier
+package io.javabrains;
+
+import java.util.Date;
+import java.util.function.Supplier;
+
+public class SuppilerDemo01 {
+	public static void main(String[] args) {
+		Supplier<String> s = () -> {
+			String[] str = { "Sunny", "Bunny", "Chinny", "Pinny" };
+			int index = (int) (Math.random() * 4);
+			return str[index];
+		};
+
+		System.out.println(s.get());
+
+	}
+}
+Output->
+Pinny
 
 **********************************************************************************************************************************
 
