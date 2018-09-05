@@ -1,0 +1,45 @@
+Predefined Functional Interfaces - Supplier
+**********************************************************************************************************************************
+52. Supplier Introduction
+
+1.Interface Predicate<T>->Input type{
+public boolean test(T t){
+}
+}
+
+2.Interface Function<ReturnType ,Type>{
+  public R apply(T t){
+    return R;
+  }
+}
+
+3.Interface Consumer<Type>
+{
+ public void accept(Type t){
+     
+     }
+}
+Suppiler Definition->Sometimes our requirement is we have to get some value based on some operation like
+
+supply Student object
+Supply Random Name
+Supply Random OTP
+Supply Random Password
+etc
+For this type of requirements we should go for Supplier. Supplier can be used to supply items (objects).
+
+
+Supplier won't take any input and it will always supply objects. Supplier Functional Interface contains only one method get(). 
+1) interface Supplier<R> 
+2) { 
+3) public R get();
+4) }
+ Supplier Functional interface does not contain any default and static methods.
+
+**********************************************************************************************************************************
+
+**********************************************************************************************************************************
+
+**********************************************************************************************************************************
+
+**********************************************************************************************************************************
