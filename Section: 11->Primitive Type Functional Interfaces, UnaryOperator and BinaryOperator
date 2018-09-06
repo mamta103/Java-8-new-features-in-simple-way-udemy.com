@@ -1,0 +1,108 @@
+Section: 11->Primitive Type Functional Interfaces, UnaryOperator and BinaryOperator
+
+66. Autoboxing,Autounboxing and Type Parameter
+******************************************************************************************************************
+1. Autoboxing:
+Automatic conversion from primitive type to Object type by compiler is called autoboxing.
+Integer i= 10;
+means compiler will take like 
+Integer i= Integer.valueOf();
+
+2. Autounboxing:
+Automatic conversion from object type to primitive type by compiler is called autounboxing.
+example->
+Integer i= new Integer(10);
+int x=  I;Auto-Boxing
+means 
+int x= I.intValue();
+                                Auto-Unboxing
+	Wrapper	Object 	Type ---------------------------------------> Primitive Type
+                                Auto-Boxing
+  Primitive Type       ---------------------------------------> Wrapper	Object 	Type
+  
+  3. Generic type of casting:
+  In the case of generics, the type parameter is always object type and no chance of passing primitive type.
+  ArrayList<Integer> l = new ArrayList<Integer>();//valid 
+  ArrayList<int> l = new ArrayList<int>();//invalid
+
+******************************************************************************************************************
+Lecture 67. Need of Primitve Type Functional Interfaces
+
+******************************************************************************************************************
+Lecture 68. Primitve Type Functional Interfaces for Predicate
+interface IntPredicate{
+public boolean test(int i){
+
+}
+}
+import java.util.function.Predicate;
+
+public class PrimitveFunctionalInterfaces {
+	public static void main(String[] args) {
+		int[] intArray = { 0, 5, 10, 15, 20, 25 };
+		Predicate<Integer> p = i -> i % 2 == 0;
+		for (int x : intArray) {
+			if (p.test(x)) {
+				System.out.println(x + " ");
+			}
+		}
+	}
+}
+Output->
+0 
+10 
+20 
+In the above examples,6 times autoboxing and autounboxing happening which creates Performance problems.
+
+To overcome this problem primitive functional interfaces introduced, which can always takes primitive types as input and return primitive types.Hence autoboxing and autounboxing won't be required,which improves performance.
+
+Primitive Type Functional Interfaces for Predicate:
+The following are various primitive Functional interfaces for Predicate.
+1.IntPredicate-->always accepts input value of int type
+interface IntPredicate {
+	public boolean test(int i);
+	// default methods: and(),or(),negate() 5) }
+}
+2.LongPredicate-->always accepts input value of long type 
+interface LongPredicate {
+	public boolean test(long l);
+	// default methods: and(),or(),negate() }
+}
+3.DoublePredicate-->always accepts input value of double type
+interface DoublePredicate {
+	public boolean test(double d);
+	// default methods: and(),or(),negate()
+}
+Demo Program for IntPredicate:
+
+import java.util.function.IntPredicate;
+import java.util.function.Predicate;
+
+public class PrimitveFunctionalInterfaces {
+	public static void main(String[] args) {
+		int[] intArray = { 0, 5, 10, 15, 20, 25 };
+		IntPredicate p = i -> i % 2 == 0;
+		for (int x : intArray) {
+			if (p.test(x)) {
+				System.out.println(x + " ");
+			}
+		}
+	}
+}
+
+output->
+0 
+10 
+20 
+In the above example, autoboxing and autounboxing won't be performed internally.Hence performance wise improvements are there.
+******************************************************************************************************************
+Lecture 69. 3 Demo Programs about Primitve Type Functional Interfaces for Function
+
+******************************************************************************************************************
+******************************************************************************************************************
+******************************************************************************************************************
+******************************************************************************************************************
+******************************************************************************************************************
+******************************************************************************************************************
+******************************************************************************************************************
+******************************************************************************************************************
