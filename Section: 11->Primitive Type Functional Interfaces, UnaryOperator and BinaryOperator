@@ -187,8 +187,98 @@ public void accept(T t,double d)
 ******************************************************************************************************************
 Lecture 72. Primitive Versions for Supplier
 
+
 ******************************************************************************************************************
+Lecture 73. UnaryOperator and its Primitive Versions
+Urnary Operator
+Binary Operator
+Function<T, R>
+
+Interaface Function(T,R)[
+public R apply(T )
+{
+}
+
+
+
+import java.util.function.Function;
+
+public class PrimitveFunctionalInterfaces {
+	public static void main(String[] args) {
+		Function<Integer, Integer> f= i-> i*i;
+		System.out.println(f.apply(10));
+	}
+}
+
+
+Uranary Operator->
+1.If input and output same type then we should go for UnaryOperator.
+2.It is a child of Function Interface.
+example->
+interface UnaryOperator{
+public T apply(T t);
+}
+import java.util.function.UnaryOperator;
+
+public class PrimitveFunctionalInterfaces {
+	public static void main(String[] args) {
+		UnaryOperator<Integer> o= i-> i*i;
+		System.out.println(o.apply(10));
+	}
+}
+
+Three types of Uranary Operators
+1.IntUrnaryOperator-> public int applyAsInt(int i)
+2.DoubleUrnaryOperator->public double applyAsDouble(double d)
+3.LongUrnaryOperator->public long applyAsLong(ling l)
+
+interface IntUrnaryOperator{
+public int aaplyAsInt(int i);
+}
+
+import java.util.function.IntUnaryOperator;
+
+public class PrimitveFunctionalInterfaces {
+	public static void main(String[] args) {
+		IntUnaryOperator o= i-> i*i;
+		System.out.println(o.applyAsInt(10));
+		System.out.println(o.applyAsInt(112	));
+
+	}
+}
+Note->
+Urnary Operator alys special case of Functional Interface while input and return type will be same so we will go through
+UrnaryOperator.
 ******************************************************************************************************************
+Lecture 74. BinaryOperator
+BiFunction<T,T,T>
+
+Interface BiFunction<T,U,R>
+{
+public R apply(T t, U u);
+}
+BiFunction<String,String,String> f= (s1,s2)->s1+s2;
+f1.apply("durga","soft");
+
+
+Interafce BinaryOperator<T>
+{
+public T apply(T t1, T t2);
+}
+BinaryOperator<String> f= (s1,s2)->s1+s2;
+sop(f.apply("durga","soft");
+
 ******************************************************************************************************************
+Lecture 75. Primitive Versions for BinaryOperator
+1.interface IntBinaryOperator{
+public int applyAsInt(int i, int i);
+}
+
+IntBinaryOperator f= (i,i)-> i*i;
+sop(f.applyAsInt(10,20);
+
+2.DoubleBinaryOpeator
+3.LongBinaryOperator
+
 ******************************************************************************************************************
 ******************************************************************************************************************
