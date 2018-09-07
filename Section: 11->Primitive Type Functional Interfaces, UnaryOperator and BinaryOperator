@@ -98,9 +98,95 @@ In the above example, autoboxing and autounboxing won't be performed internally.
 ******************************************************************************************************************
 Lecture 69. 3 Demo Programs about Primitve Type Functional Interfaces for Function
 
+
 ******************************************************************************************************************
+Lecture 70. All 15 Primitve Type Functional Interfaces for Function
+1.IntFunction<R>
+public R apply(int i)
+
+2.DoubleFunction<R>
+public R apply(double d)
+
+3.LongFunction<R>
+public R apply(long l)
+
+All above 1,2,3 talk about Input type.
+
+4.ToIntFunction <T>
+public int applyAsInt(T t)
+
+5.ToDoubleFunction <T>
+public double applyAsDouble(T t)
+
+6.ToLongFunction <T>
+public Long applyAsLong(T t)
+
+Above 4,5,6 based on Return type.
+7.IntToLongFunction
+public long applyAsLong(int)
+
+8.IntToDouble
+public double applyAsDouble(int)
+
+9.DoubleToInt
+public int applyAsInt(double d)
+
+10.DoubleToLong
+public long applyAsLong(doule d)
+
+11.LongtoInt
+public int applyAsInt(long l)
+
+12.LongToDouble
+public doublem applyAsDoubl(long l)
+
+13.ToIntBiFunction
+public int applyAsInt(T t, U u)
+
+14.ToDoubleBiFunction
+public double applyasDouble(T t,U u)
+
+15.ToLongBiFunction
+public long applyAsLong(T t, U u)
+
 ******************************************************************************************************************
+Lecture 71. Primitive Versions for Consumer
+Interface Consumer<T>{
+public void accept(T t)
+}
+
+Consumer<Integer> c= i-> SOP(i*i);
+c.accept(12);
+
+and with Primitive for Consumer
+Interface IntConsumer
+public void accept(int i){
+IntConsumer c= i->SOP(i*i);
+c.appcept(10);
+}
+}
+
+As like same
+IntConsumer
+accept(int i)
+
+LongConsumer
+accept(long l)
+
+DoubleConsumer
+accept(double d)
+
+ObjectIntConsumer<T>
+public void accept(T t, int i)
+
+ObjectLongConsumer<T>
+public void accept(T t,long l)
+
+ObjectDoubleConsumer<T>
+public void accept(T t,double d)
 ******************************************************************************************************************
+Lecture 72. Primitive Versions for Supplier
+
 ******************************************************************************************************************
 ******************************************************************************************************************
 ******************************************************************************************************************
