@@ -1,0 +1,133 @@
+Section: 12->Method and Constructor Reference By using :: Operator
+**************************************************************************************************************************
+Till yet java8
+1.Lamda- Expression
+2.Functional Interaface
+3.Default method inside Interface.
+4.Static method inside Inteface.
+5.java.util.function types.
+                          1.Predicate
+                          2.Function
+                          3.Consumer
+                          4.Suppiler
+                          
+:: called method reference and also contructor reference.
+
+interface Interf {
+	public void m1();
+}
+
+class Test3 {
+	public static void m2() {
+		System.out.println("Impl by method Reference");
+	}
+
+	public static void main(String[] args) {
+		Interf interf = Test3::m2;
+
+		interf.m1();
+	}
+}
+
+Note-> here just m1 refering to m2, one nd only one condition should matched argument should be same ,rest return type , modifier and
+static does nt matter.
+**************************************************************************************************************************
+Lecture 77. Method Reference By Double Colon(::) Operator Part-2
+Functional Interface---------------------------------->lamda-Expression
+Functional Interface---------------------------------->method Reference
+Syntax of method reference.
+Static->
+       className::method name
+       e.g-> Test::m2
+
+Instance->
+       ObjkectReference::method name
+       e.g.->
+       Test t1= new Test();
+       t1::m2
+       
+e.g.
+package io.javabrains;
+
+class MethodReference {
+	public void runDemo() {
+		for (int i = 0; i < 9; i++) {
+			System.out.println("Child Thread");
+		}
+	}
+}
+
+public class MethodReferenceDemo {
+	public static void main(String[] args) {
+		MethodReference mr = new MethodReference();
+		Runnable runnable = mr::runDemo;
+		Thread thread = new Thread(runnable);
+		thread.start();
+		for (int i = 0; i < 9; i++) {
+			System.out.println("Main Thread");
+		}
+
+	}
+}
+
+**************************************************************************************************************************
+Lecture 78. Constructor Reference By Double Colon(::) Operator
+With lamda Expression
+
+class Sample {
+
+	public Sample() {
+		System.out.println("Sample Constructor Execute and Object Creation");
+	}
+
+}
+
+interface Interf {
+	public Sample get();
+}
+
+public interface SampleConstructor {
+	public static void main(String[] args) {
+		Interf interf = () -> {
+			Sample sample = new Sample();
+			return sample;
+		};
+
+		Sample sample = interf.get();
+	}
+}
+
+
+
+by  Constructor->
+
+class Sample {
+
+	public Sample() {
+		System.out.println("Sample Constructor Execute and Object Creation");
+	}
+
+}
+
+interface Interf {
+	public Sample get();
+}
+
+public interface SampleConstructor {
+	public static void main(String[] args) {
+		Interf interf = Sample::new;
+		interf.get();
+	}
+}
+
+Summary of all->
+static
+Test::m1
+
+non-static
+t::m1
+
+Constructor
+Sample::new
+
+**************************************************************************************************************************
