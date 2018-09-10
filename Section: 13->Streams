@@ -1,0 +1,161 @@
+Section: 13->Streams\
+
+*****************************************************************************************************************************
+*****************************************************************************************************************************
+*****************************************************************************************************************************
+*****************************************************************************************************************************
+82. Various methods of Stream Part-1
+1.Precessing by Collect method()
+This method collect the elements from the stream and adding to the specified collection.
+
+package io.javabrains;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class CountStreams {
+	public static void main(String[] args) {
+		ArrayList<String> list = new ArrayList<>();
+		list.add("Halery");
+		list.add("Claire");
+
+		list.add("Luke");
+		list.add("Gloria");
+		list.add("MitchellDumphy");
+
+		List<String> l1 = list.stream().filter(s -> s.length() >= 9).collect(Collectors.toList());
+		System.out.println(l1);
+
+	}
+}
+
+
+2.Processing by count   method.
+this method returns the number of element present in stream.
+public long count();
+
+
+package io.javabrains;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class CountStreams {
+	public static void main(String[] args) {
+		ArrayList<String> list = new ArrayList<>();
+		list.add("Halery");
+		list.add("Claire");
+
+		list.add("Luke");
+		list.add("Gloria");
+		list.add("MitchellDumphy");
+
+		List<String> l1 = list.stream().filter(s -> s.length() >= 9).collect(Collectors.toList());
+		System.out.println(l1);
+
+		List<String> l2 = list.stream().map(s -> s.toUpperCase()).collect(Collectors.toList());
+		System.out.println(l2);
+
+		long count = list.stream().filter(s -> s.length() >= 5).count();
+		System.out.println("Count-> " + count);
+
+	}
+}
+
+*****************************************************************************************************************************
+83. Various methods of Stream Part-2
+we can use sorted( method to sort elements inside streams.
+we can sort either on defaullt  natural sorting order or based on our own customised sorting order by comparator Object.
+1.sorted()=> for defalut natural sorting order.
+2.sorted(Comparator c)==> for customised sorting order.
+
+package io.javabrains;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
+public class SortedStreams {
+	public static void main(String[] args) {
+		List<Integer> list = new ArrayList<Integer>();
+		list.add(11);
+
+		list.add(10);
+		list.add(90);
+		list.add(19);
+		list.add(34);
+		list.add(45);
+
+		list.add(11);
+
+		List<Integer> sortedList = list.stream().sorted().collect(Collectors.toList());
+		System.out.println("List ordering to Default Natural Sorting ->" + sortedList);
+
+		List<Integer> customSortedList = list.stream().sorted((i1, i2) -> -i1.compareTo(i2))
+				.collect(Collectors.toList());
+		System.out.println("List ordering to Costomise Natural Sorting ->" + customSortedList);
+
+	}
+}
+
+
+*****************************************************************************************************************************
+84. Various methods of Stream Part-3
+1.collect()
+2.count()
+3.min(Comparator c)
+returns minimum value accroding to specified Comparator.
+4.max(Comparator c)
+returns maximum value according to specified Comparator.
+5.  forEach()
+
+
+package io.javabrains;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
+public class SortedStreams {
+	public static void main(String[] args) {
+		List<Integer> list = new ArrayList<Integer>();
+		list.add(11);
+
+		list.add(10);
+		list.add(90);
+		list.add(19);
+		list.add(34);
+		list.add(45);
+
+		list.add(11);
+
+		List<Integer> sortedList = list.stream().sorted().collect(Collectors.toList());
+		System.out.println("List ordering to Default Natural Sorting ->" + sortedList);
+
+		List<Integer> customSortedList = list.stream().sorted((i1, i2) -> -i1.compareTo(i2))
+				.collect(Collectors.toList());
+		System.out.println("List ordering to Costomise Natural Sorting ->" + customSortedList);
+		
+		Integer minElement= list.stream().min((i1,i2)-> i1.compareTo(i2)).get();
+		System.out.println("Minimum element-> "+minElement);
+		
+		
+		Integer maxElement= list.stream().max((i1,i2)-> i1.compareTo(i2)).get();
+		System.out.println("maximum element-> "+maxElement);
+
+
+		
+	}
+}
+
+
+to get min and max need to sort.
+
+
+*****************************************************************************************************************************
+*****************************************************************************************************************************
+v
