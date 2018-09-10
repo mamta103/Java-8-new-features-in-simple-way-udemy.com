@@ -1,8 +1,4 @@
-Section: 13->Streams\
-
-*****************************************************************************************************************************
-*****************************************************************************************************************************
-*****************************************************************************************************************************
+Section: 13->Streams
 *****************************************************************************************************************************
 82. Various methods of Stream Part-1
 1.Precessing by Collect method()
@@ -155,7 +151,92 @@ public class SortedStreams {
 
 to get min and max need to sort.
 
+5.Processing by using forEach() method->
+forEach()->
+1.forEach() method does nt return anything.
+2.This method can use lamda Expression as a argument and apply that Lamda Expression for each element present in Stream.
 
 *****************************************************************************************************************************
+85. Various methods of Stream Part-4
+1.collect()
+2.count()
+3.min(Comparator c)
+returns minimum value accroding to specified Comparator.
+4.max(Comparator c)
+returns maximum value according to specified Comparator.
+5.  forEach()
+6.toArray()
+Precessing by toArray()->
+we can use toArray() method to copy elements present in the stream into specified array.
+
+
+package io.javabrains;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class ToArraySteams {
+public static void main(String[] args) {
+	List<Integer> list= new ArrayList<>();
+	list.add(11);
+
+	list.add(10);
+	list.add(90);
+	list.add(19);
+	list.add(34);
+	list.add(45);
+
+	list.add(11);
+	System.out.print(list+" ");
+	System.out.println();
+	System.out.println();
+
+	Integer[] array= list.stream().toArray(Integer[]::new);
+	for(Integer x:array){
+		System.out.print(x+ " ");
+	}
+	
+	
+	
+}
+}
+
+2.for Arrays
+package io.javabrains;
+
+import java.util.stream.Stream;
+
+public class StramOf {
+	public static void main(String[] args) {
+		Stream<Integer> s = Stream.of(9, 99, 999, 9999, 99999);
+		s.forEach(System.out::println);
+		System.out.println();
+
+		Stream<Double> doubleStream = Stream.of(11.22, 23.66, 33.33, 44.44, 55.55);
+		doubleStream.forEach(System.out::println);
+
+	}
+}
 *****************************************************************************************************************************
-v
+86. Summary of Streams
+1.purpose;
+2.Stream s= c.Stream();
+3.filter(Predicate<T t>);
+4.map(Function<T t,R r>);
+
+5.collect();
+6.count();
+7.sorted();
+8.sorted(comparator);
+9.min(Comparator)
+10.max(Comparator)
+11.forEach();
+12.toArray();
+13.Stream.Of();
+
+
+
+
+
+
+
