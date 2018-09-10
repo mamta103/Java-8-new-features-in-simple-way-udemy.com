@@ -1,0 +1,107 @@
+Section: 14->Date and Time API
+**************************************************************************************************************
+87. Date and Time API Introduction Part-1
+Recape->
+1.lamda-Expressions
+2.Functional Interface
+3.Default- Method inside interfaces
+4.Static- Methods inside Interfaces
+5.Predefined Functional Interfaces
+  1.Predicate<T>
+  2.Funcation<T,R>
+  3.Consumer<T>
+  4.Suppiler<R>
+6.Method References
+7.Constructor References by using Double Colon Operator-<Code Reusability
+8.Streams
+9.Date and Time API(JODA)  
+**************************************************************************************************************
+Date And Time API (JODA Time API)actually developed by joda.org
+until 1.7
+1.Date
+2.Calender
+3.TimeStamp
+
+
+package Java8DateAndTimeAPI;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+
+public class LocaleDate01 {
+	public static void main(String[] args) {
+		LocalDate date = LocalDate.now();
+		System.out.println("Date-> " + date);
+
+		LocalTime localTime = LocalTime.now();
+		System.out.println(localTime);
+	}
+}
+
+**************************************************************************************************************
+88. Date and Time API Introduction Part-2
+package Java8DateAndTimeAPI;
+
+import java.time.LocalDate;
+
+public class LocaleDate01 {
+	public static void main(String[] args) {
+		LocalDate localDate= LocalDate.now();
+		System.out.println(localDate);
+		
+		int dd= localDate.getDayOfMonth();
+		int mm= localDate.getDayOfMonth();
+		int yyyy= localDate.getYear();
+		System.out.printf("%d-%d-%d",dd,mm,yyyy);
+	}
+}
+
+
+package Java8DateAndTimeAPI;
+
+import java.time.LocalTime;
+
+public class LocaleDate01 {
+	public static void main(String[] args) {
+		LocalTime localTime = LocalTime.now();
+		int h = localTime.getHour();
+		int m = localTime.getMinute();
+		int s = localTime.getSecond();
+		int ns = localTime.getNano();
+		System.out.format("%d:%d:%d:%d", h, m, s, ns);
+	}
+}
+
+**************************************************************************************************************
+89. Date and Time API Introduction Part-3
+
+package Java8DateAndTimeAPI;
+
+import java.time.LocalDateTime;
+
+public class LocalDateTimeDemo {
+	public static void main(String[] args) {
+		LocalDateTime dateTime = LocalDateTime.now();
+		System.out.println(dateTime);
+		int dd = dateTime.getDayOfMonth();
+		int mm = dateTime.getMonthValue();
+		int yyyy = dateTime.getYear();
+		System.out.format("%d-%d-%d", dd, mm, yyyy);
+		int h = dateTime.getHour();
+		int m = dateTime.getMinute();
+		int s = dateTime.getSecond();
+		int ns = dateTime.getNano();
+
+		System.out.format("%d:%d:%d:%d", h, m, s, ns);
+
+	}
+}
+
+
+
+**************************************************************************************************************
+
+**************************************************************************************************************
+**************************************************************************************************************
+**************************************************************************************************************
+**************************************************************************************************************
