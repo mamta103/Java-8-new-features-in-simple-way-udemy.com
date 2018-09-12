@@ -29,8 +29,8 @@ processing in java)
 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-* Lecture 1.1                                                                                                      *
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+2. Lambda expressions : Introduction
+                                                                                                *
 1.Lambda Expressions.LIPS is very first used Lammdas Expression
 benefits:
 1.to enable Functional Programming in java.
@@ -39,28 +39,29 @@ benefits:
 4.to enable parallel processing.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-* Lecture 1.2.How to write lambda expresion part-1                                                                 *                                     *
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+Lecture:3->     How to Write Lambda expressions- Part-1'
+
 1.Lamda expression is Annonymous Function
 1.1->not having Name
 1.2->not having Modifer.
 1.3->not having Return type.
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-* Lecture 1.3.How to write lambda expresion part-1                                                                 *                                     *
+Lecture:3->                                                            *                                     *
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 public static void m1(){
 	System.out.println("Hello World");
 }
 
 Lamda Expression:
-ex01:-() -> System.out.println("Hello World");(
+ex01:-() -> System.out.println("Hello World");
+
 ex02:-	 (a,b)-> System.out.println(a+b);
   
 ex03:-  public static int getLength(String str) return str.length();
 	
 Lambda Expression:-(String str)-> return str.length();
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-* Lecture 1.4.How to Write Lambda expresion part-2                                                               *                                     *
+Lecture:4-> How to Write Lambda expressions -Part-2                                                   *                                     *
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 if compiler can gets type automatically the on the based of context we can remove the types also it called
 Type Infernce.
@@ -78,7 +79,7 @@ Lambda Expression:-(str)-> str.length(); for one parameter no need paranetisis
 s->s.length()
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-* Lecture 1.4.How to Write Lambda expresion part-2                                                               *                                     *
+Lecture 5-> Functional Interface
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 characteristic and property in java8
 1.a lambda expression can take any number of parameters.
@@ -110,7 +111,7 @@ e.g. (int a,int b)->SOP(a+b);
 6.if lambda expression rerurn somthing then we can remove return type too.
 e.g. s-> s.length();
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-* Lecture 1.5 Functional Interface                                                                                                     *
+Lecture:5->Functional Interface                                                                                                     *
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 To invoke lambdas expression need functional interface.
 1."Functional interface" ===>If interface conatin only one abstract method called Functional Interface(Single Abstarct method)(SAM).
@@ -141,7 +142,7 @@ e.g. 02.public interface FunctionalInterface {
     
     
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-* Lecture 1.6 @FunctionalInterface Annotation                                                                 * 
+Lecture:6-> @FunctionalInterface Annotation                                                                 * 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 1.To reconize pupose java people introduce @FunctionalInterface.
 e.g.01 ==> @FunctionalInterface
@@ -175,7 +176,7 @@ public interface FunctionalInterfaceDemo {
 }
 Complie Time Error =>Unexpected @FunctionalIntercae Annotation no abstract method found in interface FunctionalInterfaceDemo.
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-* Lecture 1.6 @FunctionalInterface Annotation wrt Inheritance                                                               
+Lecture:6-> @FunctionalInterface Annotation wrt Inheritance                                                               
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 Case01.
 if an interface extends functinal interface and child interface does not contain any abstarct method , then child interface 
@@ -234,7 +235,7 @@ interface FunctionalInterfaceDemo02 extends FunctionalInterfaceDemo {
 	public void m2();
 }
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-* Lecture 1.7 Invoking Lambda Expression By Using  FunctionalInterface Example 01                                                       
+Lecture:7-> Invoking Lambda Expression By Using  FunctionalInterface Example 01                                                       
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 1.why so we use FunctionalInterface?
 only to call lamda expression we use FunctionalInterface.
@@ -275,7 +276,7 @@ class MainFunctionalInterfaceDemo {
 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-* Lecture 1.9. Invoking Lambda Expression By using Functional Interface examples-2,3,4                                                
+Lecture:9-> Invoking Lambda Expression By using Functional Interface examples-2,3,4                                                
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 case 01.without lamda Expression.
 
@@ -344,7 +345,7 @@ Square of Number: 400
 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-* Lecture 1.10.Invoking Lambda Expression By using Functional Interface example-5                                              
+Lecture:10-> Invoking Lambda Expression By using Functional Interface example-5                                              
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 e.g.
 
@@ -363,26 +364,6 @@ public class ThreadDemoWithoutLamda {
 		thread.start();
 	}
 }
-Output:MainThread
-MainThread
-MainThread
-MainThread
-MainThread
-MainThread
-MainThread
-MainThread
-MainThread
-MainThread
-Child Thread
-Child Thread
-Child Thread
-Child Thread
-Child Thread
-Child Thread
-Child Thread
-Child Thread
-Child Thread
-Child Thread
 
 e.g.
 With Lamda
@@ -418,7 +399,7 @@ public class ThreadDemoWithoutLamda {
 	}
 }
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-* Lecture 1.11.Functional Interface,Lambda Expression Summary                                             
+Lecture:11->.Functional Interface,Lambda Expression Summary                                             
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
  Functional Interface,Lambda Expression Summary
 Functional Interface.
