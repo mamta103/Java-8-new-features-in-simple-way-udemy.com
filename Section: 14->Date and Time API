@@ -97,11 +97,108 @@ public class LocalDateTimeDemo {
 	}
 }
 
+package Java8DateAndTimeAPI;
+
+import java.time.LocalDateTime;
+
+public class LocalDateTimeDemo02 {
+	public static void main(String[] args) {
+		LocalDateTime ldt = LocalDateTime.of(1995, 05, 28, 12, 45);
+		System.out.println(ldt);
+		System.out.println();
+		System.out.println("Before six months-> " + ldt.minusMonths(6));
+		System.out.println();
+
+		System.out.println("After six months-> " + ldt.plusMonths(6));
+
+	}
+}
+
+output->
+1995-05-28T12:45
+
+Before six months-> 1994-11-28T12:45
+
+After six months-> 1995-11-28T12:45
+**************************************************************************************************************
+90. Date and Time API Introduction Period & Year
+package Java8DateAndTimeAPI;
+
+import java.time.LocalDate;
+import java.time.Period;
+
+public class LocalDateTimeDemo02 {
+	public static void main(String[] args) {
+		LocalDate birthday= LocalDate.of(1991, 9, 11);
+		LocalDate today= LocalDate.now();
+		
+		Period p= Period.between(birthday, today);
+		System.out.printf("Your age is %d years  %d months and %d days",p.getYears(),p.getMonths(),p.getDays());
+       
+		LocalDate deathDay= LocalDate.of(1991+60,9,11);
+		int days= p.getYears()* 365+ p.getMonths()*30 +p.getDays();
+		System.out.println();
+		System.out.println(days);
+	}
+}
 
 
-**************************************************************************************************************
+package Java8DateAndTimeAPI;
+
+import java.time.Year;
+import java.util.Scanner;
+
+public class LocalDateTimeDemo02 {
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		System.out.println("Enter Year Number-> ");
+		int n = scan.nextInt();
+
+		Year y = Year.of(n);
+		if (y.isLeap()) {
+			System.out.printf("%d Year is Leap Year-> ", n);
+		} else {
+			System.out.printf("%d Year is not Leap Year-> ", n);
+
+		}
+
+	}
+}
+	
 
 **************************************************************************************************************
-**************************************************************************************************************
-**************************************************************************************************************
-**************************************************************************************************************
+91. Date and Time API Introduction ZoneId,ZonedDateTime
+
+1.ZoneId->Current Zonepackage Java8DateAndTimeAPI;
+
+import java.time.ZoneId;
+
+public class LocalDateTimeDemo02 {
+	public static void main(String[] args) {
+		ZoneId zone= ZoneId.systemDefault();
+		System.out.println(zone);
+
+	}
+}
+
+output->
+Asia/Calcutta
+
+
+Java Time API(JODA Time API)
+1.LocalDate->getDayOfMonth()
+           ->getMonthvalues()
+	   ->getYear()
+2.LocalTime->getHour()
+           ->getMinute()
+	   ->getSecond()
+	   ->getMilliSecond()
+	   
+3.LocalDateTimeClass->
+
+4.Period->Time duration
+5.Year
+6.AZoneId
+7.ZoneDateTime
+
+
