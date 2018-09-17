@@ -1,6 +1,6 @@
-
+Section: 3->Lambda Expressions with Collections
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-Lecture3.1   Collections Overview: List and Set
+Lecture 12. Collections Overview: List and Set
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 Collection:A group of Object in a single entity called Collection.
 Type of Collection!!!!
@@ -45,7 +45,7 @@ HashSet(Order will be based on HashCode)
 TreeSet(Sorted Set)
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-Lecture3.2   Collections Overview: Map
+lecture 13. Collections Overview: Map
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 3.Map(Interface)
@@ -69,7 +69,7 @@ example. RollNumber -> Name
 {A=Apple, B=Boy, T=Tiger, Z=Zebra, Durga=Java}
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-Lecture3.3   Comparator interface & compare method
+lecture: 14. Comparator interface & compare method
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 Comparator(Interface)->only one Abstract method compare() is called Functional interface.
 why?
@@ -79,7 +79,8 @@ return -ve-> if object1 has to come before obj2.
 return +ve-> if obj1 has to come after obj2.
 retirn 0-> if obj1 or obj2 equal .
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-Lecture3.4  Sorting Elements of List without Lambda Expression
+Lecture 15. Sorting Elements of List without Lambda Expression
+
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 1.Defualt Sorting Number ->Incresing Order
                   String ->Alphabetic Order
@@ -160,7 +161,7 @@ class MyComparator implements Comparator<Integer> {
 
 }
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-Lecture3.5   Sorting Elements of ArrayList with Lambda Expression
+Lecture 16. Sorting Elements of ArrayList with Lambda Expression
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 package io.javabrains;
 
@@ -185,7 +186,7 @@ public class DefulatSorting {
 	}
 }
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-Lecture3.6  Sorting Elements of TreeSet with Lambda Expression
+Lecture 17. Sorting Elements of TreeSet with Lambda Expression
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 public class TreeSetDemo {
@@ -205,9 +206,26 @@ public class TreeSetDemo {
 	}
 }
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-Lecture3.7 Sorting Elements of TreeMap with Lambda Expression
+Lecture 18. Sorting Elements of TreeMap with Lambda Expression
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+package JavaLambdaExpression01;
+
+import java.util.TreeMap;
+
+public class TreeMapLamdaEx {
+	public static void main(String[] args) {
+		TreeMap<Integer, String> m = new TreeMap<Integer, String>((I1, I2) -> (I1 > I2) ? -1 : (I1 < I2) ? 1 : 0);
+		m.put(100, "Durga");
+		m.put(600, "Sunny");
+		m.put(300, "Bunny");
+		m.put(200, "Chinny");
+		m.put(700, "Vinny");
+		m.put(400, "Pinny");
+		System.out.println(m);
+
+	}
+}
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-Lecture3.8  Sorting of Our own class objects with Lambda Expression
+Lecture 19. Sorting of Our own class objects with Lambda Expression
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
