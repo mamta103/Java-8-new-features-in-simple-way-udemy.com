@@ -1,0 +1,186 @@
+#1. What is JQuery?
+Jquery is a light weight, write less do more , javaScript library.
+libraies contains a set of functions(resuable function)created by java Script.
+
+
+#2. Why jquery?
+Jquey takes a lot of common taks that requires many kline of java script code accomplish , and wraps then into method that you can
+call by using methodwith single line.
+
+jquery function are completly browser independent.
+
+  <!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+</head>
+<body>
+	<div id="test"></div>
+	
+	<script>
+		$(document).ready(function() {
+			$('#test').text("Hello Jquery world!");
+		});
+	</script>
+
+</body>
+</html>
+
+#3.
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+</head>
+<body>
+	<div class="test">I am going to hide Statement of jQuery</div>
+	<button id="hideandseek">Click Me</button>
+	<script>
+            $(document).ready(function() {
+				$('#hideandseek').click(function() {
+					$('.test').hide();
+				});
+			});
+	</script>
+
+</body>
+</html>
+
+#2.jQuery Tutorial in Hindi Part 2: jQuery Selectors in Hindi | jQuery Element, Id, Classes Selectors
+jQuery selectors used to "find" (or select) HTML elements based on their name,Id,class,types, attributes, value of attributes and
+many more.
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+</head>
+<body>
+	<p class="test1" style="background-color: #0CF86D; color: white;">
+		Teaching is a very noble profession that shapes the character,
+		caliber, and future of an individual. If the people remember me as a
+		good teacher, that will be the biggest honour for me.</p>
+	<br>
+
+	<p id="test2" style="background-color: #0CBFF8; color: white;">I
+		have seen many storms in my life. Most storms have caught me by
+		surprise, so I had to learn very quickly to look further and
+		understand that I am not capable of controlling the weather, to
+		exercise the art of patience and to respect the fury of nature.</p>
+	<br>
+
+	<ul>
+		<li style="background-color: #F80C70; color: white;">Culture
+			makes people understand each other better. And if they understand
+			each other better in their soul, it is easier to overcome the
+			economic and political barriers. But first they have to understand
+			that their neighbour is, in the end, just like them, with the same
+			problems, the same questions.</li>
+		<br>
+		<li style="background-color:; color: #D40CF8;">We're born alone,
+			we live alone, we die alone. Only through our love and friendship can
+			we create the illusion for the moment that we're not alone.</li>
+
+	</ul>
+	<button id="hideandseek"
+		style="background-color: #0C17F8; color: white; border: none; padding: 10px;">Click
+		Me</button>
+	<script>
+$(document).ready(function() {
+	$('#hideandseek').click(function() {
+		$('p').hide();
+	});
+	
+});
+
+</script>
+
+
+</body>
+</html>
+
+note->
+#1.
+for hiding paragraph ->
+	<script>
+$(document).ready(function() {
+	$('#hideandseek').click(function() {
+		$('p').hide();
+	});
+	
+});
+
+</script>
+
+#2.
+on the basis of class ->
+	<script>
+$(document).ready(function() {
+	$('#hideandseek').click(function() {
+		$('.test1').hide();
+	});
+	
+});
+
+</script>
+#3.
+to hide first list of ul
+<script>
+$(document).ready(function() {
+	$('#hideandseek').click(function() {
+		$('li:first').hide();
+	});
+	
+});
+
+</script>
+
+#3. jQuery tutorial in Hindi Part 3: jQuery CSS Tutorial in Hindi | jQuery Multiple CSS Methods
+using multiple line css in jquery->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Jquery CSS</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+</head>
+<body>
+	Syntax: css("propertyname", "value");
+	<br>
+	<a href="#" id="anchor">Welcome to Jquery World for fast growing
+		development language</a>
+	<br>
+
+	<button id="jquerycss">Click Me</button>
+	<script>
+		$(document).ready(function() {
+			$('#jquerycss').click(function() {
+				$('#anchor').css({
+					"textDecoration":"none",
+					"backgroundColor":"yellow",
+					"color":"red"
+				});
+			});
+		});
+	</script>
+</body>
+</html>
+
+
