@@ -183,4 +183,113 @@ using multiple line css in jquery->
 </body>
 </html>
 
+#4.jQuery Tutorial in Hindi Part 4: jQuery Advanced Selectors in Hindi
+#1.selector for id button->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+</head>
+<body>
+	<ol>
+		<li>Java</li>
+		<li>Spring Boot</li>
+		<li>Spring Hibernate</li>
+		<li>Angular 2</li>
+	</ol>
+	<button id="btn_id">Click Me</button>
+
+	<script>
+		$(document).ready(function() {
+			$('#btn_id').click(function() {
+				$('*').css("backgroundColor", "yellow");
+			});
+
+		});
+	</script>
+</body>
+</html>
+
+
+#2.Selector 2.now we will see changes for only button background.
+so only  one line we will change and now can se the result only butoon in yellow->  	$(this).css("backgroundColor", "yellow");
+
+
+"
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+</head>
+<body>
+	<ol >
+		<li>Java</li>
+		<li>Spring Boot</li>
+		<li>Spring Hibernate</li>
+		<li>Angular 2</li>
+	</ol>
+	<button id="btn_id">Click Me</button>
+
+	<script>
+		$(document).ready(function() {
+			$('#btn_id').click(function() {
+				$(this).css("backgroundColor", "yellow");
+			});
+
+		});
+	</script>
+</body>
+</html>
+"
+
+#3.Selector 3. hiding after clicking once.
+<button id="btn_id">Click Me</button>
+
+	<script>
+		$(document).ready(function() {
+			$('#btn_id').click(function() {
+				$("[type]").hide("slow");
+			});
+
+		});
+	</script>
+	
+"
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+</head>
+<body>
+	<ol type="1" style="list-style: none;">
+		<li>Index 1.  Java</li>
+		<li>Index 2.  Spring Boot</li>
+		<li>Index 3.  Spring Hibernate</li>
+		<li>Index 4.  Angular 2</li>
+	</ol>
+	<button id="btn_id">Click Me</button>
+
+	<script>
+		$(document).ready(function() {
+			$('#btn_id').click(function() {
+				$("[type]").hide("slow");
+			});
+
+		});
+	</script>
+</body>
+</html>
+"
 
