@@ -230,38 +230,53 @@ so only  one line we will change and now can se the result only butoon in yellow
 
 </head>
 <body>
-	<ol >
-		<li>Java</li>
-		<li>Spring Boot</li>
-		<li>Spring Hibernate</li>
-		<li>Angular 2</li>
+	<ol type="1" style="list-style: none;">
+		<li>Index 0. Java</li>
+		<li>Index 1. Spring Boot</li>
+		<li>Index 2. Spring Hibernate</li>
+		<li>Index 3. Angular 2</li>
 	</ol>
+
+
+	<ol type="1" style="list-style: none;" id="onlyonelist">
+		<li>Index 0. Java</li>
+		<li>Index 1. Spring Boot</li>
+		<li>Index 2. Spring Hibernate</li>
+		<li>Index 3. Angular 2</li>
+	</ol>
+
 	<button id="btn_id">Click Me</button>
 
 	<script>
 		$(document).ready(function() {
 			$('#btn_id').click(function() {
-				$(this).css("backgroundColor", "yellow");
-			});
+				// type 1 Selector:->
+				//$('*').css("backgroundColor","yellow");
 
+				// type 2 Selector:->
+				//$('[type]').hide("slow");
+
+				// type 3 Selector:-> even indexes
+				//$('li:even').css("color", "yellow");
+
+				//type 4 Selector :-> odd indexes
+				//$('li:odd').css("color","red");
+
+				//type 5 Selector:->
+				//$('li:first-child').css("color", "blue");
+
+				//type 6 Selector:->only one row in second list so it will find by id="onlyonelist" rest all wou;d be same 
+				//$('#onlyonelist li:last-child').css("color", "green");
+				
+				//$('#onlyonelist li:nth-child(2)').css("color","blue");
+				
+				$('#onlyonelist li:nth-last-child(3)').css("color","red");
+
+			});
 		});
 	</script>
 </body>
 </html>
-"
-
-#3.Selector 3. hiding after clicking once.
-<button id="btn_id">Click Me</button>
-
-	<script>
-		$(document).ready(function() {
-			$('#btn_id').click(function() {
-				$("[type]").hide("slow");
-			});
-
-		});
-	</script>
-	
 "
 <!DOCTYPE html>
 <html>
@@ -292,4 +307,49 @@ so only  one line we will change and now can se the result only butoon in yellow
 </body>
 </html>
 "
+
+#5.jQuery Tutorial in Hindi part 5: jQuery Events in Hindi
+"Events":->  all the different visitors actions that a web page can respond to are called events.
+             or
+	     An event represent the precise moment when something happens.
+	     
+	     example:-> 
+	     Moving a mouse over an element.
+	     Selecting a radio button.
+	     clicking an event.
+	
+e.g->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Jquery Events</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+</head>
+<body>
+	<p>Lorem Ipsum is simply dummy text of the printing and typesetting
+		industry. Lorem Ipsum has been the industry's standard dummy text ever
+		since the 1500s, when an unknown printer took a galley of type and
+		scrambled it to make a type specimen book. It has survived not only
+		five centuries, but also the leap into electronic typesetting,
+		remaining essentially unchanged. It was popularised in the 1960s with
+		the release of Letraset sheets containing Lorem Ipsum passages, and
+		more recently with desktop publishing software like Aldus PageMaker
+		including versions of Lorem Ipsum.</p>
+
+	<button id="btn_id">Click Me</button>
+	<script>
+		$(document).ready(function() {
+			$('#btn_id').click(function() {
+              $('p').css("color","blue");
+			});
+		});
+	</script>
+</body>
+
+
+</html>
+
 
