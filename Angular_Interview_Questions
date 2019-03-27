@@ -1,0 +1,29 @@
+Question::
+what is angular2?
+Ans::
+1.angular 2 is a java script framework for developing web applications.
+2.it is well suited framework for mobile application.
+3.angular 2 is simpler, faster, modular, and instrumented.
+4.the angular 2 using "Traceur" compiler.
+5.google , microsoft joins hands to develope angular2 on type script.
+
+Question::
+why to use angular2?
+Ans::
+1.its ahead of time compilation(AOT) which improves rendering speed.
+2.in angular 2 user can update large data in short time.
+3.angular 2 speed up initial load through server side rendering.
+4.lazy loading::
+Lazy loading is a technique in Angular that allows you to load JavaScript components asynchronously when a specific route is activated. This can add some initial performance during the initial load, especially if you have many components with complex routing.
+5.better syntax and application structrue.
+
+
+Question::
+
+Ans::
+
+
+Question::
+
+Ans::
+
