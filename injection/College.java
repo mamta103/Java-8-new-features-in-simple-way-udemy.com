@@ -5,19 +5,19 @@ import org.springframework.stereotype.Component;
 @Component
 public class College {
 	private Principal principal;
+	private Teacher teacher;
 
-	//Constructor Dependency Injection Approach
-	/*public College(Principal principal) {
-		super();
-		this.principal = principal;
-	}*/
+	public void setTeacher(Teacher teacher) {
+		this.teacher = teacher;
+	}
 
-		public void setPrincipal(Principal principal) {
+	public void setPrincipal(Principal principal) {
 		this.principal = principal;
 	}
 
 	public void test() {
 		principal.PrincipalInfo();
 		System.out.println("CollegeConfig test method:: ");
+		teacher.teach();
 	}
 }

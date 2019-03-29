@@ -10,6 +10,7 @@ public class CollegeConfig {
 	public College getCollegeBean() {
 		College college = new College();
 		college.setPrincipal(principalBean());
+		college.setTeacher(getMathTeacherBean());
 		return college;
 
 	}
@@ -17,5 +18,11 @@ public class CollegeConfig {
 	@Bean
 	public Principal principalBean() {
 		return new Principal();
+	}
+
+	@Bean
+	public MathTeacher getMathTeacherBean() {
+		return new MathTeacher();
+
 	}
 }
