@@ -1,0 +1,123 @@
+	TO RUN SPRING BOOT, WE HAVE TO DO :
+i) MAVEN/GRADDEL has to initialize
+ii) Have to download the required project from 'SpringInitializer' website.
+iii) Import the downloaded project to the eclipse.
+iv) Perform " mvn clean, mvn eclipse:eclipse, mvn spring-boot:run "
+
+WHAT IS mvn spring-boot:run ?
+	To run spring boot application.
+
+WHAT IS ' mvn package ' command ?
+	generate both ' .class ' file and ' war ' files.
+	
+	
+
+SPRING BOOT
+--> Spring Boot is a brand new platform for rapid spring development from the team at Pivotal, designed to simplify the bootstrapping and development 
+	of a new Spring application. The framework takes an opinionated approach to configuration, freeing developers from the need to define boilerplate 
+	configuration.
+--> BootStrapping :  When a JVM starts up, a special chunk of machine code runs that loads the system classloader. This machine code is known as the 
+	Bootstrap / Primordial (or sometimes - Null) class-loader. It is not a Java class at all, as are all other classloaders.
+--> Boilerplate code: In computer programming, boilerplate code or boilerplate refers to sections of code that have to be included in many places with 
+	little or no alteration. It is often used when referring to languages that are considered verbose, i.e. the programmer must write a lot of code to
+	do minimal jobs.
+--> Spring boot takes help of maven or gradle to run the code.
+
+WHAT DOES SPRING BOOT PROVIDES OVER SPRING ?
+	i. Folder structure
+	ii. Embedded tomcat
+	iii. We can run directly in eclipse in main() or we can run using JAR command  (cmd -> ' java -jar ' )
+	iv. No need to use XML
+	v. If we provide Actuator, it collects all details of application i.e., how many methos, classes etc
+	vi. build tool + dependencies
+	vii. Production ready features
+	
+FLOW OF HOW DEPENDENCIES DOWNLOADED IN SPRING BOOT 
+	
+	Pom.xml -> Parent (Spring boot) xml -> central repository -> download jars
+	
+Note : Web application generate "war" files. So by seeing "war" we can identify it as web application.
+	   
+WHAT IS AUTO-DEPENDENCY RESOLUTION IN SPRING BOOT ?
+	Whatever files or jars we need for developing web application, it will automatically downloaded
+from the server.
+
+WHAT IS SPRING BOOT CLI ?
+	CLI mean Command Line Interface. Usually used for developing simple and small applications. We didn't used it.
+	
+SPRING BOOT CONTAINS 
+	ACTUATOR : Provides production ready features 
+	Spring boot starter : Declared in pom.xml 
+	Spring boot Auto Configurator : Provides auto configuration files(jar/etc)
+	
+Note : Spring boot works with help of build tool (MAVEN, GRADLE). It takes help of maven/gradle to run the code.
+
+WHAT IS SPRING BOOT AUTO-CONFIGURATION ?
+	Spring boot auto configuration is used by spring boot framework to provide auto-configuration. Auto configurer is one of component in spring 
+boot which contain web.xml and spring xml. Spring boot uses these two xml and done auto configure.
+
+WAHT IS MEANT BY Spring BOOT ACTUATOR 
+	Actuator contain production ready features. It provides management end points(url's) to see application internals, metrics. It says how our 
+application runs in server.
+
+MAVEN
+--> It is an inbuilt build tool.
+--> It runs in command prompt. So in Maven we work mostly in Command Prompt.
+--> By using Maven we can execute or run any application.
+--> MAVEN contain pom.xml which contain dependencies.
+--> BUILD FAILURE
+	-> In command prompt if we run a command and got the error with 'BUILD FAILURE' that means our command is executed but it need any other file to run.
+		So the command is not working.
+--> We need to configure maven, in order to work it in any folder, just like 'cls' command work in any place of command prompt. So we set the environment
+	variable path to maven. Path is upto bin in maven.
+
+TO EXECUTE AN APPLICATION IN CMD PROMPT, WE USE THE FOLLWING STEPS	
+Note : While running your application, we have set the command prompt path to that applicationName --> go upto pom.xml file
+--> MVN clean 
+	-> We use it in cmd prompt, to clean the project and also download the JAR files required for this project/Application to run.
+
+--> mvn eclipse:eclipse
+	-> Used to setting up environment and 
+	
+--> mvn spring-boot:run
+	--> For running the application.
+	
+Note : Here while running the application, the maven will download its own tomcat from net and assign it to the current application. The tomcat which is
+	   already available in our system is not used to run the application. So while running the application we no need to specify application name.
+	   Directly we can give the 'request' url. Thats the main difference between normal and spring boot.
+	   
+SAVE OPERATION USING SPRING BOOT
+i) main class 
+	@ComponentScan for controller and service methods
+	@EnableJspRepository for dao
+	@EntityScan for pojo
+	
+ii) POM file
+iii) DAO
+	  ->Extends JPARepository<pojo,Primarykey>
+iv) Properties of JPA, as we are using JPA
+v) Create database schema, tables are automatically created based on pojo properties.
+
+
+NUMBER AND MEANING
+201 : CREATED
+401 : FILE NOT FOUND
+200 : OK
+500 : Internal Server error
+
+WHY WE ARE TAKING "openSession()" but not creating "SessionFactory s = new Session() "
+	Because we no need to write logic for creation of Session object and all the details required to set the session.
+	SessionFactory abstracts the complex logic to create object i.e., session object. Here FactoryMethod is one of design pattern we use for it.
+
+
+GENERAL EXCEPTIONS
+1) java.net.BindException : Address already in use : bind
+	i) Here the port number is already in use.
+	
+2) Failed to load http://localhost:8080/orderController/: Response to preflight request doesn't pass access control 
+	check: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+		i) Check whether you wrote cross-origin in controller class
+	
+SPRING BOOT INTERVIEW QUESTIONS :
+http://www.javainuse.com/spring/spring-security-interview-questions
+http://www.javainuse.com/spring/SpringBootInterviewQuestions

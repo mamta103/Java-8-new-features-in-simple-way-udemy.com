@@ -1,0 +1,1000 @@
+									SPRING INTRODUCTION
+What is meant by spring in Java?
+--> The Spring Framework is an application framework and inversion of control container for the Java platform. The framework's core features can be used
+	by any Java application, but there are extensions for building web applications on top of the Java EE (Enterprise Edition) platform
+			
+What is annotation?
+		An annotation is a form of syntactic metadata that can be added to Java source code.[1] Classes, methods, variables, parameters and packages 
+	may be annotated.
+	
+What is the use of annotations in spring?
+--> In general, annotations allow you to add metadata to a class, method or variable. An annotation can be interpreted by the compiler 
+	(for example, the @Override annotation) or by a framework such as spring (for example, the @Component annotation)
+
+What is meant by dependency injection in Spring?
+--> Dependency Injection (DI) is a software design pattern that implements inversion of control for resolving dependencies. An injection is 
+	the passing of a dependency to a dependent object that would use it. DI is a process whereby objects define their dependencies
+
+What do you mean by weaving in spring?
+--> In Spring AOP makes it possible to modularize and separate logging, transaction like services and apply them declaratively to the 
+	components. Hence programmer can focus on specific concerns. Aspects are wired into objects in the spring XML file in the way as JavaBean. This 
+	process is known as 'Weaving'.
+
+What is the bean in spring?
+--> Bean is an object.
+--> A bean is created for a class.
+--> We can create multiple beans for a single class. 
+--> Multiple beans can be created for one class, but only one object is created for one bean reference when using 'id'.
+--> @controller, @service, @bean etc can be used to create a bean/object without using bean in xml.
+--> We can create beans in 4 ways to a class i.e., by using "xml, annotations, sterio types and "
+--> A bean is an object that is instantiated, assembled, and otherwise managed by a Spring IoC container. These beans are created with the configuration 
+	metadata that you supply to the container. For example, in the form of XML <bean/> definitions which you have already seen in the previous chapters.
+	
+	-> If we are creating objects using setter methods, the process of creating bean for multiple classes is different. 
+		If service is depending on DAO i.e., service is having DAO injection. Here injection is done by using Setter. Here first service object is 
+		created. i.e., first object is created and then it is injected.
+		In service life cycle, first instantiation is going to happen, then injection happens.
+	-> If we are creating object using constructor, the process of creating bean for multiple classes is different. 
+		If service is depending on DAO. If service is depending on DAO i.e., service is having DAO injection. Here injection is done by using Constructor. 
+		Here both creation of object and injection is done at same time.
+	
+Note : In spring we can do configuration by using XML and by Java class approach.
+
+LIFE CYCLE OF A BEAN
+i) Instantiation
+	-> Means object creation.
+	-> Constructor is called here.
+
+ii) Injection 
+	-> Means population creation.
+	-> It simply means injection.
+
+iii) Calling the BeanNameAware() if we override it by implementing 'BeanNameAware' interface
+	 -> We use this when we are implementing interface 'BeanNameAware'
+	 -> Spring bean life cycle call this method.
+	
+iv) BeanFactoryAware
+	-> We use it, by implementing 'BeanFactoryAware'
+	-> Contains set of objects.
+	-> By implementing this interface we can use any of its object.
+	
+v) ApplicationContextAware
+	-> ApplicationContextAware is on top of BeanFactory. But in ApplicationContextAware contains many features like listeners, reading property files etc.
+	-> We can implement both interfaces(ApplicationContextAware, BeanFactory) at a time in our class as per requirement.
+
+vi) It is available in pre-initializing bean
+	-> AfterPropertiesSet()
+
+vii) Initialization Part
+	 -> We can initialize in two ways.
+		i) We implement interface 'InitializingBean', which is simply called as init(). For bean implemented InitializingBean, it will implement a method 
+			afterPropertiesSet() after all bean properties have been set.
+		Example : https://www.mkyong.com/spring/spring-initializingbean-and-disposablebean-example/
+		
+		ii) By implementing a method and configuring it in xml
+			public void method-name() . . .
+			Now in XML file we have to configure method like this " <bean id="" class="" init-method="method-name"> "
+			
+viii) BeanPostProcessor
+	  -> We use this by implementing the interface 'BeanPostProcessor'
+	  -> We implement this 'BeanPostProcessor' in a separate class.
+	  -> In BeanPostProcessor every bean will come here. 
+	  -> For every bean 'PostProcessBeforeInitialization' and 'PostProcessAfterInitialization' is executed here.
+	  -> Ex: If we want to provide a common logic for entire life cycle and which can be used by every bean, then we write that logic here.
+
+ix) post-initialization 
+
+--> After this, the bean is ready to use.
+	
+	
+Note : Difference between name and id in a bean 
+		-> <bean id="xyz"> mean we can provide only single reference when using id.
+		-> <bean name="abc, xyz, pqr"> mean we can provide multiple references when using name.
+
+DISPATCHER SERVLET
+--> Every request in spring must first come to Dispatcher Servlet i.e., the capability of receiving a request is having only to Dispatcher Servlet.
+--> This request is forwarded to controller.
+
+
+CONTROLLER
+--> We can make a class as controller by specifying "@Controller" above a class name.
+--> What is @controller annotation in spring?
+		@Controller annotation is an annotation used in Spring MVC framework (the component of Spring Framework used to implement Web Application). ... 
+	These classes (or its methods) are typically annotated also with @RequestMapping annotation that specify what HTTP Request is handled by the 
+	controller and by its method.
+--> Contains Model and View.
+--> It returns view as well as data.
+
+	
+Note : In spring, <servlet-name> in web.xml file and spring configuration file name must be same with suffix " -servlet.xml ".
+	 
+		
+What is the use of Applicationcontext in spring?
+--> ApplicationContext is one form of IoC container.
+--> Applicationcontext is a factory. It is a factory of beans.
+--> The ApplicationContext is the central interface within a Spring application for providing configuration information to the application. ... Bean 
+	factory methods for accessing application components. The ability to load file resources in a generic fashion. The ability to publish events to 
+	registered listeners.	
+	
+What is the difference between dependency injection and inversion of control?
+--> IOC (Inversion Of Controller): Giving control to the container to get an instance of the object is called Inversion of Control., means instead of 
+	you are creating an object using the new operator, let the container do that for you. ... In the first line "IoC is also known as dependency 
+	injection (DI)".
+
+Can we inject interface in spring?
+--> "Note that interface-based dependency injection isn't supported by the Spring Framework. This means that we need to specify which concrete 
+	implementation to inject for a certain interface." ... Interface Injection(E.g Avalon, Spring does not support it). Spring supports only 
+	constructor and setter based injection.
+	
+ABSTRACT
+--> Here we declare one bean as parent where that data is common to everyone and reuse that bean at every bean.
+
+Example :
+	<bean id="IamParentUsedByEveryone" class="com.abc.vyd" parent="">
+	<property name="name" value="ABC">
+	<property name="age" value="21">
+	</bean>
+
+	<bean id="stud2" class="com.abc.vyd" parent="IamParentUsedByEveryone">
+		<property name="id" value=2> //For id=2, we use above values only
+	</bean>
+
+	<bean id="stud3" class="com.abc.vyd" parent="IamParentUsedByEveryone">
+		<property name="id" value=3>
+	</bean>
+
+	
+DEPENDS-ON 
+--> If there are two classes depending on one bean, then we use 'depends-on'
+	Ex: If student and DAO are depending on service, we can specify on dependency with 'depends-on' and another with 'property-name' as done below.
+
+i)	<bean id="serv" class="com.abc.vyd">
+		<property name="dao" ref="dao">
+	</bean>
+	
+	<bean id="dao" class="com.abc.vyd"></bean>
+	
+	Here Service is depending on DAO. So first object is created for DAO and later created for Service.
+	
+ii)	<bean id="serv" class="com.abc.vyd"depends-on="dao">
+		<property name="dao" ref="dao">
+	</bean>
+	
+	<bean id="dao" class="com.abc.vyd"></bean>
+	
+	Here Service is depending on DAO but we specified 'depends-on'. So first object is created for service and later created for dao.
+	
+iii) <bean id="serv" class="com.abc.vyd"depends-on="student">
+		<property name="dao" ref="dao">
+	</bean>
+	
+	<bean id="dao" class="com.abc.vyd"></bean>
+	 
+	Here Service depends on Student indirectly but Service also depending on DAO directly. In direct dependencies scenario, spring can identify it.
+	
+DESTROY-METHOD
+--> Used to destroy customized method.
+
+SESSION-OBJECT
+--> It is an implementation class of Session interface.
+--> openSession()
+		If we do openSession() we get session object. If an object is available then we can implement all the logic in this openSession().
+--> openSession() is a instance factory method i.e., by using class-name we are creating object.
+
+Factory-Method
+--> If we want to implement only a specific logic or our own logic in a particular method and want to execute only that particular method, then we go
+	for this 'Factory-Method'.
+--> We can call that particular method what we want to execute.
+--> Factory-Method bean-id are reusable.
+--> Two type of Factory methods :
+	i) Static Factory Method
+	ii)Instance Factory Method
+
+--> Using Factory-Method we can call above two methods.
+	
+Example 1 :
+	public class factoryTest{
+	static public OurSession test() {
+	System.out.print("Factory test . . .");
+	OurSession obj = new OurSession();
+	. . . .
+	 . . . .
+	  . . . . .
+	return obj;
+	}
+	}
+	
+	<bean id="obj" class="com.xyz.factoryTest" factory-method="test"></bean>
+
+
+Exampe 2 : 
+		public class FactoryInstance {
+		public FactoryInstanceTest getObject() {
+		FactroyInstance obj = new FactoryInstance();
+			. . .
+			 . . .
+			  . . . 
+		 return obj;
+		  }
+		  }
+			  
+	<bean id="a1" class="com.xyz.FactoryInstance"></bean>
+		<bean id="a2" factory-bean="a1" factory-method="getObject"></bean>
+	
+LAZY LOADING
+--> If we specify like below, then all the beans are LazyLoading
+<beans default-lazy-loading="true">
+. . . .
+ . . . .
+  . . . 
+  </beans>
+--> In Lazy Loading only that specific bean is loaded what we have specified. So only if specific beans are loaded then it is lazy loading
+--> Example : XMLBeanFactory, by using this we can load a specific bean we need.
+
+EAGER LOADING
+--> By default all the beans are Eager loading.
+--> Here all beans get directly loaded at time when we run the application.
+--> In below case, all the beans are lazy loaded execpt the bean id=2, because we specified it as false. So it is eager loaded.
+--> Example : ApplicationContext, when we use ApplicationContext we can see all the objects are loaded at a time.
+
+
+IN BEANS 
+
+--> default-autowire-candidates
+
+--> 
+<beans default-lazy-init="true">
+. . . .
+ <bean id="1" class=". . . "></bean>
+ <bean id="2" lazy-init="false"></bean>
+ <bean id="3" class=". . ."></bean>
+  . . . 
+  </beans>
+
+--> properties file 
+	-> properties are used in two ways
+		i) softcoding purpose
+		ii) configuration purpose
+	
+	-> Generally used by creating a 'property file'.
+	-> For example, after completing development of an application we give it for testing. To do testing they need property details which are to be 
+		changed. So instead of changing properties again an again, testers create new properties file and connect application for testing.
+		
+	Example :
+				in properties file :
+						db.driver=com.mysql.jdbc.driver
+						db.url=jdbc:mysql://localhost:3306/. . .
+						db.id=root
+						db.password=root
+				
+				<bean id="" 
+					<property name="driver" value="$db.driver">
+					<property name="url" value="">
+					<property name="id" value="$db.id">
+					<property name="password" value="">
+				</bean>
+				
+				<bean class="org.springframework. . ." id="propertySourcesPlaceHolder">
+					<property name="locations" value="classpath:properties-filename">
+				</bean>
+ 
+ 
+SCOPE
+--> There are 5 types of scopes available :
+	i. singleton
+	ii. prototype
+	iii. request
+	iv. session
+	v. global-session
+
+	
+i. Singleton
+	Note: In singleton, for one container/class we can have exactly one object. In bean it is only one object per one bean.
+		  Object per class mean, per one class-student, there is only one object.
+		  Object per bean mean, per one bean for a class, we can have number of references like below.
+		  
+	--> If <bean scope="singleton"></bean>
+	--> Standalone and web app this ;singleton' is by default.
+
+		  class xyz {
+		  void anv() {
+		  ApplicationContext context = new XMLApplicationContext();
+		  DAO d1 = ()DAO context.getBean("obj");
+		  DAO d2 = ()DAO context.getBean("obj");
+		  DAO d3 = ()DAO context.getBean("obj");
+		  DAO d4 = ()DAO context.getBean("obj");
+		  
+		  System.out.print(d1+d2+d3+d4);
+		  }
+		  }
+		  
+		  O/P : @123@123@123@123 //Same object hashcode is printed as one bean is stored in different references.
+		
+		Here d1,d2,d3 and d4 are different references but contain same object.
+		
+	--> By default scope for bean is 'singleton'.
+
+ii. Protoype
+	--> If <bean scope="prototype"></bean>
+	--> This is not used at controller, because controller is called only once. So we use it at service/Dao. Because multiple objects are created here.
+		If we use like this, then multiple objects are created for single bean.
+		
+		class xyz {
+		  void anv() {
+		  ApplicationContext context = new XMLApplicationContext();
+		  DAO d1 = ()DAO context.getBean("obj");
+		  DAO d2 = ()DAO context.getBean("obj");
+		  DAO d3 = ()DAO context.getBean("obj");
+		  DAO d4 = ()DAO context.getBean("obj");
+		  
+		  System.out.print(d1+d2+d3+d4);
+		  }
+		  }
+		  
+		  O/P : @123@453@163@459 //Different object hashcode is printed as one bean is stored in different references but different objects are created as 
+				we specified 'scope="prototype" in the bean.
+
+iii. Request 				
+	--> If <bean scope="request"></bean>
+
+		-> Here for every request from the browser, new bean is created.
+		-> Generally used in web applications
+		
+
+iv. Session 		
+	--> If <bean scope="session"></bean>
+
+		-> Here it is used only for web applications.
+		-> As session is only one for particular user, we use this in web applications.
+	
+v. global-session
+	--> Usually used for portlet applications.
+	
+			
+DIFFERENCE BETWEEN NORMAL SINGLETON AND SPRINGSINGLETON
+--> Normal singleton is one object per class.
+--> Spring singleton mean, one class can have multiple beans.
+
+Example : Here we are injecting same dao bean to different service beans. But Bean Dao scope="singleton". Output is same objects with same hashcode.
+			<bean id="dao" scope="singleton" class="com.abc.Dao"></bean>
+			
+			<bean id="studentservice" class="com.abc.StudentService">
+				<constructor-arg ref="dao">
+			</bean>
+
+			<bean id="studentservice2" class="com.abc.StudentService">
+				<constructor-arg ref="dao">
+			</bean>
+			
+			
+Example : Here we are injecting same dao bean to different service beans. But Bean Dao scope="prototype". Output is different objects with different hashcode.
+
+			<bean id="dao" scope="prototype" class="com.abc.Dao"></bean>
+			
+			<bean id="studentservice" class="com.abc.StudentService">
+				<constructor-arg ref="dao">
+			</bean>
+
+			<bean id="studentservice2" class="com.abc.StudentService">
+				<constructor-arg ref="dao">
+			</bean>
+			
+Note : In web application we can use four types of scopes "singleton, prototype, request and session"
+	   In portlet application i.e., portal servers(just like servlet) we can use scopes like global, 
+	   
+Note : We can declare scope by using annotations like "@scope("/singleton/session/request/prototype")"
+
+				CONTROLLER						SERVICE							ACCEPT
+			i) scope="singleton"			i) scope="singleton"				  Yes
+		   *ii) scope="singleton"			ii) scope="request"				  	   No
+		   *iii) scope="singleton"			iii) scope="Session"			  	   No
+			iv) scope="prototype"			iv) scope="Session"				  	   Yes
+			iii) scope="request"			i) scope="Session"				  	   Yes
+			
+	Example:
+			@controller
+			@scope("request")
+			class controllerclass {
+			. . . . .
+			private service s;
+			. . . .
+			}
+			
+			@service
+			@scope("session")
+			class serviceclass {
+			. . . .
+			 . . .
+			 }
+	
+
+DIFFERENCE BETWEEN SETTER AND CONSTRUCTOR INJECTIONS
+SETTER
+--> In Setter or Getter properties/arguments are not mandatory.
+--> Cyclic dependency(class A dependens on class B and vice versa) works in Setter.
+--> To create mutable objects we have to go for setter methods.
+	-> Service object is mutable (We can change/modify data) when we are using setter.
+
+CONSTRUCTOR
+--> Properties/Arguments are mandatory in case of constructor
+--> In constructor, cyclic dependency(class A dependens on class B and vice versa) is not possible.
+--> When we call constructor, everytime new object is created but old object is not effected. So to create immutable object we use constructor.
+
+NOTE : In general a bean is thread safe. i.e., if any modifaction done on 'one-bean' then it should not effect other beans.
+
+DIFFERENT MODULES IN SPRING
+--> MVC, AOP, Security, ORM, JDBC, IOC, TXS e.t.c
+
+
+INTERNATIONALIZATION
+	-> To do internationalization steps are:
+		i) Take group of property files having same baseName (i.e., app_en.properties, app_fr.properties, app_ge.properties)
+		ii) In jsp use spring:message tag and provide keys to display the language
+		iii) Configure LocaleChangeInterceptor and provide paramName
+		iv) Configure CookieLocalResolver
+		v) Provide links to change the language in jsp with paramName and value.
+		
+	-> Here our pages can be converted into other languages.
+	-> To do so, there is a concept called 'softcoding'
+			In properties file
+				login.user=user
+				login.password=password
+			
+			In jsp, we have to import "spring-tag library" to make our option dynamic like below
+				<spring_ref:message code="login.user"><input type="text" name="user"></spring_ref>
+				<spring_ref:message code="login.password"><input type="password" name="pass"></spring_ref>
+				
+			We have to define a bean
+				<bean id="messageSource" class="RelodableResourceBundleMessageSource">
+					<property name="basename" value="classpath:"
+				</bean>
+	
+	Note : Locale object will change from browser to server. If we provide multiple properties files for multiple language options, then based on 
+		   language selected by user in the browser, that particular properties file is opened.
+				But here the user going to browser settings and changing the language is quite complex. So to avoid such situation we use interceptor.
+		
+		In jsp We provide <a href="?lang=en">English</a> //Here the property name is 'lang'
+						  <a href="?lang=fr">French</a>
+						  
+		In disp-servlet : <mvc:interceptors> //Interceptor will check every request
+							<bean class="....i18n.LocalChangeInterceptor">
+								<property name="paramName" value="lang"/> //Every time when user sends the request, it check whether it has 'lang' property or not.
+						  </mvc:interceptors>
+						  
+		Now we have to store the request for through out the application access
+				<bean id="localResolver" class="CookieLocalResolver"> //This is responsible for checking cookie and going to that particular resolver
+				</bean> //If anyone changing the language, then cookie will store that information.
+				
+		FLOW OF INTERNATIONALIZATION
+		
+			i) UI request goes to Interceptor
+			ii) Interceptor checks for parameter name and if available it saves in Cookie
+			iii) In JSP spring tag lib will contact cookieLocalResolver and checks for parameter 
+			iv) If parameter available, then it execute that file else default is set.
+		
+ 		
+
+TO WRITE SAMPLE SPRING PROGRAM, WE NEED :
+
+i) Setting JAR Files
+ii) Dispatcher servlet
+iii) Controller class
+
+TO CONNECT TO DATABASE WE NEED
+i) dataSource object
+	--> DataSource is a pre-defined class by Spring.
+	--> DataSource is group of database connections. By using DataSource the performance will be improved, because we can reuse the connections.
+	--> DataSource contains connectivity properties which are needed to connect to database. ie., url/username/password/driverclass
+ii) sessionfactory
+	--> To create SessionFactory object, we need
+		a) dataSource b) annotated/mapping classes c) hibernate related properties
+	--> hibernate
+	  --> Hibernate contains properties with '<props>'
+
+iii) hibernate template
+	 --> Hibernate template need SessionFactory to connect.
+	
+	
+Note : & is normal condition, ie., it checks for both conditions even if one condition is true or false
+			Ex : if(a>5 & b<10) here it checks for both conditions even if 'a' condition is false.
+	   && mean clever condition i.e., if first condition false, then it wont go for second condition
+			Ex : if(a>5 & b<10) here if 'a' condition is false, then it wont go for 'b' condition.
+	
+Context.cfg 
+
+-->
+In general : If we want to create reference for "Manager class" the process is :
+				Manager m = new Manager();
+				
+				Where 'm' is reference.
+
+In Spring : The above process is done by :
+
+<bean id="sessionfactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+ 	<property name="dataSource" ref="bds"/>
+ 	<property name="hibernateProperties">
+ 		<props>
+ 			<prop key ="hibernate.show_sql">true</prop>
+ 			<prop key ="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+ 			
+ 		</props>
+ </property>
+ <property name="packagesToScan" value="com.slokam.ing.pojo"/>
+ 		
+ 	
+ </bean>
+ 
+ 
+ NOTE :
+		In general Controller requires service object, service require DAO object and Dao requires its specific connectivity/template object(DataSource,
+	SessionFactory e.t.c) and that template require xml file with its properties , mapping files . . .
+	
+				Controller --> Service --> DAO --> Template object --> XML
+	
+	i) To configure SessionFactory template in spring with hibernate, we need "AnnotationSessionFactory" bean.
+			"org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean"
+		SessionFactory consists the properties of datasource, hibernate properties, property name.
+	ii) To configure DataSource template we need "
+	iii) To configure Jdbc template we need "
+ 
+ 
+ ANNOTATIONS 
+ 1. Object is automatically created for 
+			@Repository(Generally used for DAO class), 
+			@Controller(Generally used for Controller class),
+			@Service(Generally used for Service class),
+			@Component(Generally used for other classes)
+ 
+ 2. @Repository
+	class sample {
+	. . .
+	}
+		Here an object is automatically created for this class-sample.
+		
+ 3. @AutoWired
+	private class-name class-ref;
+	
+		Here, created bean is automatically injected in this class-ref.
+	
+	Example : 
+				class sample {
+				
+				@AutoWired
+				private LoginDao ld;
+				
+				}
+				
+	What is Autowiring? What are the different modes of Autowiring?
+	--> Marks a constructor, field, setter method or config method as to be autowired by Spring's dependency injection facilities. Only one 
+		constructor (at max) of any given bean class may carry this annotation, indicating the constructor to autowire when used as a Spring bean.
+	--> In spring framework, setting bean dependencies in configuration files is a good practice to follow, but the spring container is also able to 
+		autowire relationships between collaborating beans. ...
+			i) Autowire byName 
+			   --> It is by Setter Injection.
+			   
+				Example: If reference names are same, then AutoWired is by byName i.e.,
+				
+				void Service{ 			void Dao {
+				public Dao d;			Syso();
+				}						}
+				
+				In xml : <bean id="d" class="xyz.Service"/>
+				
+				Here in service i.e., Dao reference 'd' and in bean 'id' both the reference names are same, so "AutoWired By Name" is possible here.
+				
+			ii) Autowire byType 
+				Example: Here even if the names are different, but the datatype or type is same, then injection is possible.
+				--> It is by Setter Injection.
+			
+				void Service{ 			void Dao {
+				public Dao d;			Syso();
+				}						}
+				
+				In xml : <bean id="da" class="xyz.Service"/>
+				
+				Here in service i.e., Dao reference 'd' and in bean 'id' the reference names are different, so "AutoWired By Name" is not-possible here
+				but AutoWiredByType is possible.
+				
+				<bean id="xyz" class="com.xyz" autowire="ByType">
+				
+			iii)Autowire by constructor 
+				--> If we specify this, it first checks "AutoWiredByName, if not found, then checks AutoWiredByType"
+				Example: 
+				
+			iv) Autowire by autodetect example.
+				
+			
+	Note : When doing @AutoWired, first it will check the AutoWiredByName, if didnt matched then checks it based on AutoWiredByType, if didnt matched 
+			then check AutoWiredByConstructor.
+				If <bean id="xyz" class="com.xyz" autowire="default">, then it get bean from super-tag("<beans .../>"). So what the super-tag contains, 
+			here also we must specify same name.
+				If <bean id="xyz" class="com.xyz" autowire="no">, then it wont accept any bean name.
+			In autowiring if we specify <bean primary="true" id="xyz" class="com.abc" parent="pqr">, so if primary="true" we can resolve UniqueKeyException.
+			If bean autowire-candidate="false" id="xyz" class="com.abc" parent="pqr">, if autowire-candidate="false", this particular bean is not 
+			participating in @Autowire
+ 
+ 4. @Transactional
+	--> Works only for save, update and delete.
+	--> @Transactional requires TransactionalManager to perform its task.
+	--> @Transactional generally implemented in Service class.
+	--> If TransactionaManager HibernateTransactionManager it depends on SessionFactory.
+	    If TransactionaManager is DataSourceTransactionManager it depends on DataSource. and e.t.c
+		
+	--> " <tx:annotation-driven/> " is the driven we used. To use this driven we need to import a tag 
+				
+				http://www.springframework.org/schema/tx
+				http://www.springframework.org/schema/context/spring-tx-3.1.xsd">
+				xmlns:tx="http://www.springframework.org/schema/tx"
+				
+	@Transaction
+	--> In between transaction open and close there may happen alot of operations.
+	--> So one transaction can have multiple operations.
+		Ex : If a person is withdrawing money from ATM, after clicking cash-withdrawal button, the transaction opens, but if in between power fails..!
+			 then that transaction has to roll-back. If cash-withdrawal is success then all his used details has to updated and transaction has to close.
+	--> From above example it is clear that, after opening a transaction and before closing transaction  things like commit, roll-back etc may happen.
+	--> By using 'transaction' we can do multiple operations and later we can select what to do i.e., commit or roll-back.
+		
+	Note : In @Connection if we use con.setAutoCommit(false); then it will wait for us for the option(commit/roll-back).
+
+	i) Using 'transaction' in hibernate 
+			tx tx = session.beginTx;
+			if success, tx.commit;
+			if fail, tx.roll-back;
+	ii) Using 'transaction' in jdbc
+	
+						
+
+
+		
+ 5. ModelAndView
+	--> Used to return data to UI in Spring.
+		
+			Sx : 
+		
+ 6. Internal Resource View Resolver
+	--> We use this for implementing "Loosely coupled nature" in our code.
+	--> It contains 3 properties "JstlView", "prefix", "suffix"
+	
+	Example : 	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+					<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"></property>
+					<property name="suffix" value="/WEB-INF/jsp"></property>
+					<property name="prefix" value=".jsp"></property>
+				</bean>
+	
+	Note : If we use "time-libs: in place of InternalResourceViewResolver, then we cant able to change controller layer.
+	
+ 7. @Transient
+	--> If we declare as @Transient, then that property or column is not related with database and JVM just check values we passed to that property.
+	
+ 8. What is meta-data?
+	
+ 9. redirect: "name.do" 
+		It will redirect entire page with data to that controller.
+		
+ 10. What is " fetch=FetchType.EAGER " ?
+ 
+ 11. What is meant by Configuration ?
+		Providing information to the server or e.t.c. Configurations can be provided by using "XML, Annotations and Property files"
+		
+ 12. How can we provide security in spring.
+	   We can provide security by configuring a file :
+		
+		TO PROVIDE SECURITY OR AUTHENTICATION FOR A LOGIN FILE, THE FOLLOWING STEPS NEED TO FOLLOWED :
+			i) Filter 
+					Its for providing security. The first page loaded when we run the code.
+			ii) Listener
+					To run the code, we need to execute XML. If controlling first goes to filter, then code wont execute. So we write listener and load 
+				 the XML to run our code.
+			iii) context-param
+					
+					
+				Note: The process of loading the application is " WEB.XML --> Filter --> Dispatcher-Servlet "
+		
+			iv) Writing 'Security:form-login' in 'dispatcher-servlet.xml'
+			
+	Note: XML in Spring is loaded by DispatcherServlet. That's the reason we provide same name for both the files.
+		 --> We use ContextListener for loading xml file in spring. As first request goes to filter and XML wont get executed. So use ContextListener
+			 for loading XML file.
+ 
+ 
+ 13. For giving dynamic access for user authentication, we need 3 classes as below
+		i) A class which implements 'UserDetailsService'
+				This class is for storing user data and for implementing logic.
+				
+		ii) A pojo class which implements 'UserDetails'
+				
+		iii) A pojo class which implements 'GrantedAuthority'
+				This is for proving authority to the users
+ 
+Spring tag-library
+ 1. In jsp we use <form. . .></form>, here default method is get, but int spring tag-library we use <form:form . . .></form:form> and default method 
+	is 'post'.
+
+ 2. commandName
+	--> commaneName="attribute-ref"
+	--> Here attribute 'attribute-ref' contains a pojo class in backend. So it can accept any value or property or object from that particular class.
+
+ 3. Id:: <form: input path="id">
+	--> Here 'path' acts like a value and name just like in jsp.
+	
+
+NOTE : A .jsp file runs on server and its output is in form of HTML. This HTML is runned on a browser.	
+	
+FILE OPERATIONS
+1. enctype="multipart/form-data"
+	--> It can accept any file(video/images/text e.t.c) while performing any operations.
+2. Steps to upload a file
+	i) CommonsMultiPartResolver class in Dispatcher-servlet
+	ii) Controller class for file operations
+	ii) jsp or anything for UI part
+	
+
+
+TILES
+--> If we want to keep same-thing or same view on every page in our application then we go for this concept.																	HTML
+--> '.' specifies current page.
+--> '.." specifies super class page or folder.
+--> '.' or '..' generally used to specify path.
+		Ex: "..\images\hai.jpg"
+--> In TILES concept, controller will return the page to 'Definition' in web.xml. But previously to TILES controller will return to .jsp file.
+		
+NOTE : Above two are technically called as "Relative Path".
+	  --> If there are no '.' while specifying a path, then its called "as Absolute path"
+			Ex: src\images\hai.jpg
+	  
+FOR IMPLEMENTING TILES, WE NEED 
+1. In disp-servlet.xml file we need " tilesView, UrlBasedViewResolver and tilesConfigurer " and in tilesConfigurer we map web.xml file.
+
+		Ex : <bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+				<property name="viewClass" value="org.springframework.web.servlet.view.tiles2.TilesView"/>
+			</bean>
+   	
+			<bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
+				<property name="definitions">
+					<list>
+						<value>/WEB-INF/tiles-def.xml</value>
+					</list>
+				</property>
+			</bean>
+
+2. We need tiles.xml file where we specify 'Definitions'
+		Ex: <?xml version="1.0" encoding="UTF-8"?>
+			<!DOCTYPE tiles-definitions PUBLIC  
+			"-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"  
+			"http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+        
+			<tiles-definitions>
+
+			<definition name="loginTilesView" template="/WEB-INF/jsp/UI_Layout.jsp"> <!-- This 'name' has to match with 'setViewName' in controller class -->
+				<put-attribute name="header" value="/WEB-INF/jsp/UI_Header.jsp"/>
+				<put-attribute name="footer" value="/WEB-INF/jsp/UI_Footer.jsp"/>
+				<put-attribute name="rightMenu" value="/WEB-INF/jsp/Login.jsp"/>
+				<put-attribute name="topNavigationMenu" value="/WEB-INF/jsp/UI_TopMenu.jsp"/>
+				<put-attribute name="leftMenu" value="/WEB-INF/jsp/UI_LeftMenu.jsp"/>
+		
+			</definition>
+
+3. In controller, 'setViewName' has to match with 'name' in 'definition' in web.xml file.-
+
+VALIDATIONS
+--> Two types of validations are there :
+	i) Client side
+	ii) Server side
+--> Client side validations can be done in jsp file or in controller file. Here .jsp file validations can be bipassed by a hacker easily. So it is 
+	recommended to write validations in the controller.
+
+--> If we want to apply validation for particular filed say for 'Name' field, we need :
+		i) @valid BindingResult ref
+		ii) @ModelAttribute("command-name")
+		iii) Receive this error message in required jsp page
+		
+	Note : @NotBlank means having some kind of data. It might be space or something.
+		   @NotEmpty means without any data.
+		   
+	USER DEFINED VALIDATIONS
+	--> Regular or User defined expressions has 3 types of brackets
+	--> [] indicates possible group of characters
+	--> {} indicates quantification i.e., size or limit or etc
+	--> () indicates or used for logical grouping
+	--> '.' dot specifies any character
+	--> [A-Z]* Here you can give anything, even zero is valid. So you can give zero or more.
+	--> [A-Z]+ Here you can give surely one or more else invalid
+	--> [A,Z] {2-5} Range is from 2 to 5
+	--> ([ABC]4) Here user has to give any of 3 characters and 4 number for sure.
+	--> ([ABC]4) | ([DXC]2) called as logical grouping. Here user has to give any of 3 charaters and its related number for sure.
+			Ex : A4 is valid
+				 X2 is valid
+				 C2 is invalid
+				 
+ 
+ Synchronous request : Only one request is sent at a time and page is reloaded everytime.
+ Asynchronous request : Multiple requests is sent at a time and page is not reloaded everytime. Asynchronous request work just like a thread.
+ 
+ --> AJAX mean Asynchronous JavaScript and XML. So sending types of request is AJAX.
+ --> Json represent data or object in { } (flower brackets). Simply "key and value" pair is a Json.
+	 --> Here we get output in form of key-value pair i.e.
+		 Ex : [{"id":3,"name":"Sahi","age":25,"gender":"female"}]
+	 --> If there is pojo object, we get data in form of array of multiple Json objects. i.e., [ {}, {}, {} . . . ]
+		 Ex : [{"id":3,"name":"Sahi","age":25,"gender":"female"},{"id":4,"name":"Surya","age":24,"gender":"male"}]
+ 
+ DIFFERENCE BETWEEN @Controller and @RestController
+ --> @RestController
+	 --> Directly returns data do browser.
+	 --> Here browser is called as 'consumer' as data is displayed in browser and that particular method where @RestController called is known as producer.
+	 --> Producer return data in form of Json(Array, Pojo, Map e.t.c)
+	 --> @RestController dosent have any UI. It only returns data.
+	 --> Here the communication is between an application(Consumer) and data servers(Producer).
+	 --> As @RestController returns only data, an application will contact or call this @RestController and collects data and display the data in 
+		 their application as per their requirement.
+	 --> Example : Google display weather information on our screen. Here Google Application call or connect with @RestController and collects data 
+		 and display that information on our UI screen. Here Google is a client and technically called as Consumer and @RestController called as Producer.
+	 --> @RestController can be called from any client or application or technology i.e., Java, .Net, Android, IOS, JSP, Php e.t.c
+	 --> Here data is exchanged or communicated in any form i.e., xml, jsp , Json e.t.c But the popular approach is Json.
+	 --> Json is lite weight when compared to any other approaches.
+	 --> Even though we are sending only data in @RestController, but in backend it returns 3 things :
+		 i) Response or Responde body which contain data.
+		 ii) Header
+		 iii) Response code or status code which contain status error number i.e., 404, 402, 501 e.t.c
+	 --> If we are trying to get data from different applications, then we get crossOriginError. So in order to avoid that exception we use "@"
+	 
+			
+ 				
+CALLING A CONSTRUCTOR
+
+--> Here it will call matching two argumented constructor in particular class. Below is two argumented constructor.
+	<bean>
+		<constructor-arg ref="dao"> //Here this reference has to match with previously mentioned <bean id="dao" . . .>
+		<constructor-arg ref="ser">
+	</bean>
+ 
+--> Here it will call matching three argumented constructor in particular class. Below is three argumented constructor.
+	<bean>
+		<constructor-arg ref="dao"> //Here this reference has to match with previously mentioned <bean id="dao" . . .>
+		<constructor-arg ref="ser">
+		<constructor-arg ref="con">
+	</bean>
+
+
+ General Exceptions
+ 1. Exception in thread "main" java.lang.IllegalStateException: BeanFactory not initialized or already closed - call 'refresh' before accessing beans 
+	via the ApplicationContext
+		i) We get this error,if we didnt mentioned "xml" file in classPath. . .
+			Invalid : ApplicationContext ac = new ClassPathXmlApplicationContext();
+			valid : ApplicationContext ac = new ClassPathXmlApplicationContext("file-name.xml");
+		ii) In case if you are implementing tiles, check whether you wrote only "tilesView, UrlBasedViewResolver and tilesConfigurer" an not 
+			"InternalResourceViewResolver". If you write both of them, then it wont work and gets this error.
+	
+2. Exception in thread "main" org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'cont' defined in class path 
+   resource [SpringContext.xml]: Cannot resolve reference to bean 'serv' while setting bean property 'sc'; nested exception is 
+   org.springframework.beans.factory.NoSuchBeanDefinitionException: No bean named 'serv' is defined
+		We get this exception when in "xml" file, if reference and id didnt matched.
+
+3. Exception in thread "main" org.springframework.beans.factory.BeanDefinitionStoreException: IOException parsing XML document from class path 
+   resource [SpringContext.xml]; nested exception is java.io.FileNotFoundException: class path resource [SpringContext.xml] cannot be opened because
+   it does not exist
+		We get this exception 
+		i)if we pasted "file-name.xml" in wrong path or in wrong folder.
+
+4.  org.springframework.beans.NotWritablePropertyException: Invalid property 'dataSourse' of bean class [org.springframework.jdbc.core.JdbcTemplate]: 
+	Bean property 'dataSourse' is not writable or has an invalid setter method. Did you mean 'dataSource'?
+		We get this exception when there is spellig mistake 
+		Valid : dataSource
+		Invalis : datasource or any other
+
+5. nested exception is org.springframework.beans.NotWritablePropertyException: Invalid property 'dataSourse' of bean class [org.springframework.jdbc.
+   core.JdbcTemplate]: Bean property 'dataSourse' is not writable or has an invalid setter method. Did you mean 'dataSource'?
+		We get this exception when 
+		  i) there is no setter() for that reference 
+		  ii) there is spelling mistake.
+
+6. java.lang.ClassNotFoundException: com.slokam.pojo.LoginPojo
+		i) Check whether mapping pojo class is correct or not.
+		
+7. java.lang.IllegalStateException: Neither BindingResult nor plain target object for bean name 'surya' available as request attribute
+		i) Check whether 'commandName="surya" ' you gave is correct or not in controller or any other page
+		
+8. org.springframework.beans.NotReadablePropertyException: Invalid property 'type' of bean class [com.slokam.pojo.LicPojo]: Bean property
+	'type' is not readable or has an invalid getter method: Does the return type of the getter match the parameter type of the setter?
+		i) Check whether property in jsp is matched with property in pojo class.
+		ii) Didnt provide proper setter and getter methods.
+		iii) Spelling mistake.
+		iv) Not having column in database.
+		v) Property may not follow naming conventions.
+		
+9. java.lang.IllegalArgumentException: 'items' must not be null
+		i) Check whether we are getting list from database correctly or not.
+
+10. com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Table 'springupendrasir.jobs' doesn't exist
+		i) Check whether table name you mentioned is correct or not.
+
+11. java.io.FileNotFoundException: Could not open ServletContext resource [/WEB-INF/uri-servlet.xml]
+		i) Check whether the <servlet-name> in web.xml file is matching with "dispatcher" servlet name. Here the error is <servlet-name> is 'uri' but 
+		   the dispatcher-servlet.xml file name is different.
+
+12. java.lang.IllegalStateException: Neither BindingResult nor plain target object for bean name 'puli' available as request attribute		   
+		i) See the pojo attribute you gave in JSP is correct or not.
+		ii) For first instance, we need to display plain / empty page. See whether you wrote "mv.addObject("customerCommand", new CustomerRegistrationPojo());"
+			in the controller or not.
+		
+13. javax.el.PropertyNotFoundException: Property 'id' not found on type java.lang.String
+		i) Check whether the attribute-name in controller and what you gave in .jsp file is correct or not.
+		ii) Check whether the attribute-name in controller and what you gave in .jsp file is correct or not and is prefixed with '${att-name}'
+		
+14. java.lang.IllegalArgumentException: id to load is required for loading
+		i) check in .jsp page whether the format or name or attribute is correct or not.
+			Ex : <td><a href="getbyid.do?id="${obj.id}">${obj.name}</a></td>  //Here we specified wrong double quotes in the middle.
+
+15. RequestResoure not found
+		i) Check name of the file you specified is correct or not.
+		
+16. IllegalStateException : call-refresh . . .
+		i) We get this error,if we didnt mentioned "xml" file in classPath. . .
+			Invalid : ApplicationContext ac = new ClassPathXmlApplicationContext();
+			valid : ApplicationContext ac = new ClassPathXmlApplicationContext("file-name.xml");
+		ii) In case if you are implementing tiles, check whether you wrote only "tilesView, UrlBasedViewResolver and tilesConfigurer" an not 
+			"InternalResourceViewResolver". If you write both of them, then it wont work and gets this error.
+		
+17. org.springframework.beans.factory.xml.XmlBeanDefinitionStoreException: Line 72 in XML document from ServletContext resource 
+	[/WEB-INF/PracticeDispatcher-servlet.xml] is invalid; nested exception is org.xml.sax.SAXParseException; lineNumber: 72; columnNumber: 20; 
+		The prefix "security" for element "security:http" is not bound.
+		i) Check whether you imported the security package in dispatcher-servlet.xml
+				Ex : 
+				
+18. java.lang.ClassCastException: java.lang.String cannot be cast to org.apache.tiles.Attribute (IN TILES)
+		i) Change attribute 'value' to 'name' in .jsp page
+			<tiles_ref:insertAttribute value="header"></tiles_ref:insertAttribute> is wrong
+			<tiles_ref:insertAttribute name="header"></tiles_ref:insertAttribute> is correct
+
+19. MethodDefinitionNotFound, ClassDefinitionNotFound, DefinitionNotFound
+		i) Maximum there is a JAR file missing in this case.
+		
+20. Could not resolve view with the name 'xyz' in 'disp-serv'
+		i) Check whether 'definition' is present in 'tiles-def.xml'
+		
+21. 400 - error
+		i) Data types are mis-matched
+
+22. NoRowWithGivenIdentifier
+		i) Check whether the database values are not null
+		ii) Check coloumn name in database table and pojo class are same.
+		
+23. If you are searching based on criteria and if you are getting all the data, where condition is not performing, check whether you exactly gave 
+	'!=' or '!' or '==' at the exact place.
+
+
+23. org.springframework.beans.BeanInstantiationException: Failed to instantiate
+		[org.springframework.validation.BindingResult]: Specified class is an interface
+		i) Check whether the order you wrote the 'BindingResult' is correct or not.
+			Ex : public ModelAndView saveContest(@ModelAttribute("contestAttPuli")  @Valid  BindingResult binres, ContestPojo cp) --> Invalid
+					{ . . . }
+					
+				public ModelAndView saveContest(@ModelAttribute("contestAttPuli")  @Valid ContestPojo cp, BindingResult binres) --> Valid
+					{ . . . }
+
+24. IllegalArgumentException: 0 formal unbound pointcut
+		i) Here first we have to take object, next JoinPoint . . . 
+		
+25. Request resource is not found 
+		i) Check whether you kept '.do' at the end of a reference.
+		ii) Check all the bean properties and its id and its references are matching with each other.
+		
+26. org.springframework.dao.InvalidDataAccessResourceUsageException: could not extract ResultSet; SQL [n/a]; nested exception is 
+		org.hibernate.exception.SQLGrammarException: could not extract ResultSet
+				i) Check whether coloumn names are exactly same in pojo and in database table.
+				
+27. What if your buttons or options are not functioning in js?
+		i) See whether you implemented "<script type="text/javascript" language="JavaScript" src="js/openPageOnclick.js"></script>" file or not.
+
+28. javax.servlet.ServletException: Could not resolve view with name ' Sahi Surya' in servlet with name 'PracticeDispatcher'
+		i) Check whether you wrote '@ResponseBody' above the specified method.
+		ii) Check whether you wrote 'setViewName()' in the specified method. . .
+		
+29. NoUniqueKeyBeanDefinitionException :
+		i) Bean name specified is wrong or the name is not available i.e., bean names are not unique at both the places. Generally caused when writing
+			any one of the @Autowiring process.
+				In autowiring if we specify <bean primary="true" id="xyz" class="com.abc" parent="pqr">, so if primary="true" we can resolve 
+			UniqueKeyBeanDefiException.
+				If <bean autowire-candidate="false" id="xyz" class="com.abc" parent="pqr">, so if autowire-candidate="false" we can resolve this 
+			UniqueKeyBeanDefiException.
+			
+30. javax.servlet.jsp.JspTagException: No message found under code 'login.user' for locale 'en_IN'.

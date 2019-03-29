@@ -1,0 +1,402 @@
+SPRING SECURITY
+--> To implement spring security, we have to do :
+		In web.xml
+		-> DelegatingFilterProxy
+		-> ContextLoaderListener
+		-> ContextParam
+		
+		In dispatcher-servlet/spring-config file :
+		-><security:intercept-url pattern="/login.do access="isAnonymous()"> //As we dont need any security to login, we use intercept-url.
+			<security:intercept-url pattern="/xyz.do access="authenticated">
+		-> security:http
+		-> <security: form-login
+				login-page, lagin-processing url, username-parameter,password-parameter,default-target-url,authentication-failure-url"
+		-> <security:logout
+				logout-url,logout-success-url,invalidate-session"
+		-> <security:authentication-manager>
+				<security-authentication-provider user-service-ref >
+							or
+				<security:user-service>
+					<security:user name=>
+
+--> How we get name of a login user ?
+		We can read username from security like below :
+			SecurityContextHolder.getContext().getAuthentication().getName();
+			
+--> Authentication failure handler?
+--> Authentication success handler?
+
+INTERVIEW QUESTIONS :
+1. What is the delegating filter proxy?
+	Spring’s DelegatingFilterProxy provides the link between web.xml and the application context.
+	Ex : <filter>
+		 <filter-name>myFilter</filter-name>
+			<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+		 </filter>
+		 <filter-mapping>
+		 <filter-name>myFilter</filter-name>
+			<url-pattern>/*</url-pattern>
+		 </filter-mapping>
+		 
+2. What is <filet-class> in DelegatingFilterProxy ?
+		 The filter classes are also Spring beans defined in the application context and thus able to take advantage of Spring’s rich 
+	dependency-injection facilities and lifecycle interfaces.
+		Each Spring security filter bean that require in your application you have to declare in your application context file.
+	We know that filters would be applied to application only when they would be declared on web.xml.
+	
+3. What is FilterChainProxy ?
+		FilterChainProxy lets us add a single entry to web.xml and deal entirely with the application context file for managing our web security beans.
+		
+4. Mandatory Filter Name Main Purpose?
+
+		SecurityContextIntegrationFilter – Establishes SecurityContext and maintains between HTTP requests
+		LogoutFilter – Clears SecurityContextHolder when logout requested
+		UsernamePasswordAuthenticationFilter – Puts Authentication into the SecurityContext on login request
+		ExceptionTranslationFilter – Converts SpringSecurity exceptions into HTTP response or redirect
+		FilterSecurityInterceptor – Authorizes web requests based on on config attributes and authorities
+		
+5. Are you able to add and/or replace individual filters?
+		Yes. Spring Security maintains a filter chain internally where each of the filters has a particular responsibility and filters are added or 
+	removed from the configuration depending on which services are required.
+
+6. Why do you need the intercept-url?
+	Intercept-url element is used to define the set of URL patterns that the application is interested in and to configure how they should be handled.
+
+		Example : <intercept-url pattern='/secure/**' access='ROLE_A,ROLE_B'/>
+		
+7. In which order do you have to write multiple intercept-url’s?
+		When matching the specified patterns defined by element intercept-url against an incoming request, the matching is done in the order in which 
+	the elements are declared. So the most specific patterns should come first and the most general should come last.
+
+	Example :
+		<intercept-url pattern='/secure/a/**' access='ROLE_A'/>
+		<intercept-url pattern='/secure/b/**' access='ROLE_B'/>
+		<intercept-url pattern='/secure/**' access='ROLE_USER'/>
+
+8. Why do you need method security? What type of object is typically secured at the method level.
+	Spring Security uses AOP for security at the method level
+	 – annotations based on Spring annotations or JSR-250 annotations
+	 – Java configuration to activate detection of annotations
+	It typically secure your services
+	 – Do not access repositories directly, bypasses security (and transactions)
+
+9. Is security a cross cutting concern? How is it implemented internally?
+		Yes, Spring Security is a cross cutting concern. Spring security is also using Spring AOP internally.
+		
+10. What do @Secured and @RolesAllowed do? What is the difference between them?
+		@Secured and @RolesAllowed both annotation provide method level security in to Spring Beans. Spring Security provides the support for JSR 250 
+	annotation as well for method level security. @RolesAllowed provides role based security only.
+
+11. What is a security context?
+		Security context in Spring Security includes details of the principal currently using the application. Security context is always available to
+	methods in the same thread of execution, even if the security context is not explicitly passed around as an argument to those methods.
+	
+12. How is a Principal defined?
+		Inside the SecurityContextHolder we store details of the principal currently interacting with the application. Spring Security uses an 
+	Authentication object to represent this information.
+
+	Example :
+	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+	if (principal instanceof UserDetails) {
+	String username = ((UserDetails)principal).getUsername();
+	} else {
+	String username = principal.toString();
+	}
+	
+13. What is authentication and authorization? Which must come first?
+
+	Authentication – Establishing that a principal’s credentials are valid
+	Authorization – Deciding if a principal is allowed to perform an action
+		Authentication comes first before Authorization because authorization process needs princial object with authority votes to decide user allow 
+	to perform a action for secured resource.
+
+14. Does Spring Security support password hashing? What is salting?
+		Yes, Spring Security provides support for password hashing. The salt is used to prevent dictionary attacks against the key in the event your 
+	encrypted data is compromised.
+	
+	Note : In Spring Security tutorial, we will discuss about Password Hashing or Encoding through SHA hashing algorithm. In last Spring Security form 
+		   login example, the password is stored in clear-text, it is vulnerable to attack. In practice, recommend to hash your password before storing
+		   them.
+		   -> Spring Security supports following hashing algorithms : "plaintext, sha, sha-256, md5 and md4"
+		   -> https://www.dineshonjava.com/spring-security-password-hashing/
+	
+15. Spring Security Custom Error Message 
+	--> Spring Security stored messages in “messages.properties” inside “spring-security-core.jar“
+	--> To override it, find which key generate what error message in spring security message.properties file, and redefine it with your own 
+		properties file.
+	--> https://www.dineshonjava.com/spring-security-custom-error-message/
+	
+
+16. What Is Mandatory Filter Name Main Purpose?
+
+	SecurityContextIntegrationFilter – Establishes SecurityContext and maintains between HTTP requests
+	LogoutFilter – Clears SecurityContextHolder when logout requested
+	UsernamePasswordAuthenticationFilter – Puts Authentication into the SecurityContext on login request
+	ExceptionTranslationFilter – Converts SpringSecurity exceptions into HTTP response or redirect
+	FilterSecurityInterceptor – Authorizes web requests based on on config attributes and authorities
+	
+17. Which Filter Class Is Needed For Spring Security?
+		org.springframework.web.filter.DelegatingFilterProxy.
+		
+18. What Are Access Controls In Spring Security?
+
+		To access the account list, you must be authenticated.
+		The files in the directory "/secure" should only be visible to authenticated users.
+		The files in the directory "/secure/extreme" should only be visible to Supervisors.
+		Withdrawal and deposits can be made only by Tellers and Supervisors.
+		Overdraft limit for an account can be exceeded only by Supervisors.
+		
+19. How To Restrict Static Resources Processed By Spring Security Filters?
+		< http pattern="/static/**" security="none" / >
+		
+20. From The Applications Perspective, How Many User Roles Needed In Spring Security?
+
+		Three user roles are there in spring.
+
+		i) Supervisors
+		ii) Tellers
+		iii) Plain Users
+		
+21. Will Spring Security Secures All The Applications?
+
+		No, in web application, we need to do some more things to secure full application to save from attackers.
+		
+22. How To Add Security To Method Calls Made On Spring Beans In The Application Context?
+
+		< global-method-security pre-post-annotations="enabled" / >
+		
+23. Which Java And Spring Version Are Needed For Spring Security?
+
+		Spring security 3.0 and jdk 1.5.
+		
+24. What Are All Security Layers In Spring Security Framework?
+
+		Authentication
+		Web request security
+		Service layer and domain object security
+		
+25. When I Login In The Application Where Spring Security Is Applied And Got The Messages "bad Credentials". What Is Wrong?
+
+		Authentication has failed for the given userid and password.
+		
+26. When I Try To Login, Application Goes In Endless Loop. What Is Wrong?
+
+		It happens when login page is secured resource. Login page should not be secured, it should be marked as ROLE_ANONYMOUS.
+		
+27. How is Security mechanism implemented using Spring?
+		Spring makes use of the DelegatingFilterProxy for implementing security mechanisms. It is a Proxy for standard Servlet Filter, delegating to 
+	a Spring-managed bean that implements the Filter interface. Its the starting point in the springSecurityFilterChain which instantiates the Spring 
+	Security filters according to the Spring configuration
+		
+28. Features of Spring Security ?
+		Comprehensive and extensible support for both Authentication and Authorization
+		Protection against attacks like session fixation, clickjacking, cross site request forgery, etc
+		Servlet API integration Optional integration with Spring Web MVC
+		
+29. How to configure DelegatingFilterProxy ?
+A: In the web.xml we add the DelegatingFilterProxy which is delegating proxy to automatically intercept a URL with a particular pattern to apply 
+	spring security.
+    
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+30. How to configure Spring Security using Spring MVC?
+		This authentication can be achieved in number of ways. One way is to use web.xml security where roles are defined. However some part of this
+	security implementation depends on the application server used. 
+		For example Tomcat checks to see that the sent username and password match a user entry in tomcat-users.xml. Thus according to the application
+	server used, the changes would have to be done.
+		Also only if one application server is to be used, still for each instance of the application server these changes would have to be done. 
+	Using Spring Security Authentication this is not the case. As spring security is part of the war file, it is independent of the application server.
+
+	Steps are :
+		a) To the pom.xml add the spring security dependencies
+		b) In the security-config.xml we specify the url to be intercepted
+		c) In the web.xml we add the DelegatingFilterProxy which is delegating proxy to automatically intercept a URL with a particular pattern 
+		   to apply spring security.
+	
+	Link to refer : http://www.javainuse.com/spring/sprsec_authprovider
+	
+31. How to configure Spring Security using Spring Boot? 
+		In the Maven we only need the spring-boot-starter-security dependency.Maven will be as follows :
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-security</artifactId>
+				<scope>test</scope>
+			</dependency>
+			
+	Thus by just adding the spring boot security starter dependency the basic security has already been configured by default.
+			
+		Customize the security configuration by writing our own authorization and authentication. For this create a new class SecurityConfig that 
+	extends the WebSecurityConfigurerAdapter and overrides its methods.
+	
+32. What is the difference between ROLE_USER and ROLE_ANONYMOUS in a Spring intercept url configuration?
+
+		ROLE_ANONYMOUS is the default role assigned to an unauthenticated (anonymous) user when a configuration uses Spring Security's "anonymous 
+	authentication" filter . This is enabled by default. However, it is probably clearer if you use the expression isAnonymous() instead, which has 
+	the same meaning.
+	
+		ROLE_USER has no meaning unless you assign this role to your users when they are authenticated (you are in charge of loading the roles 
+	(authorities) for an authenticated user). It isn't a name that is built in to Spring Security's infrastructure. In the given example, presumably 
+	that role is assigned to an authenticated user.
+	
+33. What's the difference between @Secured and @PreAuthorize in spring security?
+		If you wanted to do something like access the method only if the user has Role1 and Role2 the you would have to use 
+	--> @PreAuthorize @PreAuthorize("hasRole('ROLE_role1') and hasRole('ROLE_role2')") 
+	--> @Secured({"role1", "role2"}) is treated as an OR
+	
+34. Which filter class is needed for spring security?
+	In case we are using XML file we need to configure org.springframework.web.filter.DelegatingFilterProxy in web.xml and if we are using Servlet 3, 
+we can use AbstractSecurityWebApplicationInitializer. It configures DelegatingFilterProxy and ContextLoaderListener. In web.xml we define as follows.
+		<filter>
+			<filter-name>springSecurityFilterChain</filter-name>
+			<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+		</filter>
+		<filter-mapping>
+			<filter-name>springSecurityFilterChain</filter-name>
+			<url-pattern>/*</url-pattern>
+		</filter-mapping> 
+		
+35. How to configure user name and password in spring security using XML?
+	In spring context XML using <user> tag, we define username and password within <user-service> tag.
+		<authentication-manager>
+			<authentication-provider>
+				<user-service>
+					<user name="concretepage" password="con1234" authorities="ROLE_USER" />
+				</user-service>
+			</authentication-provider>
+		</authentication-manager> 
+		
+36. How to encode password in spring security using XML?
+Ans: To encode password, spring security provides <password-encoder/> tag. Find sample use.
+		<authentication-manager>
+		  <authentication-provider>
+			<password-encoder hash="sha"/>
+			<user-service>
+			  <user name="concretepage" password="0733824cc1549ce36139e8c790a9344d1e385cd2"
+					authorities="ROLE_USER" />
+			</user-service>
+		  </authentication-provider>
+		</authentication-manager> 
+		
+37. ow to achieve "Remember Me" in spring security?
+	"Remember Me" concept facilitates a user that once the user logged in, next time user need not to login again. This is the user choice whether 
+user wants to get this option or not. There will be a checkbox that can be checked or unchecked to remember the password. Spring security uses a token to perform this task. Spring security provides <remember-me> tag which is used as follows.
+
+		<http auto-config="true">
+				<intercept-url pattern="/login" access="ROLE_USER" />
+			<remember-me key="remMeKey"/>
+		</http> 
+		
+38. How to manage Session in spring security?
+	To manage session we need to use <session-management> tag within <http> tag in our spring context XML.
+		<session-management invalid-session-url="/login" session-fixation-protection="newSession" >
+		   <concurrency-control max-sessions="1" error-if-maximum-exceeded="true" />
+		</session-management> 
+		
+39. How to get user details in spring security?
+	Using UserDetails class we can access user details. To get the instance of UserDetails, we need to use SecurityContextHolder as follows.
+
+	UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+	
+40. How to secure a method in spring security using annotation?
+	Spring security provides @Secured annotation that is annotated at method level.
+	
+		@Secured("ROLE_ADMIN")
+		public void deleteUser(String name); 
+	
+	The above method can only be accessed by ADMIN role.
+	
+	How to enable method level security in spring?
+
+	1. If we are using xml based spring security, we need to use
+
+	<global-method-security secured-annotations="enabled", pre-post-annotations="enabled"/>
+	where secured-annotations attribute is for @Secured and pre-post-annotations attribute is for @PreAuthorize and @PostAuthorize.
+	
+41. How to pre-authorize and post-authorize a method in spring security?
+	To pre-authorize a method we need to annotate it by @PreAuthorize and to post-authorize a method, we need to annotate it by @PostAuthorize in the interface.
+
+		@PreAuthorize ("hasRole('ROLE_WRITE')")
+		public void addBook(Book book);
+		@PostAuthorize ("returnObject.owner == authentication.name")
+		public Book getBook(); 
+
+42. What is the role of @PreFilter and @PostFilter in spring security?
+	@PreFilter and @PostFilter is a strong feature in spring security to filter collection or arrays on the basis of authorization. This can be 
+	achieved using expression-based access control in spring security. @PreFilter filters the collection or arrays before executing method. 
+	
+	@PostFilter filters the returned collection or arrays after executing the method.
+
+		@PostFilter ("filterObject.owner == authentication.name")
+		public List<Book> getBooks();
+		@PreFilter("filterObject.owner == authentication.name")
+		public void addBook(List<Book> books); 
+	
+43. What is the spring security boot?
+		All the spring security JAR dependencies can be resolved in one go by using spring security boot. At the time of writing, the latest version 
+	of spring boot is 1.3.2.RELEASE. 
+
+	1. For gradle
+		compile 'org.springframework.boot:spring-boot-starter-security:1.3.2.RELEASE'
+	
+	2.	and for Maven
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-security</artifactId>
+				<version>1.3.2.RELEASE</version>
+			</dependency> 
+			
+44. What are the new annotations introduced in spring 4 security for JUnit test?
+		@WithMockUser and @WithUserDetails annotations are introduced in spring 4 security for JUnit test . 
+		@WithMockUser annotation allows mock user at server side in spring security JUnit testing. We use it as follows.
+
+			@Test 
+			@WithMockUser(username = "ram", roles={"ADMIN"})
+			public class SpringSecurityTest {} @WithUserDetails annotation provides custom UserDetailsService in spring security JUnit testing and we can use it as follows.
+			@Test
+			@WithUserDetails("ram") 
+			public void testFour() {
+				userService.methodFour();
+			} 
+			
+45. What is the meaning of the message "Access is denied"?
+	User is authenticated but is not authorized for a particular resource, in that case that user gets the message Access is denied. We can authorize user roles for a URL pattern or for specific methods to secure it. When the users whose roles are not authorized for these resources, they get the message "Access is denied".
+
+46. How to use hasRole() and hasAnyRole() in spring security?
+	hasRole(): It checks for the role which is passed as arguments and returns true or false. It checks for role in current principal.
+
+		<http auto-config="true" use-expressions="true">
+			<intercept-url pattern="/login" access="hasRole('ROLE_READ')" />
+		</http> hasAnyRole(): We pass more than one role and it checks for any of them in current principal and returns true or false.
+		<http auto-config="true" use-expressions="true">
+			<intercept-url pattern="/login" access="hasAnyRole('ROLE_READ','ROLE_WRITE')" />
+		</http> 
+		
+47. How to configure user name and password in spring security using XML?
+	In spring context XML using <user> tag, we define username and password within <user-service> tag.
+		<authentication-manager>
+			<authentication-provider>
+				<user-service>
+					<user name="concretepage" password="con1234" authorities="ROLE_USER" />
+				</user-service>
+			</authentication-provider>
+		</authentication-manager> 
+		
+48. How to logout the session in spring security?
+		To logout the session, use j_spring_security_logout as follows.
+			<a href="j_spring_security_logout">logout </a>
+		
+		And in spring context XML , configure <logout > tag for the URL to redirect after logout as follows.
+			<http auto-config="true">
+				<intercept-url pattern="/login" access="ROLE_USER" />
+				<logout logout-success-url="/login" />
+			</http>
+	

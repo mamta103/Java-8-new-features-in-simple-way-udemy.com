@@ -1,0 +1,169 @@
+AOP(Aspect Oriented Programming)
+--> In OOPS there are two ways of reusability of the code
+	i) is-a relationship (inheritance)
+	ii) has-a relationship (object in another object)
+	
+	Note : Splitting logic is called as Aspect. i.e., if we want to know how much time a method is taking to execute, we take start-time in first line
+			of method and end-time in last line of method. Hence we get time. But if there are 1000 methods, then code is repeated at every start and
+			end line of method. Here the code is splitted at every method and is depends on number of lines of each method. To overcome this, we use AOP
+ 
+ TECHNICAL TERMS OF AOP
+ --> Aspect is a class containing splitting logic or multiple advices.
+ --> Every splitting logic is provided by 'Advice'. Here 'Advice' is a method which contains piece of splitting logic.
+ --> Totally 5 advices are there. @Before, @After, @Around, @AfterThrowing and @AfterReturning.
+ --> This @Advice is associated with point-cut or expression, that identifies multiple target methods. Example "execution(*com.slokam.*.*.*(..))"
+ --> Target method is called as Join Point.
+ --> Aspect is a class containing splitting logic or multiple advices.
+ --> Every splitting logic is provided by 'Advice'. Here 'Advice' is a method which contains piece of splitting logic.
+ --> Totally 5 advices explaination :
+		i) @Before
+			runs before the execution of join point methods.
+			
+		ii) @After
+			  gets executed after the join point method finishes executing.
+			  
+		iii) @Around
+				This is the most important and powerful advice. This advice surrounds the join point method and we can also choose whether to execute 
+			the join point method or not. We can write advice code that gets executed before and after the execution of the join point method. It is 
+			the responsibility of around advice to invoke the join point method and return values if the method is returning something.
+			
+		iv) @AfterThrowing 
+				This advice gets executed only when join point method throws exception, we can use it to rollback the transaction declaratively.
+		
+		v) @AfterReturning.
+				Sometimes we want advice methods to execute only if the join point method executes normally. 
+		
+ Note : Weaving is the process of linking aspects with other objects to create the advised proxy objects. This can be done at compile time, load
+		time or at runtime. Spring AOP performs weaving at the runtime.
+		
+ Note : Splitting logic is called as Aspect. i.e., if we want to know how much time a method is taking to execute, we take start-time in first line
+		of method and end-time in last line of method. Hence we get time. But if there are 1000 methods, then code is repeated at every start and
+		end line of method. Here the code is splitted at every method and is depends on number of lines of each method. To overcome this, we use AOP
+
+
+WEAVING
+--> AspectJAutoProxy
+		By writing this, proxy classes / sub-classes are created for our class where we specified this AspectjAutoProxy.
+--> So when controller, service, dao are injected to each other as we specified(i.e., dao reference we specify in service e.t.c), In dao here dao 
+	proxy obj is injected to service proxy/sub class  method. Same repeats for all classes.
+--> Injecting proxy objects as dependencies is called as weaving.
+--> Proxy design pattern mean, in above steps "the proces of creating proxy objects or sub-class objects" use a design pattern called Proxy design pattern.
+
+Example : Lookup method also use Proxy design pattern.
+
+ 
+ON-BLUR event
+ --> It happens in browser.
+ --> Example : If user entered a field, and if he is filling next box, previously filled box has to be verified. Just like in "gmail" email validation.
+	 Usually used this event at such situations.
+
+	 
+INTERVIEW QUESTIONS
+
+1. What is AOP Alliance?
+		AOP Alliance is an open-source project whose goal is to promote adoption of AOP and interoperability among different AOP implementations by 
+	defining a common set of interfaces and components.
+	
+2. What is an Aspect?
+		An aspect is the cross-cutting functionality that you are implementing. It is the aspect of your application you are modularizing. An example 
+	of an aspect is logging. Logging is something that is required throughout an application. However, because applications tend to be broken down 
+	into layers based on functionality, reusing a logging module through inheritance does not make sense. However, you can create a logging aspect 
+	and apply it throughout your application using AOP.
+	
+3. What is a Jointpoint?
+		A joinpoint is a point in the execution of the application where an aspect can be plugged in. This point could be a method being called, an 
+	exception being thrown, or even a field being modified. These are the points where your aspect’s code can be inserted into the normal flow of your 
+	application to add new behavior.
+
+4. What is an Advice?
+		Advice is the implementation of an aspect. It is something like telling your application of a new behavior. Generally, and advice is inserted 
+	into an application at joinpoints.
+	
+5. What is a Pointcut?
+		A pointcut is something that defines at what joinpoints an advice should be applied. Advices can be applied at any joinpoint that is supported 
+	by the AOP framework. These Pointcuts allow you to specify where the advice can be applied.
+	
+6. What is an Introduction in AOP?
+		An introduction allows the user to add new methods or attributes to an existing class. This can then be introduced to an existing class 
+	without having to change the structure of the class, but give them the new behavior and state.
+	
+7. What is a Target?
+		A target is the class that is being advised. The class can be a third party class or your own class to which you want to add your own custom 
+	behavior. By using the concepts of AOP, the target class is free to center on its major concern, unaware to any advice that is being applied.
+
+8. What is a Proxy?
+		A proxy is an object that is created after applying advice to a target object. When you think of client objects the target object and the 
+	proxy object are the same.
+
+9. What is meant by Weaving?
+		The process of applying aspects to a target object to create a new proxy object is called as Weaving. The aspects are woven into the target 
+	object at the specified joinpoints.
+	
+10. What are the different points where weaving can be applied?
+		Compile Time
+		Classload Time
+		Runtime
+
+11. What are the different types of AutoProxying?
+		BeanNameAutoProxyCreator
+		DefaultAdvisorAutoProxyCreator
+		Metadata autoproxying
+		
+12. What is the difference between concern and cross-cutting concern in Spring AOP
+		The Concern is behavior we want to have in a module of an application. A Concern may be defined as a functionality we want to implement.
+	The cross-cutting concern is a concern which is applicable throughout the application and it affects the entire application. For example, logging, 
+	security and data transfer are the concerns which are needed in almost every module of an application, hence they are cross-cutting concerns.
+	
+13. Which are the limitations of the two proxy-types?
+		Spring will create either JDK or CGLib proxies
+
+		JDK Proxy
+			Also called dynamic proxies
+			API is built into the JDK
+			Requirements: Java interface(s)
+			All interfaces proxied
+		CGLib Proxy
+			NOT built into JDK
+			Included in Spring jars
+			Used when interface not available
+			Cannot be applied to final classes or methods
+			
+14. Name three typical cross cutting concerns?
+		Logging, Security and Transaction
+		
+15. Which advice do you have to use if you would like to try and catch exceptions?
+		AfterThrowing
+		
+16.  Limitations of Spring AOP?
+
+		Can only advise non-private methods
+		Can only apply aspects to Spring Beans
+		Limitations of weaving with proxies
+		When using proxies, suppose method a() calls method b() on the same class/interface
+		advice will never be executed for method b()
+		
+17. How does Spring solve (implement) a cross cutting concern?
+
+		Implement your mainline application logic
+		– Focusing on the core problem
+		Write aspects to implement your cross-cutting concerns
+		– Spring provides many aspects out-of-the-box
+		Weave the aspects into your application
+		– Adding the cross-cutting behaviors to the right places
+		
+18.  What does @EnableAspectJAutoProxy do?
+		To enable @AspectJ support with Java @Configuration add the @EnableAspectJAutoProxy annotation:
+
+		@Configuration
+		@EnableAspectJAutoProxy
+		public class AppConfig {
+
+		}
+		
+19. What is a named pointcut?
+		A named pointcut can be declared inside an <aop:config> element, enabling the pointcut definition to be shared across several aspects and 
+	advisors.
+
+	<aop:config>
+		<aop:pointcut id="businessService" expression="execution(* com.xyz.myapp.service.*.*(..))"/>
+	</aop:config>

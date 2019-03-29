@@ -1,0 +1,145 @@
+SPRING ORM(Object Relational mapping)
+--> We used HibernateTemplate in Spring ORM.
+--> To create HibernateTemplate we need " SessionFactory, DataSource, HibernateProperties, Annotated classes ".
+--> If we specify like below, then all the pojo classes in that package are directly scanned.
+		Property-name="packagestToScan" value="package name">
+	
+	Example : See the code what we wrote in DAO using HibernateTemplate.
+	
+--> varArgs using find()
+		ht.find("from Student where name=?"puli","bali","hari"); //Names we specified in called as varArgs
+		
+--> To use criteria in HibernateTemplate we use "DetachedCriteria" without session
+		DetachedCriteria dc = DetachedCriteria.forClass(class-name.class);
+	-> If there is session we directly use criteria.
+	
+	DIFFERENCE BETWEEN CRITERIA AND DETACHEDCRITERIA
+	-> DetachedCriteria can be used/created without using session object. But for normal Criteria to create criteria we need session object.
+	
+	INLINE PAGENATION / INLINE MEMORY PAGENATION USING HIBERNATE TEMPLATE
+	-> If we want to get specified records, we use this.
+	
+	i) Hibernate Approach
+		SessionFactory sf = ht.getSessionFactory(); //This is not correct approach, bcz we have template to do this repeated code task.
+		Session s = sf.openSession()
+		Query q = s.createQuery("from Student");
+		q.setFirstResult(3); //Result start form 3 and gets 2 pages from it
+		q.setMaxResult(2);
+		List<Student> list = q.list();
+		s.close();
+		return list;
+	
+	Note: As sessionfactory is a singleton object and is available only one, we should not close it.
+	
+	ii) HibernateTemplate
+		--> Purpose of HibernateCallBack is , if we are not able to do things/activities with hibernateTemplate(opening session obj, closing session etc),
+			then we use HibernateCallBack and perform our required activities.
+		--> HibernateCallBack is an interface containing a method doInHibernate();
+		--> doInHibernate() is callback method with session object.
+		--> This below code is shortcut of above logic, which is recommended
+			ht.execute(action);
+		
+			class ourHibernateCallBack implements hibernateCallback<List<Student>> {
+			public student doInHibernate(session arg0)throws HibernateException //Here it automatically create session obj , it only close the object later
+			
+				Query q = s.createQuery("from Student");
+				q.setFirstResult(3); //Result start form 3 and gets 2 pages from it
+				q.setMaxResult(2);
+				List<Student> list = q.list();
+		
+				return null;
+		}
+	
+		class xyz
+		{
+		public List<Student> abc() {
+			List<student> list = ht.execute(new OutHibernateCallBack());
+			return list;
+		}
+		} 
+
+		
+INTERVIEW QUESTIONS 
+
+1. WHAT IS entity IN HIBERNATE ?
+	An Entity in hibernate is a java object which hibernate makes it persistent. It is also called POJO i.e plane old java object. To make it an entity
+in hibernate java class is annotated by @Entity.
+
+2. DESCRIBE Identifiers AND Composite identifier IN HIBERNATE ?
+
+Identifiers
+	Identifiers are associated with primary key of a table or it can represent the unique identifier of an instance. To make a property as Identifiers 
+in an entity, annotate that property with @Id. 
+
+Composite identifier
+	Composite identifier represents the composite primary key. Composite identifier can be created in many ways. 
+		a.	Use @EmbeddedId to create a composite identifier. 
+		b.	Multiple properties will be denoted as @Id to make composite identifier.
+
+3. WHAT IS OPTIMISTIC LOCKING IN HIBERNATE ?		
+	In one complete transaction, data is read from database and then do manipulation and save it again. What optimistic locking does here? For every 
+write to database, a version number or timestamp is maintained. A transaction while reading data, also reads the version number and takes other
+calculation with data. And when it saves the data, it checks for version number to be same or different. If different, then it is notified to the
+transaction. A property of an entity is annotated by @Version for optimistic locking.
+
+4. WHAT IS THE ROLE OF @Access IN HIBERNATE ?
+	There are two types of access in hibernate, field and method type. We need to annotate either field or method. We need to follow one approach in 
+full application. Sometimes we need to override the access type. We can do it using the annotation.
+
+	Example :
+			@Access(AccessType.PROPERTY).
+			public int getId() {
+			return id 
+			}
+			
+5. HOW TO USE @Formula IN HIBERNATE ?
+	An entity in hibernate, can have virtual field also which will not represent any column of a table. It can be used to get some calculation.
+@Formula is used as below.
+		@Formula(len*width)
+		public int getArea(){
+		return area;
+		}
+
+6. WHAT IS EMBEDDED OBJECTS OBJECT IN HIBERNATE ?		
+	Embedded objects are also called components. Embedded objects are used inside an entity. Embedded object is declared as a POJO and will be 
+annotated by @Embeddable. Embedded objects represent the same table columns represented by owning entity. The property of an entity is annotated 
+by @Embedded while using Embedded objects.
+
+7. WHAT ARE THE INHERITANCE STRATEFIES IN THE HIBERNATE ?
+	There are three types of inheritance strategy in hibernate. 
+
+	a. Single table per class hierarchy strategy 
+			In this strategy, all the sub class and super class of the hierarchy are persisted only in one table. Use the annotation as 
+		@Inheritance(strategy=InheritanceType.SINGLE_TABLE) 
+
+	b.Joined subclass strategy
+		If each subclass in an inheritance hierarchy, is associated with a table, then it is called Joined subclass strategy. Use the annotation as 
+	@Inheritance(strategy=InheritanceType.JOINED) 
+
+	c.Table per class strategy
+		In this strategy only one concrete class which has been inherited by super class, will be mapped with only one table. Use the annotation 
+	@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+	
+8. DESCRIBE NATURAL ID IN HIBERNATE ?
+	A property or the combination of properties which are unique and not null, can be used as natural id. Natural id is annotated by @NaturalId.
+	
+9. What are object/relational mapping integration module?
+		Spring also supports for using of an object/relational mapping (ORM) tool over straight JDBC by providing the ORM module. Spring provide 
+	support to tie into several popular ORM frameworks, including. Spring’s transaction management supports each of these ORM frameworks as well as JDBC.
+
+10. ORM’s Spring support
+		Spring supports the following ORM’s:
+
+		Hibernate
+		iBatis
+		JPA (Java Persistence API)
+		TopLink
+		JDO (Java Data Objects)
+		OJB
+		
+11. Explain the object/relational mapping integration module
+		Spring also supports for using of an object/relational mapping (ORM) tool over straight JDBC by providing the ORM module. Spring provides 
+	support to tie into several popular ORM frameworks, including Hibernate, JDO, and iBATIS SQL Maps. Spring’s transaction management supports each 
+	of these ORM frameworks as well as JDBC.
+	
+12. 

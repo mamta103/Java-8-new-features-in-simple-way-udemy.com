@@ -1,0 +1,101 @@
+SPRING IOC
+--> Loose coupling is achieved in spring using the technique Inversion of Control. The objects give their dependencies instead of creating or 
+	looking for dependent objects.
+--> The Spring IOC creates the objects, wire them together, configure them, and manage their complete lifecycle from creation till destruction. 
+--> The spring container uses dependency injection (DI) to manage the components that make up an application.
+--> A bean is an object that is instantiated, assembled, and otherwise managed by a Spring IoC container. These beans are created with the 
+	configuration metadata that the users supply to the container.
+--> Spring Framework IoC container classes are part of 
+		i) org.springframework.beans and 
+		ii) org.springframework.context packages 
+				which provides us different ways to decouple the object dependencies.
+-->	Some of the useful ApplicationContext implementations that we use are;
+
+		-> AnnotationConfigApplicationContext: For standalone java applications using annotations based configuration.
+		-> ClassPathXmlApplicationContext: For standalone java applications using XML based configuration.
+		-> FileSystemXmlApplicationContext: Similar to ClassPathXmlApplicationContext except that the xml configuration file can be loaded from anywhere in the file system.
+		-> AnnotationConfigWebApplicationContext and XmlWebApplicationContext for web applications.
+		
+Interview Questions :
+
+1. Which packages is the basis of Spring IoC container?
+	a. org.springframework.beans 
+	b. org.springframework.context
+
+2. What is the role of BeanFactory in Spring IoC container?
+		BeanFactory provides the configuration mechanism so that any type of object can be managed easily.
+
+3. What is the role of ApplicationContext in Spring IoC container?
+		ApplicationContext extends BeanFactory. ApplicationContext helps to integrate other module like Spring AOP, messages resource , event 
+	publication, application-layer specific contexts. 
+	Example :
+				In main class :
+					ApplicationContext ac = new ClassPathXmlApplicationContext("config.xml"); //config.xml we define beans
+				
+				In config.xml :
+					<bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor" />
+					<bean id="studentService" class="com.beanLifeCycle.StudentService">
+					</bean>
+
+4. How can we instantiate ApplicationContext in standalone application?
+		We need to call ClassPathXmlApplicationContext or FileSystemXmlApplicationContext.
+		
+		Example :
+			ApplicationContext ac = new ClassPathXmlApplicationContext("config.xml"); //config.xml we define beans
+
+5. What is Dependency Injection in Spring? What are the variants of dependency Injection?
+		Dependency injection is an aspect of IoC concept which says that you do not create your objects but describe how they should be created. 
+	You don’t directly connect your components and services together in code but describe which services are needed by which components in a 
+	configuration file. A container (the IOC container) is then responsible for hooking it all up.
+	
+	There are two variants of Dependency Injection.
+			a.	Constructor-based dependency injection
+			b.	Setter-based dependency injection
+			
+6. What are disadvantages of autowiring in Spring?
+		a. We cannot autowire primitives data type, String and Classes. 
+		b. Autowiring is not so exact as explicit wiring.
+		c. Autowiring will not be available for those tools that will generate documentation.
+		
+7. How many beans scopes are there in Spring IoC Container?
+	There are five Bean scopes.
+		a.	Singleton 
+		b.	Prototype 
+		c.	Request
+		d.	Session
+		e.	Global Session
+
+8. How to customize the nature of a bean?
+		a.	Lifecycle callbacks can be customized by implementing interface InitializingBean and DisposableBean.
+		b.	Startup and shutdown callbacks can be customized by implementing interface Lifecycle. 
+		c.	Use ApplicationContextAware and BeanNameAware.
+
+9. What is the role of BeanPostProcessor Interface?
+	Implementing BeanPostProcessor interface, we can write our own bean instantiation logic.
+
+10. What is the role of PropertyPlaceholderConfigurer in spring?
+		PropertyPlaceholderConfigurer externalize property values from a bean definition to another separate file.
+		
+11. What are the different types of IoC (dependency injection)?
+		Constructor-based dependency injection
+			Constructor-based DI is accomplished when the container invokes a class constructor with a number of arguments, each representing a 
+		dependency on other class.
+
+		Setter-based dependency injection
+			Setter-based DI is accomplished by the container calling setter methods on your beans after invoking a no-argument constructor or 
+		no-argument static factory method to instantiate your bean.
+
+12. Which DI would you suggest Constructor-based or setter-based DI?
+		You can use both Constructor-based and Setter-based Dependency Injection. The best solution is using constructor arguments for mandatory 
+	dependencies and setters for optional dependencies.
+
+13. What are the benefits of IOC?
+		IOC or dependency injection minimizes the amount of code in an application. It makes easy to test applications, since no singletons or JNDI 
+	lookup mechanisms are required in unit tests. Loose coupling is promoted with minimal effort and least intrusive mechanism. IOC containers support 
+	eager instantiation and lazy loading of services.
+	
+14. What is Spring IoC container?
+		The Spring IoC is responsible for creating the objects,managing them (with dependency injection (DI)), wiring them together, configuring them, 
+	as also managing their complete life-cycle.
+	
+15. 

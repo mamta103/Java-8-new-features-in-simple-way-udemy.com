@@ -1,0 +1,78 @@
+SPRING MVC FRAMEWORK
+--> The Spring Web model-view-controller (MVC) framework is designed around a DispatcherServlet that dispatches requests to handlers, with configurable 
+	handler mappings, view resolution, locale and theme resolution as well as support for uploading files.
+--> The Spring Web MVC framework provides Model-View-Controller (MVC) architecture and ready components that can be used to develop flexible and loosely 
+	coupled web applications. ... The Model encapsulates the application data and in general they will consist of POJO.
+
+DIFFERENCE BETWEEN SPRING AND SPRING MVC
+
+
+FLOW OF SPRING MVC
+		i) Every request goes to Filter/Deligating filter proxy from UI.
+			Here Filter verifies "If request coming for authentication or autorization"(It will verify intercept-url if request is for authorization).
+		ii) From filter it goes to Dispatcher-Servlet.
+				If request is 'multipart/form-data request' (File operations) it take help of 'CommonsMultiPartResolver'.
+		iii) From Dispatcher-Servlet it will contact HandlerMapping.
+				HandlerMapping contains a set of key-map pair, for all requests which are to be mapped with respective controller. Handler mapping 
+			directs the page to particular controller based on the request it received.
+				
+		iv) Now it calls all interceptor pre-handled methods.
+				Note : If we are using AOP in our project, disp-serv calls proxy class method instead of controller method.
+					   Proxy class call related AOP stuff and later it calls controller method.
+				Note : So it is clear that, AOP is used, when we want to execute a logic before going to controller and after execution of controller.
+					   --> AOP contains '@before, @after, @around e.t.c'
+		v) If before calling Controller, if we want to execute any logic, then :
+				Have to implement HandlerInterceptor in our class, then it will call those methods, execute them and goes to controller, else if 
+			HandlerInterceptor is not implemented, then directly next step is executed. 
+				We have to write  <mvc:interceptor><bean class=""></bean></mvc:interceptor>
+		vi)Handler mapping returns to disp-servlet and before going to controller method it goes to Interceptor pre-handled method.
+		vii) Later from Interceptor pre-handled method it goes to controller.
+		viii) Controller returns ModelAndView if there is no exception. If any exception raises then Dispatcher-Servlet gives to controllerAdvices 
+			  methods where it contains exception handlers.
+		ix) Dispatcher-servlet calls all post handled methods.
+		x) Dispatcher-Servlet calls view resolver and gets view object.
+		x) Dispatcher-Servlet calls view then after it calls all afterCompletionMethods from Interceptor
+		
+	Note : if the request is multipart/form-data, disp-serv will convert multipart/form-data req to normal req by taking help of CommonsMultiPartResolver.
+			   -> Interceptor is existing only for controller. Interceptor calls for every request.
+			   -> By using AOP we can call before, after, other methods. AOP calls only target class.
+		
+--> In spring mvc we used,
+		i) webApplication
+		ii) JARS
+		iii) web.xml
+		iv) Configuring dispatcher-servlet/spring-config
+
+--> Used to return data to UI in Spring.
+--> So in Spring MVC, Dispatcher Servlet acts as 'Front controller'.  It is responsible to manage the flow of the spring mvc application.
+
+INTERVIEW QUESTIONS :
+1. What is Spring MVC framework?
+		Spring comes with a full-featured MVC framework for building web applications. Although Spring can easily be integrated with other MVC 
+	frameworks, such as Struts, Spring’s MVC framework uses IoC to provide a clean separation of controller logic from business objects.
+	
+2. DispatcherServlet
+		The Spring Web MVC framework is designed around a DispatcherServlet that handles all the HTTP requests and responses.
+		
+3. WebApplicationContext
+		The WebApplicationContext is an extension of the plain ApplicationContext that has some extra features necessary for web applications. 
+	It differs from a normal ApplicationContext in that it is capable of resolving themes, and that it knows which servlet it is associated with.
+
+4. What is Controller in Spring MVC framework?
+		Controllers provide access to the application behavior that you typically define through a service interface. Controllers interpret user 
+	input and transform it into a model that is represented to the user by the view. Spring implements a controller in a very abstract way, which 
+	enables you to create a wide variety of controllers.
+	
+5. @Controller annotation
+		The @Controller annotation indicates that a particular class serves the role of a controller. Spring does not require you to extend any 
+	controller base class or reference the Servlet API.
+
+6. @RequestMapping annotation
+		@RequestMapping annotation is used to map a URL to either an entire class or a particular handler method.
+		
+7. Explain the web module
+		The Spring web module is built on the application context module, providing a context that is appropriate for web-based applications. 
+	This module also contains support for several web-oriented tasks such as transparently handling multipart requests for file uploads and 
+	programmatic binding of request parameters to your business objects. It also contains integration support with Jakarta Struts.
+	
+8. 

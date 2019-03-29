@@ -1,0 +1,61 @@
+1. What are the main features introduced in spring 4?
+Ans: Spring 4 has introduced many new features. Some of them are as follows. 
+
+	1. @RestController annotation has been introduced for easiness to develop spring rest web service. 
+	2. AsyncRestTemplate has been added to develop rest web service. 
+	3. Java 8 and hibernate 4.3 have been supported. 
+	4. Different time zone in spring MVC has been supported. 
+	5. Now spring supports websocket protocol. 
+	6. Spring messaging supports STOMP protocol. 
+	7. Spring security JUnit test module has been added with @WithMockUser and @WithUserDetails annotations.
+
+2. What is the use of @RestController annotation in spring 4?
+Ans: Spring 4 has introduced @RestController annotation that has replaced @Controller and @ResponseBody. In spring 4 rest web service development, our service methods need not to use @ResponseBody. 
+
+@RestController = @Controller + @ResponseBody
+@RestController
+@RequestMapping("/data")
+public class PersonController {}  
+
+ 
+3. What is the role of AsyncRestTemplate and ListenableFuture in spring 4?
+Ans: AsyncRestTemplate can return the URL output asynchronously. ListenableFuture is the return type which itself will return ResponseEntity.
+ListenableFuture<ResponseEntity<String>> future = 
+              asycTemp.exchange(url, method, requestEntity, responseType);
+ResponseEntity<String> entity = future.get();  
+
+4. What is the role of AsyncClientHttpRequestFactory and AsyncClientHttpRequest in spring 4?
+Ans: AsyncClientHttpRequestFactory returns the instance of AsyncClientHttpRequest that represents client side asynchronous HTTP request. We use it as follows.
+ListenableFuture<ClientHttpResponse> future = asyncClientHttpRequest.executeAsync();
+ 
+5. How to use WebSocket in spring 4?
+Ans: 
+	1. Java configuration class implements AbstractWebSocketMessageBrokerConfigurer and we need to override its methods that are configureMessageBroker
+		() and registerStompEndpoints(). 
+	2. Java configuration class should be annotated with @EnableWebSocketMessageBroker with @Configuration. 
+	3. Spring controller class uses @SendTo annotation with @MessageMapping at method level to declare result URL. 
+	4. To work with WebSocket, other protocol and JS library such as SockJS and STOMP Protocol are required.
+
+6. What is the role of @CacheConfig in spring 4?
+Ans: @CacheConfig is used at class level. It is used to set common cache related settings. All the methods annotated with @Cacheable override the settings of @CacheConfig.
+@Service
+@CacheConfig(cacheNames="mycacheone")
+public class Student {}  
+
+7. How to handle @Async exception in spring 4?
+Ans: Spring 4 provides AsyncUncaughtExceptionHandler that caches exception thrown by the method annotated with @Async. We create a class implementing AsyncUncaughtExceptionHandler.
+public class MyAsyncUncaughtExceptionHandler implements AsyncUncaughtExceptionHandler {
+    @Override
+    public void handleUncaughtException(Throwable ex, Method method, Object... params) {}
+}  
+
+8. What is the role of @WithMockUser and @WithUserDetails annotation in spring 4 security JUnit test
+Ans: @WithMockUser annotation allows mock user at server side in spring security JUnit testing. There are username and roles attributes in @WithMockUser annotation. We use it as follows.
+@Test 
+@WithMockUser(username = "ram", roles={"ADMIN"})
+public class SpringSecurityTest {} @WithUserDetails annotation provides custom UserDetailsService in spring security JUnit testing and we can use it as follows.
+@Test
+@WithUserDetails("ram") 
+public void testFour() {
+	userService.methodFour();
+} 

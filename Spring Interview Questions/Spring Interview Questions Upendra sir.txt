@@ -1,0 +1,395 @@
+1. What are Spring framework core concepts ?
+	“Dependency Injection” and “Aspect Oriented Programming”.
+
+2. Which container manages spring bean life cycle?
+	Spring IoC container manages Spring Bean life cycle and project specific configurations such as JNDI lookup. We can load xml using ApplicationContext
+	and BeanFactory. We used ApplicationContext to load XML file for creating beans. ApplicationContext is Eager Loading(At the time of running server,
+	beans are created and loaded in container). 
+		ApplicationContext is child of BeanFactory. Here BeanFactory dosent support internationalization, container shutdown, cannot support multiple
+	configuration files at a time. This is the reason we are using ApplicationContext.
+	
+	Note: In Lazy loading, when we called .getBean(), then only beans are created.
+	
+3. Which framework used to create web and restful applications in spring that can return JSON and XML file?
+	Spring MVC framework can be used to create web applications as well as restful web services capable of returning XML as well as JSON response.
+	We used SpringBoot with Rest and returned JSon object/data. In REST, we can return data in four formats "XML, JSON, Plain Object, HTML". JSON is 
+	lite-weight, thats why we prefer this.
+	
+	Note: SOAP is more secured than REST.
+	
+4. Which container is responsible for initializing and injecting beans as dependencies?
+		usually Spring IoC container is responsible for initializing resources or beans and inject them as dependencies. IoC container take XML files
+	as input and return beans.
+		ApplicationContext(Interface) can accept multiple XML files as input.
+					
+									BeanFactory(Parent Interface)
+												|
+									ApplicationContext(Child Interface)
+												|
+									ClassPathXmlApplicationContext,   ,   .
+
+									
+	Note : XMLBeanFactory is the implementation class of BeanFactory.
+									
+5. What do you understand by Dependency Injection?
+		Dependency Injection design pattern allows us to remove the hard-coded dependencies and make our application loosely coupled, extendable and
+	maintainable. We can implement dependency injection pattern to move the dependency resolution from compile-time to runtime. We can inject dependencies
+	in two ways i.e., "Constructor injection and Setter Injection"
+	
+6. How do we implement DI in Spring Framework?
+		We can use Spring XML based as well as Annotation based configuration to implement DI in spring applications.
+		
+7. What is the difference between Spring AOP and AspectJ AOP?
+		AspectJ is the industry-standard implementation for Aspect Oriented Programming whereas Spring implements AOP for some cases
+	-> Spring AOP supports only proxy-based AOP, so it can be applied only to method execution join points. AspectJ support all kinds of pointcuts.
+	-> Spring AOP supports AspectJ annotations, so if you are familiar with AspectJ then working with Spring AOP is easier.
+	-> One of the shortcoming of Spring AOP is that it can be applied only to the beans created through Spring Context.
+	-> The AOP module is used for developing aspects for our Spring-enabled application.
+	
+8. What is a Spring Bean?
+	Any normal java class that is initialized by Spring IoC container is called Spring Bean. We use Spring ApplicationContext to get the Spring Bean 
+	instance. Spring IoC container manages the life cycle of Spring Bean, bean scopes and injecting any required dependencies in the bean.
+	
+9. What is the importance of Spring bean configuration file?
+		We use Spring Bean configuration file to define all the beans that will be initialized by Spring Context. When we create the instance of 
+	Spring ApplicationContext, it reads the spring bean xml file and initialize all of them. Once the context is initialized, we can use it to get 
+	different bean instances.
+	
+10. What are different ways to configure a class as Spring Bean?
+		
+		i) XML Configuration: 
+				This is the most popular configuration and we can use bean element in context file to configure a Spring Bean. 
+			For example: <bean name="myBean" class="com.configure.spring.beans.MyBean"></bean>
+			
+		ii) Java Based Configuration: 
+				If you are using only annotations, you can configure a Spring bean using @Bean annotation. This annotation is used with @Configuration 
+			classes to configure a spring bean. 
+		iii) Annotation Based Configuration: 
+				We can also use @Component, @Service, @Repository and @Controller annotations with classes to configure them to be as spring bean. For 
+			these, we would need to provide base package location to scan for these classes.
+			For example: <context:component-scan base-package="com.journaldev.spring" />
+			
+11. What are different scopes of Spring Bean?
+		There are five scopes defined for Spring Beans.
+		i) Singleton
+			Single object for entire class. If new request comes to existing class, existing bean is used.
+		ii) prototype
+			If new request arise for existing class, it create new bean and forward it.
+		iii) request
+			  Create new object for every request.
+		iv) session
+				Single object is created for every session.
+		v) global-session
+				
+	-> Spring Framework is extendable and we can create our own scopes too, however most of the times we are good with the scopes provided by the
+		framework. To set spring bean scopes we can use “scope” attribute in bean element or @Scope annotation for annotation based configurations.
+		
+12. How to get ServletContext and ServletConfig object in a Spring Bean?
+			There are two ways to get Container specific objects in the spring bean.
+
+	i) Implementing Spring *Aware interfaces, for these ServletContextAware and ServletConfigAware interfaces, for complete example of these aware 
+		interfaces, please read Spring Aware Interfaces
+	ii) Using @Autowired annotation with bean variable of type ServletContext and ServletConfig. They will work only in servlet container specific 
+		environment only though.
+		
+13. What is Bean wiring and @Autowired annotation?
+		The process of injection spring bean dependencies while initializing it called Spring Bean Wiring.
+
+	Usually it’s best practice to do the explicit wiring of all the bean dependencies, but spring framework also supports autowiring. We can use 
+	@Autowired annotation with fields or methods for autowiring byType. For this annotation to work, we also need to enable annotation based 
+	configuration in spring bean configuration file. This can be done by <context:annotation-config> element.
+	
+14. What are different types of Spring Bean autowiring?
+		There are four types of autowiring in Spring framework.
+
+		i) autowire byName
+		ii) autowire byType
+		iii) autowire by constructor
+		iv) autowiring by @Autowired and @Qualifier annotations
+				Prior to Spring 3.1, autowire by autodetect was also supported that was similar to autowire by constructor or byType. 
+				
+15. Does Spring Bean provide thread safety?------------------------------
+		The default scope of Spring bean is singleton, so there will be only one instance per context. That means that all the having a class level 
+	variable that any thread can update will lead to inconsistent data. Hence in default mode spring beans are not thread-safe.
+
+		However we can change spring bean scope to request, prototype or session to achieve thread-safety at the cost of performance. It’s a design 
+	decision and based on the project requirements.
+	
+16. What is a Controller in Spring MVC?
+		Just like MVC design pattern, Controller is the class that takes care of all the client requests and send them to the configured resources 
+	to handle it. In Spring MVC, " org.springframework.web.servlet.DispatcherServlet " is the front controller class that initializes the context based 
+	on the spring beans configurations.
+
+		A Controller class is responsible to handle different kind of client requests based on the request mappings. We can create a controller class by 
+	using @Controller annotation. Usually it’s used with @RequestMapping annotation to define handler methods for specific URI mapping.
+	
+17. Why do we need springBoot auto configuration ?
+		When we are working with spring or spring mvc, we need to configure certain things like component scan, dispatcher-servlet, view resolver,
+	and in hibernate/JAP we need to configure datasource, entity manager factory, transaction manager e.t.c which is some what typical boiler plate 
+	code and also makes it difficult when intergating with other frameworks. So if we use SpingBoot, all these files are automatically configured.
+
+18. Where is SpringBoot Auto configuration is implemented?
+		All auto configuration logic is implemented in spring-boot-autoconfigure.jar. All frameworks are present in this single jar.
+				While downloading file from spring-initilizer site, when we are adding required 'dependencies or SpringBoot Starter' in the textbox
+		SpringBoot Autoconfiguration checks that spring is on the classpath and it configures required files for it.
+		
+19. What is Application context module?
+		The Application context module makes spring a framework. This module extends the concept of BeanFactory, providing support for 
+	internationalization (I18N) messages, application lifecycle events, and validation. This module also supplies many enterprise services such JNDI 
+	access, EJB integration, remoting, and scheduling. It also provides support to other framework.
+	
+20. What does a simple spring application contain?
+		These applications are like any Java application. They are made up of several classes, each performing a specific purpose within the 
+	application. But these classes are configured and introduced to each other through an XML file. This XML file describes how to configure the 
+	classes, known as the Spring configuration file.
+	
+21. What is XMLBeanFactory?------------------------
+		BeanFactory has many implementations in Spring. But one of the most useful one is org.springframework.beans.factory.xml.XmlBeanFactory, which 
+	loads its beans based on the definitions contained in an XML file. To create an XmlBeanFactory, pass a java.io.InputStream to the constructor. 
+	The InputStream will provide the XML to the factory. For example, the following code snippet uses a java.io.FileInputStream to provide a bean 
+	definition XML file to XmlBeanFactory.
+		BeanFactory is Lazy loading. Bean is created only when we wrote ".getBean()"
+
+			BeanFactory factory = new XmlBeanFactory(
+				   new FileInputStream(“beans.xml”));
+
+	To retrieve the bean from a BeanFactory, call the getBean() method by passing the name of the bean you want to retrieve.
+
+		MyBean myBean = (MyBean) factory.getBean(“myBean”);
+		
+22. What are important ApplicationContext implementations in spring framework?--------------------------------------
+		ClassPathXmlApplicationContext – This context loads a context definition from an XML file located in the class path, treating context 
+										 definition files as class path resources.
+		FileSystemXmlApplicationContext – This context loads a context definition from an XML file in the filesystem.
+		XmlWebApplicationContext – This context loads the context definitions from an XML file contained within a web application.
+		
+23. Explain Bean lifecycle in Spring framework?
+
+		i) Instantiation
+			-> Means object creation.
+			-> Constructor is called here.
+
+		ii) Injection 
+			-> Means population creation.
+			-> It simply means injection.
+
+		iii) Calling the BeanNameAware() if we override it by implementing 'BeanNameAware' interface
+			 -> We use this when method we are implementing interface 'BeanNameAware'
+			 -> Spring bean life cycle call this method.
+			
+		iv) BeanFactoryAware
+			-> We use it, by implementing 'BeanFactoryAware'
+			-> Contains set of objects.
+			-> By implementing this interface we can use any of its object.
+			
+		v) ApplicationContextAware
+			-> ApplicationContextAware is on top of BeanFactory. But in ApplicationContextAware contains many features like listeners, reading 
+				property files etc.
+			-> We can implement both interfaces(ApplicationContextAware, BeanFactory) at a time in our class as per requirement.
+
+		vi) It is available in pre-initializing bean
+			-> AfterPropertiesSet()
+
+		vii) Initialization Part
+			 -> We can initialize in two ways.
+				i) We implement interface 'InitializingBean', which is simply called as init(). For bean implemented InitializingBean, it will 
+					implement a method afterPropertiesSet() after all bean properties have been set.
+				Example : https://www.mkyong.com/spring/spring-initializingbean-and-disposablebean-example/
+				
+				ii) By implementing a method and configuring it in xml
+					public void method-name() . . .
+					Now in XML file we have to configure method like this " <bean id="" class="" init-method="method-name"> "
+					
+		viii) BeanPostProcessor
+			  -> We use this by implementing the interface 'BeanPostProcessor'
+			  -> We implement this 'BeanPostProcessor' in a seperate class.
+			  -> In BeanPostProcessor every bean will come here. 
+			  -> For every bean 'PostProcessBeforeInitialization' and 'PostProcessAfterInitialization' is executed here.
+			  -> Ex: If we want to provide a common logic for entire life cycle and which can be used by every bean, then we write that logic here.
+
+		ix) post-initialization 
+
+		--> After this, the bean is ready to use.
+			
+			
+		Note : Difference between name and id in a bean 
+				-> <bean id="xyz"> mean we can provide only single reference when using id.
+				-> <bean name="abc, xyz, pqr"> mean we can provide multiple references when using name.
+
+	
+24. What is bean wiring?
+		Combining together beans within the Spring container is known as bean wiring or wiring. When wiring beans, you should tell the container what 
+	beans are needed and how the container should use dependency injection to tie them together.
+	
+25. How do add a bean in spring application?
+
+		<?xml version=”1.0″ encoding=”UTF-8″?>
+		  <!DOCTYPE beans PUBLIC “-//SPRING//DTD BEAN//EN”
+					“http://www.springframework.org/dtd/spring-beans.dtd”>
+		<beans>
+		   <bean id=”foo” class=”com.act.Foo”/>
+				<bean id=”bar” class=”com.act.Bar”/
+		</beans>
+
+26. What are singleton beans and how can you create prototype beans?
+		Beans defined in spring framework are singleton beans. There is an attribute in bean tag named ‘singleton’ if specified true then bean becomes 
+	singleton and if set to false then the bean becomes a prototype bean. By default it is set to true. So, all the beans in spring framework are by 
+	default singleton beans.
+
+			<beans>
+			  <bean id=”bar” class=”com.act.Foo”
+				  singleton=”false”/>
+			</beans>
+			
+27. What are the important beans lifecycle methods?-------------------------------
+		There are two important bean lifecycle methods. The first one is setup which is called when the bean is loaded in to the container. The second 
+	method is the teardown method which is called when the bean is unloaded from the container.
+	
+28. How can you override beans default lifecycle methods?
+		The bean tag has two more important attributes with which you can define your own custom initialization and destroy methods. Here I have shown
+	a small demonstration. Two new methods fooSetup and fooTeardown are to be added to your Foo class.
+
+			<beans>
+			  <bean id=”bar” class=”com.act.Foo”
+				 init-method=”fooSetup” destroy=”fooTeardown”/>
+			  </beans>
+			  
+29. What are Inner Beans?---------------------------
+		When wiring beans, if a bean element is embedded to a property tag directly, then that bean is said to the Inner Bean. The drawback of this 
+	bean is that it cannot be reused anywhere else.
+	
+30. What are the different types of events related to Listeners?-----------------
+		There are a lot of events related to ApplicationContext of spring framework. All the events are subclasses of 
+	org.springframework.context.Application-Event. They are
+
+		ContextClosedEvent – This is fired when the context is closed.
+		ContextRefreshedEvent – This is fired when the context is initialized or refreshed.
+		RequestHandledEvent – This is fired when the web context handles any request.
+		
+31. Which DI would you suggest Constructor-based or setter-based DI?
+		You can use both Constructor-based and Setter-based Dependency Injection. The best solution is using constructor arguments for mandatory 
+	dependencies and setters for optional dependencies.
+	
+32. Explain the bean scopes supported by Spring
+		There are five scoped provided by the Spring Framework supports following five scopes:
+
+	singleton scope 
+		Spring scopes the bean definition to a single instance per Spring IoC container.
+	prototype scope 
+		a single bean definition has any number of object instances.
+	request scope 
+		a bean is defined to an HTTP request. This scope is valid only in a web-aware Spring ApplicationContext.
+	session scope
+		a bean definition is scoped to an HTTP session. This scope is also valid only in a web-aware Spring ApplicationContext.
+	global-session scope
+		a bean definition is scoped to a global HTTP session. This is also a case used in a web-aware Spring ApplicationContext.
+	
+	The default scope of a Spring Bean is Singleton.
+	
+33. Are Singleton beans thread safe in Spring Framework?
+		No, singleton beans are not thread-safe in Spring framework.
+		
+34. Which are the important beans lifecycle methods? Can you override them?
+		There are two important bean lifecycle methods. The first one is setup which is called when the bean is loaded in to the container. 
+	The second method is the teardown method which is called when the bean is unloaded from the container.
+		The bean tag has two important attributes (init-method and destroy-method) with which you can define your own custom initialization and 
+	destroy methods. There are also the correspondive annotations(@PostConstruct and @PreDestroy).
+	
+35. What are inner beans in Spring?
+		When a bean is only used as a property of another bean it can be declared as an inner bean. Spring’s XML-based configuration metadata provides 
+	the use of <bean/> element inside the <property/> or <constructor-arg/> elements of a bean definition, in order to define the so-called inner bean.
+	Inner beans are always anonymous and they are always scoped as prototypes.
+		
+36. How can you inject a Java Collection in Spring?
+		Spring offers the following types of collection configuration elements:
+
+		The <list> type is used for injecting a list of values, in the case that duplicates are allowed.
+		The <set> type is used for wiring a set of values but without any duplicates.
+		The <map> type is used to inject a collection of name-value pairs where name and value can be of any type.
+		The <props> type can be used to inject a collection of name-value pairs where the name and value are both Strings.
+
+37. What is bean wiring?
+		Wiring, or else bean wiring is the case when beans are combined together within the Spring container. When wiring beans, the Spring container 
+	needs to know what beans are needed and how the container should use dependency injection to tie them together.
+
+38. What is bean auto wiring?
+		The Spring container is able to autowire relationships between collaborating beans. This means that it is possible to automatically let Spring 
+	resolve collaborators (other beans) for a bean by inspecting the contents of the BeanFactory without using <constructor-arg> and <property> 
+	elements.
+	
+39. Are there limitations with autowiring?-------------------
+		Limitations of autowiring are:
+
+	Overriding
+		You can still specify dependencies using <constructor-arg> and <property> settings which will always override autowiring.
+	Primitive data types
+		You cannot autowire simple properties such as primitives, Strings, and Classes.
+	Confusing nature
+		Autowiring is less exact than explicit wiring, so if possible prefer using explicit wiring.
+		
+35. Can you inject null and empty string values in Spring?
+		Yes, you can.
+		
+36. What is Spring Java-Based Configuration? Give some annotation example.
+		Java based configuration option enables you to write most of your Spring configuration without XML but with the help of few Java-based 
+		annotations.
+	An example is the @Configuration annotation, that indicates that the class can be used by the Spring IoC container as a source of bean definitions. Another example is the@Bean annotated method that will return an object that should be registered as a bean in the Spring application context.
+
+37. What is Annotation-based container configuration?
+		An alternative to XML setups is provided by annotation-based configuration which relies on the bytecode metadata for wiring up components 
+	instead of angle-bracket declarations. Instead of using XML to describe a bean wiring, the developer moves the configuration into the component 
+	class itself by using annotations on the relevant class, method, or field declaration.
+
+38. How do you turn on annotation wiring?
+		Annotation wiring is not turned on in the Spring container by default. In order to use annotation based wiring we must enable it in our Spring 
+	configuration file by configuring <context:annotation-config/> element.
+	
+39. @Required annotation
+		This annotation simply indicates that the affected bean property must be populated at configuration time, through an explicit property value 
+	in a bean definition or through autowiring. The container throws BeanInitializationException if the affected bean property has not been populated.
+	
+40. @Qualifier annotation
+		When there are more than one beans of the same type and only one is needed to be wired with a property, the @Qualifier annotation is used along
+	with @Autowired annotation to remove the confusion by specifying which exact bean will be wired.
+	
+41. @Autowired annotation
+		The @Autowired annotation provides more fine-grained control over where and how autowiring should be accomplished. It can be used to autowire 
+	bean on the setter method just like @Required annotation, on the constructor, on a property or pn methods with arbitrary names and/or multiple 
+	arguments.
+	
+42. What are the ways to access Hibernate by using Spring?
+		There are two ways to access Hibernate with Spring:
+
+		Inversion of Control with a Hibernate Template and Callback.
+		Extending HibernateDAOSupport and Applying an AOP Interceptor node.
+		
+43. Types of the transaction management Spring support
+		Spring supports two types of transaction management:
+
+	Programmatic transaction management
+		This means that you have managed the transaction with the help of programming. That gives you extreme flexibility, but it is difficult 
+	to maintain.
+
+	Declarative transaction management
+		This means you separate transaction management from the business code. You only use annotations or XML based configuration to manage 
+	the transactions.
+	<bean id="transacctionManager" class="org.springframework.orm.hibernate4.TransactionManager">
+	<property name="sessionFactory" ref="ses">
+	</bean>
+	
+	@Transactional
+	public void serviceClass {  }
+	
+44. What are the benefits of the Spring Framework’s transaction management?
+		It provides a consistent programming model across different transaction APIs such as JTA, JDBC, Hibernate, JPA, and JDO.
+		It provides a simpler API for programmatic transaction management than a number of complex transaction APIs such as JTA.
+		It supports declarative transaction management.
+		It integrates very well with Spring’s various data access abstractions.
+
+45. Which Transaction management type is more preferable?
+		Most users of the Spring Framework choose declarative transaction management because it is the option with the least impact on application 
+	code, and hence is most consistent with the ideals of a non-invasive lightweight container. Declarative transaction management is preferable over 
+	programmatic transaction management though it is less flexible than programmatic transaction management, which allows you to control transactions
+	through your code.
+	
+46. What is designCheck?

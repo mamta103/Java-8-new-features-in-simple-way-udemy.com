@@ -1,0 +1,501 @@
+﻿SPRING WITH JDBC, HIBERNATE, OR ANY OTHER TEMPLATE
+
+--> Template is a design pattern used by spring. Here Common code is going to reduced by using template design pattern.
+--> Spring JDBC is powerful mechanism to connect to database and execute SQL queries.
+--> Before Spring-JDBC, if we want to execute a query, we have to write lot of code for connection, statement, closing resultset, etc
+--> But here Spring-JDBC provides you methods to write the queries directly, so it saves a lot of work and time.
+
+--> What are available methods in Spring-JDBC template?
+		Important available methods in Spring-JDBCare :
+		i) public int update(String query)	:  is used to insert, update and delete records.
+		ii) public int update(String query,Object... args) :  is used to insert, update and delete records using PreparedStatement using given arguments.
+		iii) public void execute(String query) :  is used to execute DDL query.
+		iv) public T query(String sql, ResultSetExtractor rse) : is used to fetch records using ResultSetExtractor.
+		v)	public List query(String sql, RowMapper rse) : is used to fetch records using RowMapper.
+		
+
+What are the approaches does spring framework provide for JDBC database access ?
+-->Spring framework provides following approaches for JDBC database access:
+
+	i) JdbcTemplate
+	ii) NamedParameterJdbcTemplate
+	iii) SimpleJdbcTemplate
+	iv) SimpleJdbcInsert and SimpleJdbcCall
+	
+--> In Spring-jdbc we worked with JdbcTemplate (" org.springframework.jdbc.core.JdbcTemplate ")
+--> JdbcTemplate depends on DataSource.
+--> The DriverManagerDataSource is used to contain the information about the database such as driver class name, connnection URL, username and password
+	
+	Example : <bean id="ds" class="org.springframework.jdbc.datasource.DriverManagerDataSource">  
+					<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />  
+					<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />  
+					<property name="username" value="system" />  
+					<property name="password" value="oracle" />  
+			  </bean>  
+			  
+--> There are a property named datasource in the JdbcTemplate class of DriverManagerDataSource type. So, we need to provide the reference of 
+	DriverManagerDataSource object in the JdbcTemplate class for the datasource property.
+		Example :
+		<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">  
+			<property name="dataSource" ref="ds"></property>  
+		</bean>
+	
+	
+--> Why we came for spring-jdbc template instead of using previous jdbc ?
+		Common code is going to reduced by using template design pattern. Here it reduce the common code like loading driver, getting connection,
+	creating prepared statement, closing the resources, exception handling e.t.c
+
+NOTE: To convert resultset(num of rows of data got from database) data to an java object, we use RowMapper
+		Example : List<Student> stdlist = jdbcTemplate.query("select *from student" new BeanPropertyRowMapper<Student>);
+				  --> here i) as jdbcTemplate depends on datasource, it get connect to dataSource.
+						   ii) It create preparedStatement
+						   iii) Execute the query and get resultset
+						   iv) returns list of students
+				  --> In backend Spring-JDBC, it take each row from resultset and creates the object and sets the row data into students. This process
+						repeates for every row it fetched. Later all student objects sets into list and finally returns student list.
+				  --> BeanPropertyRowMapper is responsible for converting row data into student object.
+				  
+--> RowMapper available in Spring-JDBC framework.
+		public class ourRowMapper implements RowMapper {
+			public student mapRow(ResultSet arg0, int arg1) {
+			//If we want to do our own RowMapper, repeat the above steps
+			
+				Student s = new Student();
+				s.setId(arg0.getInt("id"));
+				s.setAge(arg0.getInt("age"));
+				s.setname(arg0.getString("name"));
+				
+				return s;
+			}
+			}
+			
+			class main {
+			 psvm() {
+				List<Student> stdlist = jdbcTemplate.query("select *from student" new ourRowMapper());
+				return stdlist;
+				
+--> QueryForObject
+		Object[] objs = {1, hari};
+		jdbcTemplate.queryForObject("select *from student where id=?" and name=?",objs, new ourRowMapper())
+		
+--> queryForList
+	-> Here we get list of maps.
+	-> Here we no need to provide row mapper for queryForList.
+		Example : List<Student> liststd = jdbcTemplate.queryForList("select *from student where id=?" and name=?",objs);
+	-> If there are two rows in a table, it create two maps(key and value) for two rows, then it set those two maps in a list and return that list
+	   for us. So here we get list of maps.
+	-> This dosent work when connection is stopped.
+	   
+--> queryForMap
+	-> no need of RowMapper
+	-> Return only one sinle map object.
+	
+--> queryForRowSet
+		SqlRowSet sr = jdbcTemplate.queryForRowSet("select *from student");
+		while(sr.next()) { 
+		Syso(sr.getInt("id"));
+		Syso(sr.getString("name"));
+		Syso(sr.getInt("age"));
+		}
+		}
+	-> RowSet works even when the connection is lost/closed to database.
+
+--> In service, we use '@Transational' and can call multiple DAO's.
+--> Why we are not taking seperate @Transactional for each DAO.
+		if in case of any breakdown happended in third DAO after opening a transaction, if we are using seperate @Transaction for each DAO then 
+	1 & 2 get comitted, and wont roll-back and hence problem arise. If we use single @Transaction for multiple DAO then it will wait until all the 
+	transaction get finished and then only it commits.
+--> If we are using hibernate in @Transactional then we use 'hibernateTransactionManager, if we use JPA then we use 'JPATransactionManager' e.t.c
+
+	Example : @Transactional
+			  @Service
+			  class abc {
+			  student.save(s);
+			  . . . .
+			  . . .
+			  Exception;
+			  student.update(s);
+			  }
+			  
+			  -> In above class, within single @Transactional we are performing two DAO operations(save & update). After save we are getting exception
+				 and later it has to update. Here Insert also dosent happen because in this class @Transactional waits untill all the operations has 
+				 to get finished. Then only it will commit all the tasks.
+				 
+			ATTRIBUTES IN @Transactional	 
+				 
+			i) Transactional(rollbackFor=IOExceptio.class);
+					Here if IOException occurs at line number 25, it will commit all the trasaction befor 25 lines and dosent commit any transaction 
+				after 25 line.
+		   
+		   ii) If we want to specify multiple exceptions, we can define like below : 
+					@Transactional(rollbackFor={IOExceptio.class, NullPointerException.class});
+			
+		   iii) NoRollBack
+					@Transactional(rollbackFor=NullPointerException.class);
+				Here except of NullPointerException, it will roll-back for all the other exceptions.
+			
+			iv) timeout
+					If we want to perform a transaction within 2 minutes, and if transaction crosses more than 2 minutes, transaction should not 
+				happen. For this purpose we use 'timeout'
+			
+			v) readonly
+					If we want to perform a transaction only for reading purpose and not for writing, then we use this.
+				If we specify @Transactional(readOnly==true) at any method i.e., reading or getting list of data from database is readonly task. If we
+				specify @Transactional(readOnly=true), then @Transactional wont happen at that method and that method get executed normally and hence 
+				performance will be improved.
+				
+			vi) Isolation
+				-> Multiple transactions runs in database parallely based on requests.
+				Note : The data which is not comitted in database is called as Dirty data.
+				-> For Example, if Tx1 is sending data and Tx2 has to read data from Tx1 and perform the task based on TX1 data. If in case, if TX1 has
+				   sent dirty data and TX2 perform its task, which is wrong. This TX2 will have effect on other TX's which are depending on TX2.
+				   So to avoid such a situation we use :
+				   
+										isolation=Isolation.READ_COMMITTED //Here it read only committed data.
+										
+				-> If we can read the uncommitted data and perform the task, we can write like :
+									isolation=Isolation.READ_UNCOMMITTED
+									
+				-> There are three isolation problems.
+						i)
+						ii)
+						iii) 
+									
+				-> If the user want to withdraw money from ATM, but at the same time if the user is transfering the money through online from the same
+				   account, then he can parallely send the money hence banks will be in loss. This is called REPEATABLE_READ.
+							So here when first transaction opens then it has to get locked untill that task is finished. Here lock has to done to that
+					particular user record. If we lock the table, then another user cannot update or perform his task untill current user finished.
+					
+					ATTRIBUTES IN ISOLATION :
+					
+					If we set as isolation = isolation.SERIALIZABLE, then we wont get above three problems.
+					If we set as isolation = isolation.REPEATABLE_READ, then we wont get uncommitted problem.
+					If we set as isolation = isolation.READ_UNCOMMITTED, then we wont get uncommitted and comitted problem.
+					If we set as isolation = isolation.DEFAULT, then it get default value from database what we specified.
+			
+			vii) Propogation
+				 -> If there are two services with each having its own Transaction. . . 
+				 -> If serv1 is calling serv2, and at same time serv1 got another transaction request, so in what way the service has to perform the 
+					multiple transactions is known as Propogation
+					
+					THERE ARE 7 PROPOGATION LEVELS :
+					
+				i)  @Transactional(propagation=Propagation.REQUIRED)
+						If there is no transaction available previously, here it creates new transaction and execute the data. If there is an
+					old transaction available then it use that current transaction and runs the method.
+					
+				ii) @Transactional(propagation=Propagation.REQUIRES_NEW)
+						Here it will hold/suspend the current/existing transaction and create new transaction and runs/execute the method. If there is 
+					no transaction available then it creates new transaction and runs the method.
+						
+				iii) @Transactional(propagation=Propagation.MANDATORY)
+						Here if transaction is available it runs method in same transaction else it will raise an exception. So here transaction is 
+					mandatory for executing the method. It wont create new transaction.
+						
+				iv) @Transactional(propagation=Propagation.NESTED)
+						Here if transaction is available it create new transaction within the transaction and runs the method. If there is no current 
+					transaction then create new transaction and runs the method.
+					
+				v) @Transactional(propagation=Propagation.NEVER)
+						Here there should not be any current transaction else it will raise an exception. It always runs method non-transactionally
+					without creating any new transaction.
+						
+				vi) @Transactional(propagation=Propagation.NOT_SUPPORTED)
+						Here if there is any current transaction it suspend the transaction and runs method without a transaction.
+						
+				vii) @Transactional(propagation=Propagation.SUPPORTS)
+						Here if there is any current transaction then it run asusually with the same transaction. If there is no transaction then it
+					run the method without a transaction.
+
+					
+    @Transactional
+	--> Works only for save, update and delete.
+	--> @Transactional requires TransactionalManager to perform its task.
+	--> @Transactional generally implemented in Service class.
+	--> If TransactionaManager HibernateTransactionManager it depends on SessionFactory.
+	    If TransactionaManager is DataSourceTransactionManager it depends on DataSource. and e.t.c
+		
+	--> " <tx:annotation-driven/> " is the driven we used. To use this driven we need to import a tag 
+				
+				http://www.springframework.org/schema/tx
+				http://www.springframework.org/schema/context/spring-tx-3.1.xsd">
+				xmlns:tx="http://www.springframework.org/schema/tx"
+				
+	@Transaction
+	--> In between transaction open and close there may happen alot of operations.
+	--> So one transaction can have multiple operations.
+		Ex : If a person is withdrawing money from ATM, after clicking cash-withdrawal button, the transaction opens, but if in between power fails..!
+			 then that transaction has to roll-back. If cash-withdrawal is success then all his used details has to updated and transaction has to close.
+	--> From above example it is clear that, after opening a transaction and before closing transaction  things like commit, roll-back etc may happen.
+	--> By using 'transaction' we can do multiple operations and later we can select what to do i.e., commit or roll-back.
+		
+	Note : In @Connection if we use con.setAutoCommit(false); then it will wait for us for the option(commit/roll-back).
+
+	i) Usinf 'transaction' in hibernate 
+			tx tx = session.beginTx;
+			if success, tx.commit;
+			if fail, tx.roll-back;
+	ii) Using 'transaction' in jdbc
+
+	
+INTERVIEW QUESTIONS :
+1. How do you integrate spring with hibernate?
+	i) Spring allows you to define resources like a JDBC DataSource or a Hibernate SessionFactory as beans in an application context.
+	ii)  Define HibernateTemplate and Create HibernateTemplate
+	iii) Define DAO object and inject Session Factory.
+
+2. In complete life cycle of JDBC, what roles are played by Spring JDBC?
+	Spring does following things: 
+		a.	Opens connection 
+		b.	Prepare and execute statement. 
+		c.	Iterate the results 
+		d.	Process exception if any 
+		e.	Handle transaction 
+		f.	Close connection 
+		
+3. What template does Spring JDBC provide to access database?
+	Following template is provided. 
+		a. JdbcTemplate 
+		b. NamedParameterJdbcTemplate 
+		c. SimpleJdbcTemplate
+		
+4. What are native NativeJdbcExtractor in Spring?
+	a. SimpleNativeJdbcExtractor 
+	b. C3P0NativeJdbcExtractor 
+	c. CommonsDbcpNativeJdbcExtractor 
+	d. JBossNativeJdbcExtractor
+	
+5. What annotation is used to configuring DAO in Spring?
+		Write @Repository at class level. Entity manager can be configured by @PersistenceContext at property level.
+		
+6. What is JDBC abstraction and DAO module?
+		Using this module we can keep up the database code clean and simple, and prevent problems that result from a failure to close database 
+	resources. A new layer of meaningful exceptions on top of the error messages given by several database servers is bought in this module. 
+	In addition, this module uses Spring’s AOP module to provide transaction management services for objects in a Spring application.
+
+7. What is the Exception class related to all the exceptions that are thrown in spring applications?
+
+		DataAccessException –
+		   org.springframework.dao.DataAccessException
+		   
+8. What kind of exceptions those spring DAO classes throw?
+		The spring’s DAO class does not throw any technology related exceptions such as SQLException. They throw exceptions which are subclasses of 
+	DataAccessException.
+
+9. What is DataAccessException?
+		DataAccessException is a RuntimeException. This is an Unchecked Exception. The user is not forced to handle these kinds of exceptions.
+		
+10. How can you create a DataSource connection pool?
+
+			<bean id=”dataSource”
+				 class=”org.apache.commons.dbcp.BasicDataSource”>
+					<property name=”driver”>
+					  <value>${db.driver}</value>
+					</property>
+					<property name=”url”>
+					  <value>${db.url}</value>
+					</property>
+					<property name=”username”>
+					  <value>${db.username}</value>
+					</property>
+					<property name=”password”>
+					   <value>${db.password}</value>
+					</property>
+			 </bean>
+			 
+11. How JDBC can be used more efficiently in spring framework?
+		JDBC can be used more efficiently with the help of a template class provided by spring framework called as JdbcTemplate.
+		
+12. How JdbcTemplate can be used?
+		With use of Spring JDBC framework the burden of resource management and error handling is reduced a lot. So it leaves developers to write the 
+	statements and queries to get the data to and from the database.
+	
+	  <bean id=”jdbcTemplate” class=”org.springframework.jdbc.core.JdbcTemplate”>
+       <property name=”dataSource”>
+           <ref bean=”dataSource”/>
+           </property>
+       </bean>
+       <bean id=”studentDao” class=”StudentDaoJdbc”>
+          <property name=”jdbcTemplate”>
+          <ref bean=”jdbcTemplate”/>
+          </property>
+       </bean>
+       <bean id=”courseDao” class=”CourseDaoJdbc”>
+          <property name=”jdbcTemplate”>
+          <ref bean=”jdbcTemplate”/>
+          </property>
+       </bean>
+	   
+13. How do you write data to backend in spring using JdbcTemplate?
+		The JdbcTemplate uses several of these callbacks when writing data to the database. The usefulness you will find in each of these interfaces 
+	will vary. There are two simple interfaces. One is PreparedStatementCreator and the other interface is BatchPreparedStatementSetter.
+	
+14. Explain about PreparedStatementCreator?
+		PreparedStatementCreator is one of the most common used interfaces for writing data to database. The interface has one method 
+	createPreparedStatement().
+
+		PreparedStatement <strong>createPreparedStatement</strong>
+		(Connection conn) throws SQLException;
+
+	When this interface is implemented, we should create and return a PreparedStatement from the Connection argument, and the exception handling is 
+	automatically taken care off. When this interface is implemented, another interface SqlProvider is also implemented which has a method called 
+	getSql() which is used to provide sql strings to JdbcTemplate.
+
+15. Explain about BatchPreparedStatementSetter?
+		If the user what to update more than one row at a shot then he can go for BatchPreparedStatementSetter. This interface provides two methods
+
+		setValues(PreparedStatement ps, int i) throws SQLException;
+		int getBatchSize();
+		The getBatchSize() tells the JdbcTemplate class how many statements to create. And this also determines how many times setValues() will be called.
+
+16. Explain about RowCallbackHandler and why it is used?
+		In order to navigate through the records we generally go for ResultSet. But spring provides an interface that handles this entire burden and 
+	leaves the user to decide what to do with each row. The interface provided by spring is RowCallbackHandler. There is a method processRow() which 
+	needs to be implemented so that it is applicable for each and everyrow.
+
+			void processRow(java.sql.ResultSet rs);
+			
+17. What is the concept of AOP? Which problem does it solve?
+		Aspect-Oriented Programming (AOP) is another way of thing to some areas of application i.e. cross cutting concern like security, logging and 
+	transaction. AOP is simple complement of OOP programming for different concerns. In OOP, the key unit of modularity is the class, whereas in AOP 
+	the unit of modularity is the aspect.
+
+	Aspect-Oriented Programming (AOP) enables modularization of cross-cutting concerns to solve following problems.
+
+		To avoid tangling
+		To eliminate scattering
+
+	Following Generic functionality that is needed in many places in your application
+
+		Logging and Tracing
+		Transaction Management
+		Security
+		Caching
+		Error Handling
+		Performance Monitoring
+		Custom Business Rules
+		
+	AOP terminologies
+
+		Aspect
+		Joint Point
+		Advice
+		Pointcut
+		Introduction
+		Target Object
+		AOP Proxy
+		Weaving
+		
+18. Which are the limitations of the two proxy-types?
+Spring will create either JDK or CGLib proxies
+
+JDK Proxy
+	Also called dynamic proxies
+	API is built into the JDK
+	Requirements: Java interface(s)
+	All interfaces proxied
+
+CGLib Proxy
+	NOT built into JDK
+	Included in Spring jars
+	Used when interface not available
+	Cannot be applied to final classes or methods
+	
+19. What do you have to do to enable the detection of the @Aspect annotation?
+		To use @AspectJ aspects in a Spring configuration you need to enable Spring support for configuring Spring AOP based on @AspectJ aspects, and 
+	autoproxying beans based on whether or not they are advised by those aspects.
+	
+20. Name three typical cross cutting concerns?
+		Logging, Security and Transaction
+		
+21.  What two problems arise if you don’t solve a cross cutting concern via AOP?
+		Implementing Cross Cutting Concerns Without Modularization
+		• Failing to modularize cross-cutting concerns leads to two things
+		– Code tangling
+		• A coupling of concerns
+		– Code scattering
+		
+22. What does @EnableAspectJAutoProxy do?
+		To enable @AspectJ support with Java @Configuration add the @EnableAspectJAutoProxy annotation:
+
+		@Configuration
+		@EnableAspectJAutoProxy
+		public class AppConfig {
+		}
+		
+23. What is a named pointcut?
+		A named pointcut can be declared inside an <aop:config> element, enabling the pointcut definition to be shared across several aspects and 
+	advisors.
+
+		<aop:config>
+			<aop:pointcut id="businessService" expression="execution(* com.xyz.myapp.service.*.*(..))"/>
+		</aop:config>
+
+24. How do you externalize pointcuts? What is the advantage of doing this?
+		Externalize the pointcut to a named pointcut. Avoid to writing complex pointcut expression across the application.
+
+25. How do you externalize pointcuts? What is the advantage of doing this?
+		Externalize the pointcut to a named pointcut. Avoid to writing complex pointcut expression across the application.
+
+26. What is the JoinPoint argument used for?
+		Context provided by the JoinPoint parameter and Context about the intercepted point.
+
+27. What is a ProceedingJoinPoint?
+		An around advice is a special advice that can control when and if a method (or other join point) is executed. This is true for around advices 
+	only, so they require an argument of type ProceedingJoinPoint, whereas other advices just use a plain JoinPoint. ProceedingJoinPoint is used as an 
+	argument of the methods which hints for before, after, after throwing and around. ProceedingJoinPoint has the methods like getKind, getTarget, 
+	proceed etc.
+	
+28. Which advice do you have to use if you would like to try and catch exceptions?
+		AfterThrowing
+		
+29. Limitations of Spring AOP?
+
+		-> Can only advise non-private methods
+		-> Can only apply aspects to Spring Beans
+		-> Limitations of weaving with proxies
+		-> When using proxies, suppose method a() calls method b() on the same class/interface
+		-> advice will never be executed for method b()
+		
+30. What are the supported AspectJ pointcut designators in Spring AOP?
+
+		Execution
+		This
+		Target
+		Args
+		@target
+		@args
+		@within
+		@annotation
+		
+31.  How to declare aspect in Spring AOP? 
+			In XML.
+
+			<bean class="com.doj.aop.LoggingAspect" id="loggingAspect">
+			<!-- configure properties of aspect here -->
+			</bean>
+
+			In Java
+
+			@Aspect
+			@Component
+			class LoggingAspect{
+			//advice
+			//pointcut 
+			}
+	
+32. How to declare a pointcut in Spring AOP?
+
+		@Pointcut("execution(* save(..))")
+		private void dataSave {}
+		
+33. What do you understand by Load-time weaving (LTW) in Spring?
+		Load-time weaving (LTW) or Run time weaving is a process of weaving AspectJ aspects into the classes of the application when the classes are 
+	being loaded in JVM.
+	
+34. Explain the JDBC abstraction and DAO module
+		With the JDBC abstraction and DAO module we can be sure that we keep up the database code clean and simple, and prevent problems that result 
+	from a failure to close database resources. It provides a layer of meaningful exceptions on top of the error messages given by several database 
+	servers. It also makes use of Spring’s AOP module to provide transaction management services for objects in a Spring application.
+	
+35.
