@@ -6,8 +6,13 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class CollegeConfig {
 	
-	@Bean(name={"CollegeBean","CB"})
-	public College getCollegeBean(){
-		return new College();
+	@Bean(name="cb")
+	public College College(){
+		return new College(principalBean());
+	}
+	
+	@Bean(name="principalBean")
+	public Principal principalBean(){
+		return new Principal();
 	}
 }
