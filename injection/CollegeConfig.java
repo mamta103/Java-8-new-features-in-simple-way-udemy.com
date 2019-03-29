@@ -5,14 +5,17 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class CollegeConfig {
-	
-	@Bean(name="cb")
-	public College College(){
-		return new College(principalBean());
+
+	@Bean
+	public College getCollegeBean() {
+		College college = new College();
+		college.setPrincipal(principalBean());
+		return college;
+
 	}
-	
-	@Bean(name="principalBean")
-	public Principal principalBean(){
+
+	@Bean
+	public Principal principalBean() {
 		return new Principal();
 	}
 }

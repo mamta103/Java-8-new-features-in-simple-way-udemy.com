@@ -6,16 +6,13 @@ import org.springframework.stereotype.Component;
 public class College {
 	private Principal principal;
 
-	public College(Principal principal) {
+	//Constructor Dependency Injection Approach
+	/*public College(Principal principal) {
 		super();
 		this.principal = principal;
-	}
+	}*/
 
-	public Principal getPrincipal() {
-		return principal;
-	}
-
-	public void setPrincipal(Principal principal) {
+		public void setPrincipal(Principal principal) {
 		this.principal = principal;
 	}
 
