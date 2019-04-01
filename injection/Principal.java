@@ -4,8 +4,10 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Principal {
-
-	public void PrincipalInfo(){
-		System.out.println("JM Coming:)");
+	
+	
+	public Principal  principalInfo(){
+		System.out.println("Principal Class PrincipalInfo ::>>>>>>>>::)");
+		return new Principal();
 	}
 }

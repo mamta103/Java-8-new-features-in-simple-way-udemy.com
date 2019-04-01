@@ -3,12 +3,12 @@ package com.setter.dependency.injection;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MathTeacher  implements Teacher{
+public class MathTeacher implements Teacher {
 
 	@Override
 	public void teach() {
-
-		System.out.println("I am your MathTeacher from MathTeacher service class");
+		System.out.println("MathTeacher teach() Method calling:: ::");
+		return  ;
 	}
 
 }
