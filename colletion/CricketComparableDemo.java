@@ -12,8 +12,8 @@ public class CricketComparableDemo {
 		cricketers.add(new Cricketer("Sachin", 14000));
 		cricketers.add(new Cricketer("Dravid", 12000));
 		cricketers.add(new Cricketer("Ponting", 11000));
+		Collections.sort(cricketers,new Cricketer());
 		System.out.println(cricketers);
-		Collections.sort(cricketers);
 
 	}
 
