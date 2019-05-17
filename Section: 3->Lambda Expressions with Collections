@@ -229,3 +229,14 @@ public class TreeMapLamdaEx {
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 Lecture 19. Sorting of Our own class objects with Lambda Expression
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+Section: 15 Java 8 New Features Summary
+*********************************************************************************************************************
+92. Summary Part-1
+1.Lamda Expesiion
+2.  Functional Interfaces
+    example->
+            Comparable->compareTo()
+            Runnable->run()
+            Callable->call()
+            ActionListener->actionPerform()
+            SAM(Single Abstract method) interfaces
